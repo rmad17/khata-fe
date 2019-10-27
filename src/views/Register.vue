@@ -18,7 +18,7 @@
                           body-classes="px-lg-5 py-lg-5"
                           class="border-0">
                         <template>
-                            <div class="text-muted text-center mb-3">
+                            <!-- <div class="text-muted text-center mb-3">
                                 <small>Sign in with</small>
                             </div>
                             <div class="btn-wrapper text-center">
@@ -31,27 +31,30 @@
                                     <img slot="icon" src="img/icons/common/google.svg">
                                     Google
                                 </base-button>
-                            </div>
+                            </div> -->
                         </template>
                         <template>
-                            <div class="text-center text-muted mb-4">
+                            <!-- <div class="text-center text-muted mb-4">
                                 <small>Or sign up with credentials</small>
-                            </div>
+                            </div> -->
                             <form role="form">
                                 <base-input alternative
                                             class="mb-3"
                                             placeholder="Name"
-                                            addon-left-icon="ni ni-hat-3">
+                                            addon-left-icon="ni ni-hat-3"
+                                            v-model="name">
                                 </base-input>
                                 <base-input alternative
                                             class="mb-3"
                                             placeholder="Email"
-                                            addon-left-icon="ni ni-email-83">
+                                            addon-left-icon="ni ni-email-83"
+                                            v-model="email">
                                 </base-input>
                                 <base-input alternative
                                             type="password"
                                             placeholder="Password"
-                                            addon-left-icon="ni ni-lock-circle-open">
+                                            addon-left-icon="ni ni-lock-circle-open"
+                                            v-model="password">
                                 </base-input>
                                 <div class="text-muted font-italic">
                                     <small>password strength:
@@ -64,7 +67,7 @@
                                     </span>
                                 </base-checkbox>
                                 <div class="text-center">
-                                    <base-button type="primary" class="my-4">Create account</base-button>
+                                    <base-button v-on:click="callRegisterAPI" type="primary" class="my-4">Create account</base-button>
                                 </div>
                             </form>
                         </template>
@@ -75,7 +78,27 @@
     </section>
 </template>
 <script>
-export default {};
+import { httpRequest } from '../api/index.js'
+export default {
+  name: 'Register',
+  methods: {
+    callRegisterAPI: function () {
+      var endpoint = 'account/register/' ;
+      httpRequest(endpoint, 'post', {name: this.name, password: this.password, email: this.email}, {}, this.postRegister);
+    },
+    postRegister: function (){
+      this.$router.push('login');
+    }
+
+  },
+  data(){
+    return {
+      name: '',
+      email: '',
+      password: ''
+    }
+  }
+}
 </script>
 <style>
 </style>

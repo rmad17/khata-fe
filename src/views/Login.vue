@@ -17,7 +17,7 @@
                           header-classes="bg-white pb-5"
                           body-classes="px-lg-5 py-lg-5"
                           class="border-0">
-                        <template>
+                        <!-- <template>
                             <div class="text-muted text-center mb-3">
                                 <small>Sign in with</small>
                             </div>
@@ -32,27 +32,29 @@
                                     Google
                                 </base-button>
                             </div>
-                        </template>
+                        </template> -->
                         <template>
-                            <div class="text-center text-muted mb-4">
+                            <!-- <div class="text-center text-muted mb-4">
                                 <small>Or sign in with credentials</small>
-                            </div>
+                            </div> -->
                             <form role="form">
                                 <base-input alternative
                                             class="mb-3"
                                             placeholder="Email"
-                                            addon-left-icon="ni ni-email-83">
+                                            addon-left-icon="ni ni-email-83"
+                                            v-model="email">
                                 </base-input>
                                 <base-input alternative
                                             type="password"
                                             placeholder="Password"
-                                            addon-left-icon="ni ni-lock-circle-open">
+                                            addon-left-icon="ni ni-lock-circle-open"
+                                            v-model="password">
                                 </base-input>
                                 <base-checkbox>
                                     Remember me
                                 </base-checkbox>
                                 <div class="text-center">
-                                    <base-button type="primary" class="my-4">Sign In</base-button>
+                                    <base-button type="primary" class="my-4" v-on:click="callLoginAPI">Sign In</base-button>
                                 </div>
                             </form>
                         </template>
@@ -64,9 +66,9 @@
                             </a>
                         </div>
                         <div class="col-6 text-right">
-                            <a href="#" class="text-light">
-                                <small>Create new account</small>
-                            </a>
+                            <router-link to="/register">
+                              <small>Create new account</small>
+                            </router-link>
                         </div>
                     </div>
                 </div>
@@ -75,7 +77,28 @@
     </section>
 </template>
 <script>
-export default {};
+import { httpRequest } from '../api/index.js'
+export default {
+  name: 'Login',
+  methods: {
+    callLoginAPI: function () {
+      var endpoint = 'account/token/' ;
+      httpRequest(endpoint, 'post', {email: this.email, password: this.password}, {}, this.postLogin);
+    },
+    postLogin: function (data){
+      localStorage.setItem('token', data.access_token)
+      this.$router.push('landing');
+    }
+
+  },
+  data(){
+    return {
+      name: '',
+      email: '',
+      password: ''
+    }
+  }
+}
 </script>
 <style>
 </style>
