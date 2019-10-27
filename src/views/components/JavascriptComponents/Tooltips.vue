@@ -43,8 +43,8 @@
     </div>
 </template>
 <script>
-import BTooltip from "bootstrap-vue/es/directives/tooltip/tooltip";
-import BPopover from "bootstrap-vue/es/directives/popover/popover";
+import {BTooltip} from "bootstrap-vue";
+import {BPopover} from "bootstrap-vue";
 
 export default {
   directives: {
