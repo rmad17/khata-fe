@@ -1,5 +1,5 @@
 Arguments: 
-  /usr/bin/node /home/rmad/.npm-global/bin/yarn add bootstrap-vue/es/components/carousel/carousel
+  /usr/bin/node /home/rmad/.npm-global/bin/yarn serve
 
 PATH: 
   /home/rmad/.cargo/bin:/home/rmad/.npm-global/bin:/usr/local/heroku/bin:/home/rmad/.rbenv/shims:/home/rmad/.rbenv/bin:/home/rmad/.cargo/bin:/home/rmad/.npm-global/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
@@ -14,17 +14,12 @@ Platform:
   linux x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/bootstrap-vue%2fes/components/carousel/carousel: Request "https://registry.yarnpkg.com/bootstrap-vue%2fes/components/carousel/carousel" returned a 405
-      at Request.params.callback [as _callback] (/home/rmad/.npm-global/lib/node_modules/yarn/lib/cli.js:66935:18)
-      at Request.self.callback (/home/rmad/.npm-global/lib/node_modules/yarn/lib/cli.js:140564:22)
-      at Request.emit (events.js:198:13)
-      at Request.<anonymous> (/home/rmad/.npm-global/lib/node_modules/yarn/lib/cli.js:141536:10)
-      at Request.emit (events.js:198:13)
-      at IncomingMessage.<anonymous> (/home/rmad/.npm-global/lib/node_modules/yarn/lib/cli.js:141458:12)
-      at Object.onceWrapper (events.js:286:20)
-      at IncomingMessage.emit (events.js:203:15)
-      at endReadableNT (_stream_readable.js:1143:12)
-      at process._tickCallback (internal/process/next_tick.js:63:19)
+  SyntaxError: /home/rmad/repos/khata-fe/package.json: Unexpected token l in JSON at position 159
+      at JSON.parse (<anonymous>)
+      at /home/rmad/.npm-global/lib/node_modules/yarn/lib/cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (/home/rmad/.npm-global/lib/node_modules/yarn/lib/cli.js:304:30)
+      at /home/rmad/.npm-global/lib/node_modules/yarn/lib/cli.js:315:13
 
 npm manifest: 
   {
@@ -34,7 +29,7 @@ npm manifest:
     "scripts": {
       "serve": "vue-cli-service serve",
       "build": "vue-cli-service build",
-      "lint": "vue-cli-service lint"
+      ""lint": "vue-cli-service lint"
     },
     "dependencies": {
       "bootstrap-vue": "^2.0.4",
@@ -57,7 +52,7 @@ npm manifest:
       "@vue/eslint-config-standard": "^4.0.5",
       "babel-eslint": "^10.0.3",
       "eslint": "^5.16.0",
-      "eslint-plugin-vue": "^5.0.0",
+      "eslint-plugin-vue": "^5.2.3",
       "node-sass": "^4.13.0",
       "sass-loader": "^8.0.0",
       "vue-template-compiler": "^2.6.10"
@@ -3500,7 +3495,7 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/eslint-plugin-standard/-/eslint-plugin-standard-4.0.1.tgz#ff0519f7ffaff114f76d1bd7c3996eef0f6e20b4"
     integrity sha512-v/KBnfyaOMPmZc/dmc6ozOdWqekGp7bBGq4jLAecEfPGmfKiWS4sA8sC0LqiV9w5qmXAtXVn4M3p1jSyhY85SQ==
   
-  eslint-plugin-vue@^5.0.0:
+  eslint-plugin-vue@^5.2.3:
     version "5.2.3"
     resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-5.2.3.tgz#3ee7597d823b5478804b2feba9863b1b74273961"
     integrity sha512-mGwMqbbJf0+VvpGR5Lllq0PMxvTdrZ/ZPjmhkacrCHbubJeJOt+T6E3HUzAifa2Mxi7RSdJfC9HFpOeSYVMMIw==

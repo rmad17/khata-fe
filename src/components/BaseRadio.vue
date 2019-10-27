@@ -44,18 +44,18 @@ export default {
         return this.value;
       },
       set(value) {
-        this.$emit("input", value);
+        this.$emit('input', value)
       }
     },
-    inlineClass() {
+    inlineClass () {
       if (this.inline) {
-        return `form-check-inline`;
+        return `form-check-inline`
       }
-      return "";
+      return ''
     }
   },
-  mounted() {
+  mounted () {
     this.cbId = randomString()
   }
-};
+}
 </script>
