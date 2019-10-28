@@ -502,7 +502,21 @@
 
 <script>
 export default {
-  name: "home",
-  components: {}
-};
+  name: 'dashboard',
+  components: {},
+  methods: {
+    checkToken: function () {
+      if (!localStorage.getItem('token')) {
+        this.$router.push({ name: 'login' })
+      }
+    }
+  },
+  mounted: function () {
+    this.$nextTick(function () {
+      // Code that will run only after the
+      // entire view has been rendered
+      this.checkToken()
+    })
+  }
+}
 </script>
