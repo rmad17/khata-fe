@@ -86,12 +86,12 @@ export default {
       httpRequest(endpoint, 'post', {email: this.email, password: this.password}, {}, this.postLogin);
     },
     postLogin: function (data){
-      localStorage.setItem('token', data.access_token)
-      this.$router.push('landing');
+      localStorage.setItem('token', data.data.access_token)
+      this.$router.push({name: 'landing'})
     }
 
   },
-  data(){
+  data () {
     return {
       name: '',
       email: '',
