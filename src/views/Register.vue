@@ -75,18 +75,28 @@
     </div>
 </template>
 <script>
-  export default {
-    name: 'register',
-    data() {
-      return {
-        model: {
-          name: '',
-          email: '',
-          password: ''
-        }
+import { httpRequest } from '../api/index.js'
+export default {
+  name: 'register',
+  methods: {
+    callRegisterAPI: function () {
+      var endpoint = 'account/register/'
+      httpRequest(endpoint, 'post', {name: this.name, password: this.password, email: this.email}, {}, this.postRegister)
+  },
+    postRegister: function (){
+      this.$router.push('login')
+    }
+  },
+  data() {
+    return {
+      model: {
+        name: '',
+        email: '',
+        password: ''
       }
     }
   }
+}
 </script>
 <style>
 </style>

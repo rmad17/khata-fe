@@ -98,7 +98,8 @@
 <script>
   import Vue from 'vue'
   import VueClipboard from 'vue-clipboard2'
-  import BTooltipDirective from 'bootstrap-vue/es/directives/tooltip'
+  import {BTooltipDirective} from 'bootstrap-vue'
+
   Vue.use(VueClipboard)
   export default {
     directives: {
