@@ -152,6 +152,7 @@
   import PageVisitsTable from './Dashboard/PageVisitsTable';
 
   export default {
+  import { httpRequest } from '../api/index.js'
     components: {
       LineChart,
       BarChart,
@@ -196,7 +197,15 @@
         };
         this.bigLineChart.chartData = chartData;
         this.bigLineChart.activeIndex = index;
+      },
+      getDashboardInfo: function () {
+        var endpoint = 'statement/dashboard/'
+        httpRequest(endpoint, 'get', {}, {}, this.dashboardData)
+      },
+      dashboardData: function (data.data) {
+
       }
+
     },
     mounted() {
       this.initBigChart(0);
