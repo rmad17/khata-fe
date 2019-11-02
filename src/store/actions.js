@@ -1,7 +1,13 @@
 export default {
-  updateProfile: function ({ commit }, profile) {
+  updateProfile: function ({ commit }, responseData) {
     commit('updateProfile', {
-      profile,
+      responseData,
+      done: false
+    })
+  },
+  updateDashboardInfo: function ({ commit }, responseData) {
+    commit('updateDashboardInfo', {
+      responseData,
       done: false
     })
   }

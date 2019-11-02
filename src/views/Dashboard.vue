@@ -142,6 +142,11 @@
     </div>
 </template>
 <script>
+
+  // api
+  import { httpRequest } from '../api/index.js'
+  // Vuex
+  import { mapActions } from 'vuex'
   // Charts
   import * as chartConfigs from '@/components/Charts/config';
   import LineChart from '@/components/Charts/LineChart';
@@ -151,8 +156,7 @@
   import SocialTrafficTable from './Dashboard/SocialTrafficTable';
   import PageVisitsTable from './Dashboard/PageVisitsTable';
 
-  export default {
-  import { httpRequest } from '../api/index.js'
+export default {
     components: {
       LineChart,
       BarChart,
@@ -198,18 +202,25 @@
         this.bigLineChart.chartData = chartData;
         this.bigLineChart.activeIndex = index;
       },
+      ...mapActions([
+        'updateProfile',
+        'updateDashboardInfo',
+      ]),
       getDashboardInfo: function () {
         var endpoint = 'statement/dashboard/'
-        httpRequest(endpoint, 'get', {}, {}, this.dashboardData)
+        httpRequest(endpoint, 'get', {}, {}, this.updateDashboardInfo)
       },
-      dashboardData: function (data.data) {
-
+      getProfile: function () {
+        var endpoint = 'account/profile/'
+        httpRequest(endpoint, 'get', {}, {}, this.updateProfile)
       }
 
     },
     mounted() {
-      this.initBigChart(0);
+      this.initBigChart(0)
+      this.getDashboardInfo()
+      this.getProfile()
     }
-  };
+}
 </script>
 <style></style>
