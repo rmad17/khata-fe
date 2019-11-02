@@ -1,69 +1,63 @@
-import Vue from "vue";
-import Router from "vue-router";
-import AppHeader from "./layout/AppHeader";
-import AppFooter from "./layout/AppFooter";
-import Components from "./views/Components.vue";
-import Landing from "./views/Landing.vue";
-import Login from "./views/Login.vue";
-import Register from "./views/Register.vue";
-import Profile from "./views/Profile.vue";
-
-Vue.use(Router);
+import Vue from 'vue'
+import Router from 'vue-router'
+import DashboardLayout from '@/layout/DashboardLayout'
+import AuthLayout from '@/layout/AuthLayout'
+Vue.use(Router)
 
 export default new Router({
-  linkExactActiveClass: "active",
+  linkExactActiveClass: 'active',
   routes: [
     {
-      path: "/components",
-      name: "components",
-      components: {
-        header: AppHeader,
-        default: Components,
-        footer: AppFooter
-      }
+      path: '/',
+      redirect: 'dashboard',
+      component: DashboardLayout,
+      children: [
+        {
+          path: '/dashboard',
+          name: 'dashboard',
+          // route level code-splitting
+          // this generates a separate chunk (about.[hash].js) for this route
+          // which is lazy-loaded when the route is visited.
+          component: () => import(/* webpackChunkName: "demo" */ './views/Dashboard.vue')
+        },
+        {
+          path: '/icons',
+          name: 'icons',
+          component: () => import(/* webpackChunkName: "demo" */ './views/Icons.vue')
+        },
+        {
+          path: '/profile',
+          name: 'profile',
+          component: () => import(/* webpackChunkName: "demo" */ './views/UserProfile.vue')
+        },
+        {
+          path: '/maps',
+          name: 'maps',
+          component: () => import(/* webpackChunkName: "demo" */ './views/Maps.vue')
+        },
+        {
+          path: '/tables',
+          name: 'tables',
+          component: () => import(/* webpackChunkName: "demo" */ './views/Tables.vue')
+        }
+      ]
     },
     {
-      path: "/",
-      name: "landing",
-      components: {
-        header: AppHeader,
-        default: Landing,
-        footer: AppFooter
-      }
-    },
-    {
-      path: "/login",
-      name: "login",
-      components: {
-        header: AppHeader,
-        default: Login,
-        footer: AppFooter
-      }
-    },
-    {
-      path: "/register",
-      name: "register",
-      components: {
-        header: AppHeader,
-        default: Register,
-        footer: AppFooter
-      }
-    },
-    {
-      path: "/profile",
-      name: "profile",
-      components: {
-        header: AppHeader,
-        default: Profile,
-        footer: AppFooter
-      }
+      path: '/',
+      redirect: 'login',
+      component: AuthLayout,
+      children: [
+        {
+          path: '/login',
+          name: 'login',
+          component: () => import(/* webpackChunkName: "demo" */ './views/Login.vue')
+        },
+        {
+          path: '/register',
+          name: 'register',
+          component: () => import(/* webpackChunkName: "demo" */ './views/Register.vue')
+        }
+      ]
     }
-  ],
-  scrollBehavior: to => {
-    if (to.hash) {
-      return { selector: to.hash };
-    } else {
-      return { x: 0, y: 0 };
-    }
-  }
-});
+  ]
+})
