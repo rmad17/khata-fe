@@ -210,7 +210,6 @@ export default {
       this.bigLineChart.activeIndex = index
     },
     ...mapActions([
-      'updateProfile',
       'updateDashboardInfo'
     ]),
     getDashboardInfo: function () {
