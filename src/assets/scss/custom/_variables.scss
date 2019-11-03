@@ -1,31 +1,4 @@
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //
 // Variables
 //
@@ -78,6 +51,8 @@ $yellow:  #ffd600 !default;
 $green:   #2dce89 !default;
 $teal:    #11cdef !default;
 $cyan:    #2bffc6 !default;
+$gold:    #ffd700 !default;
+$peach:   #f8a978 !default;
 
 $colors: () !default;
 $colors: map-merge((
@@ -88,6 +63,7 @@ $colors: map-merge((
   "red":        $red,
   "orange":     $orange,
   "yellow":     $yellow,
+  "gold":       $gold,
   "green":      $green,
   "teal":       $teal,
   "cyan":       $cyan,
@@ -95,7 +71,8 @@ $colors: map-merge((
   "gray":       $gray-600,
   "light":      $gray-400,
   "lighter":    $gray-200,
-  "gray-dark":  $gray-800
+  "gray-dark":  $gray-800,
+  "peach":      $peach
 ), $colors);
 
 $default:       #172b4d !default;
@@ -131,7 +108,9 @@ $theme-colors: map-merge((
   "white":        $white,
   "neutral":      $white,
   "dark":         $dark,
-  "darker":       $darker
+  "darker":       $darker,
+  "golden":       $gold,
+  "peach":        $peach
 ), $theme-colors);
 
 $brand-colors: () !default;

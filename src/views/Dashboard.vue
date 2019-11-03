@@ -1,46 +1,47 @@
 <template>
     <div>
-        <base-header type="gradient-success" class="pb-6 pb-8 pt-5 pt-md-8">
+        <base-header type="gradient-peach" class="pb-6 pb-8 pt-5 pt-md-8">
             <!-- Card stats -->
             <div class="row">
                 <div class="col-xl-3 col-lg-6">
                     <stats-card title="Transactions"
-                                type="gradient-red"
-                                sub-title="350,897"
-                                icon="ni ni-active-40"
+                                type="gradient-purple"
+                                :sub-title=dashboardInfoData.total_transactions
+                                icon="ni ni-chart-bar-32"
                                 class="mb-4 mb-xl-0"
                     >
-
                         <template slot="footer">
-                            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
+                            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i></span>
                             <span class="text-nowrap">Since last month</span>
                         </template>
                     </stats-card>
                 </div>
                 <div class="col-xl-3 col-lg-6">
                     <stats-card title="Total Credit"
-                                type="gradient-orange"
-                                sub-title="2,356"
-                                icon="ni ni-chart-pie-35"
+                                type="gradient-green"
+                                rupee="true"
+                                :sub-title=dashboardInfoData.total_credit
+                                icon="ni ni-money-coins"
                                 class="mb-4 mb-xl-0"
                     >
 
                         <template slot="footer">
-                            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 12.18%</span>
+                            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i></span>
                             <span class="text-nowrap">Since last month</span>
                         </template>
                     </stats-card>
                 </div>
                 <div class="col-xl-3 col-lg-6">
                     <stats-card title="Total Debit"
-                                type="gradient-green"
-                                sub-title="924"
-                                icon="ni ni-money-coins"
+                                type="gradient-red"
+                                rupee="true"
+                                :sub-title=dashboardInfoData.total_debit
+                                icon="ni ni-credit-card"
                                 class="mb-4 mb-xl-0"
                     >
 
                         <template slot="footer">
-                            <span class="text-danger mr-2"><i class="fa fa-arrow-down"></i> 5.72%</span>
+                            <span class="text-danger mr-2"><i class="fa fa-arrow-down"></i></span>
                             <span class="text-nowrap">Since last month</span>
                         </template>
                     </stats-card>
@@ -50,7 +51,7 @@
                     <stats-card title="Balance"
                                 type="gradient-info"
                                 sub-title="49,65%"
-                                icon="ni ni-chart-bar-32"
+                                icon="ni ni-bank"
                                 class="mb-4 mb-xl-0"
                     >
 
@@ -143,84 +144,90 @@
 </template>
 <script>
 
-  // api
-  import { httpRequest } from '../api/index.js'
-  // Vuex
-  import { mapActions } from 'vuex'
-  // Charts
-  import * as chartConfigs from '@/components/Charts/config';
-  import LineChart from '@/components/Charts/LineChart';
-  import BarChart from '@/components/Charts/BarChart';
+// api
+import { httpRequest } from '../api/index.js'
+// Vuex
+import { mapActions, mapState } from 'vuex'
+// Charts
+import * as chartConfigs from '@/components/Charts/config'
+import LineChart from '@/components/Charts/LineChart'
+import BarChart from '@/components/Charts/BarChart'
 
-  // Tables
-  import SocialTrafficTable from './Dashboard/SocialTrafficTable';
-  import PageVisitsTable from './Dashboard/PageVisitsTable';
+// Tables
+import SocialTrafficTable from './Dashboard/SocialTrafficTable'
+import PageVisitsTable from './Dashboard/PageVisitsTable'
 
 export default {
-    components: {
-      LineChart,
-      BarChart,
-      PageVisitsTable,
-      SocialTrafficTable,
-    },
-    data() {
-      return {
-        bigLineChart: {
-          allData: [
-            [0, 20, 10, 30, 15, 40, 20, 60, 60],
-            [0, 20, 5, 25, 10, 30, 15, 40, 40]
-          ],
-          activeIndex: 0,
-          chartData: {
-            datasets: [],
-            labels: [],
-          },
-          extraOptions: chartConfigs.blueChartOptions,
+  components: {
+    LineChart,
+    BarChart,
+    PageVisitsTable,
+    SocialTrafficTable
+  },
+  data () {
+    return {
+      bigLineChart: {
+        allData: [
+          [0, 20, 10, 30, 15, 40, 20, 60, 60],
+          [0, 20, 5, 25, 10, 30, 15, 40, 40]
+        ],
+        activeIndex: 0,
+        chartData: {
+          datasets: [],
+          labels: []
         },
-        redBarChart: {
-          chartData: {
-            labels: ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-            datasets: [{
-              label: 'Sales',
-              data: [25, 20, 30, 22, 17, 29]
-            }]
-          }
+        extraOptions: chartConfigs.blueChartOptions
+      },
+      redBarChart: {
+        chartData: {
+          labels: ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+          datasets: [{
+            label: 'Sales',
+            data: [25, 20, 30, 22, 17, 29]
+          }]
         }
-      };
-    },
-    methods: {
-      initBigChart(index) {
-        let chartData = {
-          datasets: [
-            {
-              label: 'Performance',
-              data: this.bigLineChart.allData[index]
-            }
-          ],
-          labels: ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
-        };
-        this.bigLineChart.chartData = chartData;
-        this.bigLineChart.activeIndex = index;
-      },
-      ...mapActions([
-        'updateProfile',
-        'updateDashboardInfo',
-      ]),
-      getDashboardInfo: function () {
-        var endpoint = 'statement/dashboard/'
-        httpRequest(endpoint, 'get', {}, {}, this.updateDashboardInfo)
-      },
-      getProfile: function () {
-        var endpoint = 'account/profile/'
-        httpRequest(endpoint, 'get', {}, {}, this.updateProfile)
       }
-
-    },
-    mounted() {
-      this.initBigChart(0)
-      this.getDashboardInfo()
-      this.getProfile()
     }
+  },
+  computed: {
+    ...mapState({
+      profileData: state => state.profile,
+      dashboardInfoData: state => state.dashboardInfo
+    })
+  },
+  methods: {
+    initBigChart (index) {
+      let chartData = {
+        datasets: [
+          {
+            label: 'Performance',
+            data: this.bigLineChart.allData[index]
+          }
+        ],
+        labels: ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+      }
+      this.bigLineChart.chartData = chartData
+      this.bigLineChart.activeIndex = index
+    },
+    ...mapActions([
+      'updateProfile',
+      'updateDashboardInfo'
+    ]),
+    getDashboardInfo: function () {
+      var endpoint = 'statement/dashboard/'
+      httpRequest(endpoint, 'get', {}, {}, this.updateDashboardInfo)
+    },
+    getProfile: function () {
+      var endpoint = 'account/profile/'
+      httpRequest(endpoint, 'get', {}, {}, this.updateProfile)
+    }
+
+  },
+  mounted () {
+    this.initBigChart(0)
+    this.getDashboardInfo()
+    this.getProfile()
+  }
 }
 </script>
 <style></style>

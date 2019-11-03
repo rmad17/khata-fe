@@ -4,13 +4,13 @@
               :show-toggle-button="false"
               expand>
         <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
-            <div class="form-group mb-0">
+            <!-- <div class="form-group mb-0">
                 <base-input placeholder="Search"
                             class="input-group-alternative"
                             alternative=""
                             addon-right-icon="fas fa-search">
                 </base-input>
-            </div>
+            </div> -->
         </form>
         <ul class="navbar-nav align-items-center d-none d-md-flex">
             <li class="nav-item dropdown">
@@ -19,8 +19,8 @@
                 <span class="avatar avatar-sm rounded-circle">
                   <img alt="Image placeholder" src="img/theme/team-4-800x800.jpg">
                 </span>
-                        <div class="media-body ml-2 d-none d-lg-block">
-                            <span class="mb-0 text-sm  font-weight-bold">Jessica Jones</span>
+                        <div class="media-body ml-2 d-none d-lg-block" style="color: white">
+                            <span class="mb-0 text-m font-family-lato font-weight-bold">{{ profileData.first_name  }} {{ profileData.last_name }}</span>
                         </div>
                     </div>
 
@@ -30,7 +30,7 @@
                         </div>
                         <router-link to="/profile" class="dropdown-item">
                             <i class="ni ni-single-02"></i>
-                            <span>My profile</span>
+                            <span>Profile</span>
                         </router-link>
                         <router-link to="/profile" class="dropdown-item">
                             <i class="ni ni-settings-gear-65"></i>
@@ -56,24 +56,31 @@
     </base-nav>
 </template>
 <script>
-  export default {
-    data() {
-      return {
-        activeNotifications: false,
-        showMenu: false,
-        searchQuery: ''
-      };
-    },
-    methods: {
-      toggleSidebar() {
-        this.$sidebar.displaySidebar(!this.$sidebar.showSidebar);
-      },
-      hideSidebar() {
-        this.$sidebar.displaySidebar(false);
-      },
-      toggleMenu() {
-        this.showMenu = !this.showMenu;
-      }
+// Vuex
+import { mapState } from 'vuex'
+export default {
+  data () {
+    return {
+      activeNotifications: false,
+      showMenu: false,
+      searchQuery: ''
     }
-  };
+  },
+  computed: {
+    ...mapState({
+      profileData: state => state.profile
+    })
+  },
+  methods: {
+    toggleSidebar () {
+      this.$sidebar.displaySidebar(!this.$sidebar.showSidebar)
+    },
+    hideSidebar () {
+      this.$sidebar.displaySidebar(false)
+    },
+    toggleMenu () {
+      this.showMenu = !this.showMenu
+    }
+  }
+}
 </script>
