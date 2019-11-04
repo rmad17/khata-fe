@@ -92,51 +92,51 @@ export default {
       description: "Addont left icon"
     }
   },
-  data() {
+  data () {
     return {
       focused: false
     };
   },
   computed: {
-    listeners() {
+    listeners () {
       return {
         ...this.$listeners,
         input: this.updateValue,
         focus: this.onFocus,
         blur: this.onBlur
-      };
+      }
     },
-    slotData() {
+    slotData () {
       return {
         focused: this.focused,
         ...this.listeners
-      };
+      }
     },
-    hasIcon() {
+    hasIcon () {
       const { addonRight, addonLeft } = this.$slots;
       return (
         addonRight !== undefined ||
         addonLeft !== undefined ||
         this.addonRightIcon !== undefined ||
         this.addonLeftIcon !== undefined
-      );
+      )
     }
   },
   methods: {
-    updateValue(evt) {
-      let value = evt.target.value;
-      this.$emit("input", value);
+    updateValue (event) {
+      let value = event.target.value;
+      this.$emit("input", event)
     },
-    onFocus(value) {
-      this.focused = true;
-      this.$emit("focus", value);
+    onFocus (value) {
+      this.focused = true
+      this.$emit("focus", value)
     },
-    onBlur(value) {
+    onBlur (value) {
       this.focused = false;
-      this.$emit("blur", value);
+      this.$emit("blur", value)
     }
   }
-};
+}
 </script>
 <style>
 </style>

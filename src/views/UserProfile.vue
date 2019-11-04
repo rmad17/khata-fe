@@ -62,7 +62,9 @@
                                                         label="Username"
                                                         placeholder="Username"
                                                         input-classes="form-control-alternative"
+                                                        name="username"
                                                         :value=profileData.username
+                                                        @input="updateProfileStore"
                                             />
                                         </div>
                                         <div class="col-lg-6">
@@ -70,7 +72,9 @@
                                                         label="Email address"
                                                         placeholder="jesse@example.com"
                                                         input-classes="form-control-alternative"
+                                                        name="email"
                                                         :value=profileData.email
+                                                        @input="updateProfileStore"
                                             />
                                         </div>
                                     </div>
@@ -80,7 +84,9 @@
                                                         label="First name"
                                                         placeholder="First name"
                                                         input-classes="form-control-alternative"
+                                                        name="first_name"
                                                         :value=profileData.first_name
+                                                        @input="updateProfileStore"
                                             />
                                         </div>
                                         <div class="col-lg-6">
@@ -88,13 +94,15 @@
                                                         label="Last name"
                                                         placeholder="Last name"
                                                         input-classes="form-control-alternative"
+                                                        name="last_name"
                                                         :value=profileData.last_name
+                                                        @input="updateProfileStore"
                                             />
                                         </div>
                                     </div>
                                 </div>
                                 <hr class="my-4" />
-                                <base-button type="submit" v-on:click="updateProfileData" size="md" class="ml-lg-4 btn btn-primary">Update</base-button>
+                                <base-button type="submit" @click="updateProfileData" size="md" class="ml-lg-4 btn btn-primary">Update</base-button>
                             </form>
                         </template>
                     </card>
@@ -123,6 +131,12 @@ export default {
     ...mapActions([
       'updateProfile'
     ]),
+    updateProfileStore: function (event) {
+      let data = { 'data': {} }
+      this.profileData[event.target.name] = event.target.value
+      data['data'] = this.profileData
+      this.updateProfile(data)
+    },
     updateProfileData: function () {
       var endpoint = 'account/profile/'
       httpRequest(endpoint, 'put', this.profileData, {}, this.updateProfile)
