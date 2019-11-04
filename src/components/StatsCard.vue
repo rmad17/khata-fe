@@ -5,6 +5,7 @@
       <div class="col">
         <slot>
           <h5 class="card-title text-uppercase text-muted mb-0" v-if="title">{{title}}</h5>
+          <span class="mb-0" style="font-size:19px" v-if="rupee">₹ </span>
           <span class="h2 font-weight-bold mb-0" v-if="subTitle">{{subTitle}}</span>
         </slot>
       </div>
@@ -42,6 +43,7 @@
       icon: String,
       title: String,
       subTitle: String,
+      rupee: String,
       iconClasses: [String, Array]
     }
   };
