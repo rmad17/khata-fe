@@ -171,6 +171,7 @@ export default {
           [0, 20, 10, 30, 15, 40, 20, 60, 60],
           [0, 20, 5, 25, 10, 30, 15, 40, 40],
           [0, 20, 5, 25, 10, 30, 15, 40, 40],
+          [10, 32, 15, 35, 20, 40, 25, 30, 90],
           [10, 22, 15, 35, 10, 30, 15, 40, 70]
         ],
         activeIndex: 0,
@@ -184,8 +185,12 @@ export default {
         chartData: {
           labels: ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
           datasets: [{
-            label: 'Sales',
-            data: [25, 20, 30, 22, 17, 29]
+              label: 'Sales',
+              data: [25, 20, 30, 22, 17, 29]
+            },
+            {
+              label: 'Profits',
+              data: [20, 10, 13, 12, 17, 19]
           }]
         }
       }
@@ -202,8 +207,14 @@ export default {
       let chartData = {
         datasets: [
           {
+            backgroundColor: '#f35284',
             label: 'Performance',
             data: this.bigLineChart.allData[index]
+          },
+          {
+            backgroundColor: '#ff6384',
+            label: 'Profits',
+            data: this.bigLineChart.allData[3]
           }
         ],
         labels: ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
