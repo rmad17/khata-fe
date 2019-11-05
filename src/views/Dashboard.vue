@@ -169,7 +169,9 @@ export default {
       bigLineChart: {
         allData: [
           [0, 20, 10, 30, 15, 40, 20, 60, 60],
-          [0, 20, 5, 25, 10, 30, 15, 40, 40]
+          [0, 20, 5, 25, 10, 30, 15, 40, 40],
+          [0, 20, 5, 25, 10, 30, 15, 40, 40],
+          [10, 22, 15, 35, 10, 30, 15, 40, 70]
         ],
         activeIndex: 0,
         chartData: {
@@ -210,17 +212,23 @@ export default {
       this.bigLineChart.activeIndex = index
     },
     ...mapActions([
-      'updateDashboardInfo'
+      'updateDashboardInfo',
+      'updateProfile'
     ]),
     getDashboardInfo: function () {
       var endpoint = 'statement/dashboard/'
-      httpRequest(endpoint, 'get', {}, {}, this.updateDashboardInfo)
+      httpRequest(endpoint, 'get', {}, {}, this.storeDashboardInfo)
+    },
+    storeDashboardInfo: function (responseData) {
+      this.$store.dispatch('updateDashboardInfo', responseData.data)
     },
     getProfile: function () {
       var endpoint = 'account/profile/'
       httpRequest(endpoint, 'get', {}, {}, this.updateProfile)
+    },
+    storeProfile: function (responseData) {
+      this.updateProfile(responseData.data)
     }
-
   },
   mounted () {
     this.initBigChart(0)
