@@ -224,10 +224,10 @@ export default {
     },
     getProfile: function () {
       var endpoint = 'account/profile/'
-      httpRequest(endpoint, 'get', {}, {}, this.updateProfile)
+      httpRequest(endpoint, 'get', {}, {}, this.storeProfile)
     },
     storeProfile: function (responseData) {
-      this.updateProfile(responseData.data)
+      this.$store.dispatch('updateProfile', responseData.data)
     }
   },
   mounted () {
