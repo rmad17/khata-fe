@@ -20,20 +20,18 @@
                           <small>Or sign in with credentials</small>
                       </div> -->
                       <form role="form">
-                          <input class="input-group-alternative mb-3"
+                          <base-input class="input-group-alternative mb-3"
                                       placeholder="email"
                                       addon-left-icon="ni ni-email-83"
-                                      value=''
                                       v-model='email'>
+                          </base-input>
 
-
-                          <input class="input-group-alternative"
+                          <base-input class="input-group-alternative"
                                       placeholder="password"
                                       type="password"
                                       addon-left-icon="ni ni-lock-circle-open"
-                                      value=''
                                       v-model='password'>
-                          
+                          </base-input>
 
                           <base-checkbox class="custom-control-alternative">
                               <span class="text-muted">Remember me</span>
