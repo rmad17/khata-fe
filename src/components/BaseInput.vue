@@ -101,7 +101,7 @@ export default {
     listeners () {
       return {
         ...this.$listeners,
-        input: this.updateValue,
+        //input: this.updateValue,
         focus: this.onFocus,
         blur: this.onBlur
       }
@@ -123,10 +123,10 @@ export default {
     }
   },
   methods: {
-    updateValue (event) {
-      let value = event.target.value;
-      this.$emit("input", event)
-    },
+    // updateValue (event) {
+    //   let value = event.target.value;
+    //   this.$emit("input", event)
+    // },
     onFocus (value) {
       this.focused = true
       this.$emit("focus", value)

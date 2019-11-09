@@ -21,16 +21,16 @@
                       </div> -->
                       <form role="form">
                           <base-input class="input-group-alternative mb-3"
-                                      placeholder="Email"
+                                      placeholder="email"
                                       addon-left-icon="ni ni-email-83"
-                                      v-model="email">
+                                      v-model='email'>
                           </base-input>
 
                           <base-input class="input-group-alternative"
-                                      placeholder="Password"
+                                      placeholder="password"
                                       type="password"
                                       addon-left-icon="ni ni-lock-circle-open"
-                                      v-model="password">
+                                      v-model='password'>
                           </base-input>
 
                           <base-checkbox class="custom-control-alternative">
@@ -62,17 +62,15 @@ export default {
       var endpoint = 'account/token/'
       httpRequest(endpoint, 'post', { email: this.email, password: this.password }, {}, this.postLogin)
     },
-    postLogin: function (data) {
-      localStorage.setItem('token', data.data.access_token)
+    postLogin: function (responseData) {
+      localStorage.setItem('token', responseData.data.access_token)
       this.$router.push({ name: 'dashboard' })
     }
   },
   data () {
     return {
-      model: {
-        email: '',
-        password: ''
-      }
+      email: '',
+      password: ''
     }
   }
 }

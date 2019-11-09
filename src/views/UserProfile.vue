@@ -135,15 +135,18 @@ export default {
       let data = { 'data': {} }
       this.profileData[event.target.name] = event.target.value
       data['data'] = this.profileData
-      this.updateProfile(data)
+      this.updateProfile(this.profileData)
     },
     updateProfileData: function () {
       var endpoint = 'account/profile/'
-      httpRequest(endpoint, 'put', this.profileData, {}, this.updateProfile)
+      httpRequest(endpoint, 'put', this.profileData, {}, this.storeProfile)
     },
     getProfile: function () {
       var endpoint = 'account/profile/'
-      httpRequest(endpoint, 'get', {}, {}, this.updateProfile)
+      httpRequest(endpoint, 'get', {}, {}, this.storeProfile)
+    },
+    storeProfile: function (responseData) {
+      this.$store.dispatch('updateProfile', responseData.data)
     }
   },
   mounted () {

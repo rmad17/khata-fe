@@ -169,7 +169,10 @@ export default {
       bigLineChart: {
         allData: [
           [0, 20, 10, 30, 15, 40, 20, 60, 60],
-          [0, 20, 5, 25, 10, 30, 15, 40, 40]
+          [0, 20, 5, 25, 10, 30, 15, 40, 40],
+          [0, 20, 5, 25, 10, 30, 15, 40, 40],
+          [10, 32, 15, 35, 20, 40, 25, 30, 90],
+          [10, 22, 15, 35, 10, 30, 15, 40, 70]
         ],
         activeIndex: 0,
         chartData: {
@@ -182,8 +185,12 @@ export default {
         chartData: {
           labels: ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
           datasets: [{
-            label: 'Sales',
-            data: [25, 20, 30, 22, 17, 29]
+              label: 'Sales',
+              data: [25, 20, 30, 22, 17, 29]
+            },
+            {
+              label: 'Profits',
+              data: [20, 10, 13, 12, 17, 19]
           }]
         }
       }
@@ -200,8 +207,14 @@ export default {
       let chartData = {
         datasets: [
           {
+            backgroundColor: '#f35284',
             label: 'Performance',
             data: this.bigLineChart.allData[index]
+          },
+          {
+            backgroundColor: '#ff6384',
+            label: 'Profits',
+            data: this.bigLineChart.allData[3]
           }
         ],
         labels: ['May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
@@ -210,17 +223,23 @@ export default {
       this.bigLineChart.activeIndex = index
     },
     ...mapActions([
-      'updateDashboardInfo'
+      'updateDashboardInfo',
+      'updateProfile'
     ]),
     getDashboardInfo: function () {
       var endpoint = 'statement/dashboard/'
-      httpRequest(endpoint, 'get', {}, {}, this.updateDashboardInfo)
+      httpRequest(endpoint, 'get', {}, {}, this.storeDashboardInfo)
+    },
+    storeDashboardInfo: function (responseData) {
+      this.$store.dispatch('updateDashboardInfo', responseData.data)
     },
     getProfile: function () {
       var endpoint = 'account/profile/'
-      httpRequest(endpoint, 'get', {}, {}, this.updateProfile)
+      httpRequest(endpoint, 'get', {}, {}, this.storeProfile)
+    },
+    storeProfile: function (responseData) {
+      this.$store.dispatch('updateProfile', responseData.data)
     }
-
   },
   mounted () {
     this.initBigChart(0)
