@@ -1,4 +1,4 @@
-const webpack = require('webpack');
+const webpack = require('webpack')
 
 module.exports = {
   configureWebpack: {
@@ -20,4 +20,4 @@ module.exports = {
     // Enable CSS source maps.
     sourceMap: process.env.NODE_ENV !== 'production'
   }
-};
+}

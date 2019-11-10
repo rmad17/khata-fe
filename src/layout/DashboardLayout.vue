@@ -11,7 +11,6 @@
         <sidebar-item :link="{name: 'Reports', icon: 'ni ni-bullet-list-67 text-red', path: '/tables'}"/>
         <sidebar-item :link="{name: 'Categories', icon: 'ni ni-single-02 text-yellow', path: '/category'}"/>
         <sidebar-item :link="{name: 'Profile', icon: 'ni ni-single-02 text-yellow', path: '/profile'}"/>
-
       </template>
     </side-bar>
     <div class="main-content" :data="sidebarBackground">

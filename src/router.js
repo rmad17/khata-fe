@@ -18,7 +18,7 @@ export default new Router({
           // route level code-splitting
           // this generates a separate chunk (about.[hash].js) for this route
           // which is lazy-loaded when the route is visited.
-          component: () => import(/* webpackChunkName: "demo" */ './views/Dashboard.vue')
+          component: () => import('./views/Dashboard.vue')
         },
         {
           path: '/icons',
@@ -30,10 +30,15 @@ export default new Router({
           name: 'profile',
           component: () => import(/* webpackChunkName: "demo" */ './views/UserProfile.vue')
         },
+        // {
+        //   path: '/maps',
+        //   name: 'maps',
+        //   component: () => import(/* webpackChunkName: "demo" */ './views/Maps.vue')
+        // },
         {
-          path: '/maps',
-          name: 'maps',
-          component: () => import(/* webpackChunkName: "demo" */ './views/Maps.vue')
+          path: '/category',
+          name: 'category',
+          component: () => import(/* webpackChunkName: "demo" */ './views/Category.vue')
         },
         {
           path: '/tables',
@@ -56,6 +61,11 @@ export default new Router({
           path: '/register',
           name: 'register',
           component: () => import(/* webpackChunkName: "demo" */ './views/Register.vue')
+        },
+        {
+          path: '/logout',
+          name: 'logout',
+          component: () => import(/* webpackChunkName: "demo" */ './views/Logout.vue')
         }
       ]
     }

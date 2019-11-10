@@ -10,5 +10,11 @@ export default {
       data,
       done: false
     })
+  },
+  updateCategory: function ({ commit }, data) {
+    commit('updateCategory', {
+      data,
+      done: false
+    })
   }
 }

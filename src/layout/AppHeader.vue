@@ -101,9 +101,9 @@
     </header>
 </template>
 <script>
-import BaseNav from "@/components/BaseNav";
-import BaseDropdown from "@/components/BaseDropdown";
-import CloseButton from "@/components/CloseButton";
+import BaseNav from '@/components/BaseNav'
+import BaseDropdown from '@/components/BaseDropdown'
+import CloseButton from '@/components/CloseButton'
 
 export default {
   components: {
@@ -111,7 +111,7 @@ export default {
     CloseButton,
     BaseDropdown
   }
-};
+}
 </script>
 <style>
 </style>
