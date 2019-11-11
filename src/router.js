@@ -48,6 +48,11 @@ export default new Router({
       ]
     },
     {
+      path: '/logout',
+      name: 'logout',
+      component: () => import(/* webpackChunkName: "demo" */ './views/Logout.vue')
+    },
+    {
       path: '/',
       redirect: 'login',
       component: AuthLayout,
@@ -62,11 +67,7 @@ export default new Router({
           name: 'register',
           component: () => import(/* webpackChunkName: "demo" */ './views/Register.vue')
         },
-        {
-          path: '/logout',
-          name: 'logout',
-          component: () => import(/* webpackChunkName: "demo" */ './views/Logout.vue')
-        }
+        
       ]
     }
   ]
