@@ -7,6 +7,6 @@ export default {
     return state.dashboardInfo
   },
   getcategory: function (state) {
-    return state.category
+    return state.categories
   }
 }

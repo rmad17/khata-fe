@@ -4,6 +4,7 @@ import globalComponents from './globalComponents'
 import globalDirectives from './globalDirectives'
 import SidebarPlugin from '@/components/SidebarPlugin/index'
 import NotificationPlugin from '@/components/NotificationPlugin/index'
+import BootstrapVue from 'bootstrap-vue'
 
 export default {
   install (Vue) {
@@ -11,5 +12,6 @@ export default {
     Vue.use(globalDirectives)
     Vue.use(SidebarPlugin)
     Vue.use(NotificationPlugin)
+    Vue.use(BootstrapVue)
   }
 }

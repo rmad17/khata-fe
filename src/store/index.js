@@ -14,7 +14,7 @@ export default new Vuex.Store({
     profile: {},
     dashboardInfo: {},
     transaction: {},
-    category: {}
+    categories: []
   },
   actions,
   getters,
