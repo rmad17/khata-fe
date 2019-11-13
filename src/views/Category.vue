@@ -10,14 +10,14 @@
                 <b-card-header header-tag="header" class="p-1" role="tab">
                     <div block v-b-toggle="'category-accordion-' + category.id" variant="info">{{category.name}}</div>
                 </b-card-header>
-                <b-collapse :id="'category-accordion-' + category.id" accordion="my-accordion" role="tabpanel">
+                <b-collapse :id="'category-accordion-' + category.id" accordion="category-accordion" role="tabpanel">
                     <b-card-body>
                     <div>
                       <b-card v-for='tag in category.tags' :key='tag.id' no-body class="mb-1">
                         <b-card-header header-tag="header" class="p-1" role="tab">
                           <div block v-b-toggle="'tag-accordion-' + tag.id" variant="info">{{tag.name}}</div>
                         </b-card-header>
-                        <b-collapse :id="'tag-accordion-' + tag.id" accordion="my-accordion" role="tabpanel">
+                        <b-collapse :id="'tag-accordion-' + tag.id" accordion="tag-accordion" role="tabpanel">
                           <b-card-body>
                             <b-card-text>{{ tag.name }}</b-card-text>
                           </b-card-body>
