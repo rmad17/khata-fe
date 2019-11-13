@@ -4,41 +4,31 @@
         </base-header>
         <div class="container-fluid mt--7">
             <div role="tablist">
-                <b-card no-body class="mb-1">
+                <b-card v-for="category in categories" :key=category.id
+                  no-body class="mb-1"
+                >
                 <b-card-header header-tag="header" class="p-1" role="tab">
-                    <b-button block href="#" v-b-toggle.accordion-1 variant="info">Accordion 1</b-button>
+                    <div block v-b-toggle="'category-accordion-' + category.id" variant="info">{{category.name}}</div>
                 </b-card-header>
-                <b-collapse id="accordion-1" visible accordion="my-accordion" role="tabpanel">
+                <b-collapse :id="'category-accordion-' + category.id" accordion="my-accordion" role="tabpanel">
                     <b-card-body>
-                    <b-card-text>I start opened because <code>visible</code> is <code>true</code></b-card-text>
-                    <b-card-text>{{ text }}</b-card-text>
-                    </b-card-body>
-                </b-collapse>
-                </b-card>
-
-                <b-card no-body class="mb-1">
-                <b-card-header header-tag="header" class="p-1" role="tab">
-                    <b-button block href="#" v-b-toggle.accordion-2 variant="info">Accordion 2</b-button>
-                </b-card-header>
-                <b-collapse id="accordion-2" accordion="my-accordion" role="tabpanel">
-                    <b-card-body>
-                    <b-card-text>{{ text }}</b-card-text>
-                    </b-card-body>
-                </b-collapse>
-                </b-card>
-
-                <b-card no-body class="mb-1">
-                <b-card-header header-tag="header" class="p-1" role="tab">
-                    <b-button block href="#" v-b-toggle.accordion-3 variant="info">Accordion 3</b-button>
-                </b-card-header>
-                <b-collapse id="accordion-3" accordion="my-accordion" role="tabpanel">
-                    <b-card-body>
-                    <b-card-text>{{ text }}</b-card-text>
+                    <div>
+                      <b-card v-for='tag in category.tags' :key='tag.id' no-body class="mb-1">
+                        <b-card-header header-tag="header" class="p-1" role="tab">
+                          <div block v-b-toggle="'tag-accordion-' + tag.id" variant="info">{{tag.name}}</div>
+                        </b-card-header>
+                        <b-collapse :id="'tag-accordion-' + tag.id" accordion="my-accordion" role="tabpanel">
+                          <b-card-body>
+                            <b-card-text>{{ tag.name }}</b-card-text>
+                          </b-card-body>
+                        </b-collapse>
+                        </b-card>
+                      </div>
                     </b-card-body>
                 </b-collapse>
                 </b-card>
             </div>
-          <b-card class="accordion">
+          <!-- <b-card class="accordion">
             <ul>
                 <li data-toggle="collapse"  v-for="category in categories" :key=category.id>
                     <div v-b-toggle.accordion-1 variant="info"> {{ category.name }} </div>
@@ -49,7 +39,7 @@
                 </ul>
                 </li>
             </ul>
-          </b-card>
+          </b-card> -->
         </div>
     </div>
 </template>
@@ -63,6 +53,7 @@ export default {
   name: 'category',
   data: function () {
     return {
+      showCollapse: true,
       categories: []
     }
   },
