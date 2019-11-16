@@ -4,6 +4,13 @@
         </base-header>
         <div class="container-fluid mt--7">
             <div role="tablist">
+                <b-card class="col-sm-8 shadow mb-1 opacity-6" header-border-variant="info" no-body>
+                  <b-card-header header-tag="header" class="p-1 pl-2 pr-4 button-toolbar" role="tab">
+                    <b-input class="m-2 mr-4 col-sm-10 shadow" v-model="newCategory" @keyup.enter.native="addNewCategory" placeholder="Add a new category ..." square variant="outline-primary"/>
+                  </b-card-header>
+                </b-card>
+                <b-collapse :id="category-accordion-add" accordion="category-accordion-add" role="tabpanel">
+                </b-collapse>
                 <b-card class="col-sm-8 shadow mb-1" v-for="category in categories" :key=category.id header-border-variant="info" no-body>
                 <b-card-header header-tag="header" class="p-1 button-toolbar" role="tab">
                   <!-- Edit Category Modal -->
@@ -73,7 +80,8 @@ export default {
         category_id: '',
         name: '',
         description: ''
-      }
+      },
+      newCategory: ''
     }
   },
   computed: {
@@ -107,6 +115,12 @@ export default {
       httpRequest(endpoint, 'put', this.updatedCategory, {}, this.postUpdate)
       this.updatedCategory = { category_id: '', name: '', description: '' }
     },
+    addNewCategory: function () {
+      let name = this.newCategory
+      this.newCategory = ''
+      var endpoint = 'statement/category/'
+      httpRequest(endpoint, 'post', { name: name }, {}, this.postUpdate)
+    },
     postUpdate: function (responseData) {
       this.getCategories()
     }
@@ -116,4 +130,8 @@ export default {
   }
 }
 </script>
-<style></style>
+<style>
+.opacity-6{
+  opacity: 0.6;
+}
+</style>
