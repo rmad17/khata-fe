@@ -6,7 +6,7 @@ export const mutations = {
   updateDashboardInfo: function (state, dashboardInfo) {
     state.dashboardInfo = dashboardInfo.data
   },
-  updateCategory: function (state, categories) {
+  updateCategories: function (state, categories) {
     state.categories = categories.data
   }
 }
