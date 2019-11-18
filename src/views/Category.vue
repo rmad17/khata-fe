@@ -5,12 +5,12 @@
         <div class="container-fluid mt--7">
             <div role="tablist">
               <!-- Category -->
-                <b-card class="col-sm-8 shadow mb-1 opacity-6" header-border-variant="info" no-body>
+                <b-card class="col-sm-10 shadow mb-1 opacity-6" header-border-variant="info" no-body>
                   <b-card-header header-tag="header" class="p-1 pl-2 pr-4 button-toolbar" role="tab">
-                    <b-input class=" ml-3 m-2 mr-4 col-sm-10 shadow" v-model="newCategory" @keyup.enter.native="addNewCategory" placeholder="Add a new category ..." square variant="outline-primary"/>
+                    <b-input class=" ml-3 m-2 mr-4 col-sm-11 shadow" v-model="newCategory" @keyup.enter.native="addNewCategory" placeholder="Add a new category ..." square variant="outline-primary"/>
                   </b-card-header>
                 </b-card>
-                <b-card class="col-sm-8 shadow mb-1" v-for="category in categories" :key=category.id header-border-variant="info" no-body>
+                <b-card class="col-sm-10 shadow mb-1" v-for="category in categories" :key=category.id header-border-variant="info" no-body>
                 <b-card-header header-tag="header" class="p-1 button-toolbar" role="tab">
                   <!-- Edit Category Modal -->
                   <b-modal :id="'category-edit-modal-' + category.id" hide-footer no-stacking hide-header-close>
@@ -34,9 +34,26 @@
                     <b-button class="mt-3 shadow" variant="light" square @click="$bvModal.hide('category-del-modal-' + category.id)">Cancel</b-button>
                     <b-button class="mt-3 shadow" variant="danger" square @click="delCategory(category)">Delete</b-button>
                   </b-modal>
-                  <b-button class="ml-4 col-sm-8 shadow-lg" square v-b-toggle="'category-accordion-' + category.id" variant="outline-primary">{{category.name}}</b-button>
-                  <b-button class="m-2 mr-2 col-sm-1 shadow" variant="outline-primary" @click="openEditCategoryModal(category)" v-b-modal="'category-edit-modal-' + category.id"><font-awesome-icon size="lg" icon="edit"  :style="{color: '#5e72e4'}"></font-awesome-icon></b-button>
-                  <b-button class="m-2 mr-2 col-sm-1 shadow" variant="outline-primary" v-b-modal="'category-del-modal-' + category.id"><font-awesome-icon size="lg" icon="trash-alt"  :style="{color: '#5e72e4'}"></font-awesome-icon></b-button>
+                  <!-- Add Tag Modal -->
+                  <b-modal :id="'tag-add-modal-' + category.id" hide-footer no-stacking hide-header-close>
+                    <base-model-input class="input-group-alternative mb-3 d-none"
+                                        :value="newTag.category_id">
+                    </base-model-input>
+                    <base-model-input class="input-group-alternative mb-3"
+                                        placeholder="Name"
+                                        v-model="newTag.name">
+                    </base-model-input>
+                    <base-model-input class="input-group-alternative mb-3"
+                                        placeholder="Description"
+                                        v-model="newTag.description">
+                    </base-model-input>
+                    <b-button class="mt-3 shadow" variant="danger" square @click="$bvModal.hide('tag-add-modal-' + category.id)">Cancel</b-button>
+                    <b-button class="mt-3 shadow" variant="success" square @keyup.enter.native="addNewTag()" @click="addNewTag()">Create</b-button>
+                  </b-modal>
+                  <b-button class="ml-4 col-sm-7 shadow-lg" square v-b-toggle="'category-accordion-' + category.id" variant="outline-emerald">{{category.name}}</b-button>
+                  <b-button class="m-2 mr-2 col-sm-1 shadow" v-b-tooltip.hover title="Edit Category" variant="outline-emerald" @click="openEditCategoryModal(category)" v-b-modal="'category-edit-modal-' + category.id"><font-awesome-icon size="lg" icon="edit"></font-awesome-icon></b-button>
+                  <b-button class="m-2 mr-2 col-sm-1 shadow" v-b-tooltip.hover title="Delete Category" variant="outline-emerald" v-b-modal="'category-del-modal-' + category.id"><font-awesome-icon size="lg" icon="trash-alt"></font-awesome-icon></b-button>
+                  <b-button class="m-2 mr-2 col-sm-1 shadow" v-b-tooltip.hover title="Add Tag" variant="outline-emerald" @click="openAddTagModal(category)" v-b-modal="'tag-add-modal-' + category.id"><font-awesome-icon size="lg" icon="tag"></font-awesome-icon></b-button>
                 </b-card-header>
                 <b-collapse :id="'category-accordion-' + category.id" accordion="category-accordion" role="tabpanel">
                     <b-card-body>
@@ -54,11 +71,11 @@
                                                     :value="updatedTag.tag_id">
                                 </base-model-input>
                                 <base-model-input class="input-group-alternative mb-3"
-                                                    placeholder="name"
+                                                    placeholder="Name"
                                                     v-model="updatedTag.name">
                                 </base-model-input>
                                 <base-model-input class="input-group-alternative mb-3"
-                                                    placeholder="description"
+                                                    placeholder="Description"
                                                     v-model="updatedTag.description">
                                 </base-model-input>
                                 <b-button class="mt-3 shadow" variant="danger" square @click="$bvModal.hide('tag-edit-modal-' + tag.id)">Cancel</b-button>
@@ -72,12 +89,12 @@
                                 <b-button class="mt-3 shadow" variant="danger" square @click="delTag(tag)">Delete</b-button>
                               </b-modal>
                               <b-button class="text-left col-md-8" square v-b-toggle="'tag-accordion-' + tag.id" variant="outline-peach">{{tag.name}}</b-button>
-                              <b-button class="align-right m-2 col-sm-1" @click="openEditTagModal(tag)"><font-awesome-icon size="lg" icon="edit"></font-awesome-icon></b-button>
-                              <b-button class="align-right m-2 col-sm-1" v-b-modal="'tag-del-modal-' + tag.id"><font-awesome-icon size="lg" icon="trash-alt"></font-awesome-icon></b-button>
+                              <b-button class="align-right m-2 col-sm-1"  v-b-tooltip.hover title="Edit Tag" variant="outline-peach" @click="openEditTagModal(tag, category)"><font-awesome-icon size="lg" icon="edit"></font-awesome-icon></b-button>
+                              <b-button class="align-right m-2 col-sm-1" v-b-tooltip.hover title="Delete Tag" v-b-modal="'tag-del-modal-' + tag.id" variant="outline-peach" ><font-awesome-icon size="lg" icon="trash-alt"></font-awesome-icon></b-button>
                             </b-card-header>
                             <b-collapse :id="'tag-accordion-' + tag.id" accordion="tag-accordion" role="tabpanel">
                               <b-card-body>
-                                <b-card-text>{{ tag.description }}</b-card-text>
+                                <b-card-text class="tag-desc-text">{{ tag.description }}</b-card-text>
                               </b-card-body>
                             </b-collapse>
                           </b-card>
@@ -108,12 +125,16 @@ export default {
       },
       newCategory: '',
       updatedTag: {
-        category_id: '', 
+        category_id: '',
         tag_id: '',
         name: '',
         description: ''
       },
-      newTag: ''
+      newTag: {
+        category_id: '',
+        name: '',
+        description: ''
+      }
     }
   },
   computed: {
@@ -153,8 +174,9 @@ export default {
       var endpoint = 'statement/category/'
       httpRequest(endpoint, 'post', { name: name }, {}, this.postUpdate)
     },
-    openEditTagModal: function (tag) {
+    openEditTagModal: function (tag, category) {
       let id = 'tag-edit-modal-' + tag.id
+      this.updatedTag.category_id = category.id
       this.updatedTag.tag_id = tag.id
       this.updatedTag.name = tag.name
       this.updatedTag.description = tag.description
@@ -169,13 +191,23 @@ export default {
       this.$bvModal.hide(id)
       var endpoint = 'statement/tag/'
       httpRequest(endpoint, 'put', this.updatedTag, {}, this.postUpdate)
-      this.updatedTag = { tag_id: '', name: '', description: '' }
+      this.updatedTag = { category_id: '', tag_id: '', name: '', description: '' }
+    },
+    openAddTagModal: function (category) {
+      let id = 'tag-add-modal-' + category.id
+      this.newTag.category_id = category.id
+      this.$bvModal.show(id)
     },
     addNewTag: function () {
-      let name = this.newTag
+      let newTag = this.newTag
+      let id = 'tag-add-modal-' + newTag.category_id
+      if (!newTag.name || !newTag.description) {
+        return
+      }
+      this.$bvModal.hide(id)
       this.newTag = ''
       var endpoint = 'statement/tag/'
-      httpRequest(endpoint, 'post', { name: name }, {}, this.postUpdate)
+      httpRequest(endpoint, 'post', newTag, {}, this.postUpdate)
     },
     postUpdate: function (responseData) {
       this.getCategories()
@@ -195,5 +227,8 @@ export default {
 }
 .accordion-desc-text {
   font-weight: 600;
+}
+.tag-desc-text {
+  font-weight: 500;
 }
 </style>

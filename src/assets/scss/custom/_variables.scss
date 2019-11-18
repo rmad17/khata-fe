@@ -54,6 +54,7 @@ $cyan:    #2bffc6 !default;
 $gold:    #ffd700 !default;
 $peach:   #f8a978 !default;
 $bprim:   #007bff !default;
+$emerald: #50c878 !default;
 
 $colors: () !default;
 $colors: map-merge((
@@ -66,6 +67,7 @@ $colors: map-merge((
   "yellow":     $yellow,
   "gold":       $gold,
   "green":      $green,
+  "emerald":    $emerald,
   "teal":       $teal,
   "cyan":       $cyan,
   "white":      $white,
@@ -86,6 +88,7 @@ $orange:        $orange !default;
 $warning:       $yellow !default;
 $danger:        $red !default;
 $bprim:         $bprim !default;
+$emerald:       $emerald !default;
 $light:         $gray-500 !default;
 $dark:          $gray-900 !default;
 $darker:        darken($gray-900, 15%) !default;
@@ -110,6 +113,7 @@ $theme-colors: map-merge((
   "warning":      $warning,
   "danger":       $danger,
   "bprim":        $bprim,
+  "emerald":      $emerald,
   "white":        $white,
   "neutral":      $white,
   "dark":         $dark,
