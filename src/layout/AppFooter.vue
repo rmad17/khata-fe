@@ -80,12 +80,12 @@
 <script>
 export default {
   name: 'app-footer',
-  data() {
+  data () {
     return {
       year: new Date().getFullYear()
     }
   }
-};
+}
 </script>
 <style>
 </style>

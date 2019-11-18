@@ -1,5 +1,5 @@
 <template>
-    <div class="form-group"
+    <div class='form-group'
          :class="[
        {'input-group': hasIcon},
        {'has-danger': error},
@@ -14,7 +14,6 @@
                 <span v-if="required">*</span>
             </label>
         </slot>
-
         <div v-if="addonLeftIcon || $slots.addonLeft" class="input-group-prepend">
         <span class="input-group-text">
           <slot name="addonLeft">
@@ -51,68 +50,68 @@
 <script>
 export default {
   inheritAttrs: false,
-  name: 'base-input',
+  name: "base-model-input",
   props: {
     required: {
       type: Boolean,
-      description: 'Whether input is required (adds an asterix *)'
+      description: "Whether input is required (adds an asterix *)"
     },
     valid: {
       type: Boolean,
-      description: 'Whether is valid',
+      description: "Whether is valid",
       default: undefined
     },
     label: {
       type: String,
-      description: 'Input label (text before input)'
+      description: "Input label (text before input)"
     },
     error: {
       type: String,
-      description: 'Input error (below input)'
+      description: "Input error (below input)"
     },
     labelClasses: {
       type: String,
-      description: 'Input label css classes'
+      description: "Input label css classes"
     },
     inputClasses: {
       type: String,
-      description: 'Input css classes'
+      description: "Input css classes"
     },
     value: {
       type: [String, Number],
-      description: 'Input value'
+      description: "Input value"
     },
     addonRightIcon: {
       type: String,
-      description: 'Addon right icon'
+      description: "Addon right icon"
     },
     addonLeftIcon: {
       type: String,
-      description: 'Addont left icon'
+      description: "Addont left icon"
     }
   },
-  data () {
+  data() {
     return {
       focused: false
     }
   },
   computed: {
-    listeners () {
+    listeners() {
       return {
         ...this.$listeners,
-        // input: this.updateValue,
+        input: this.updateValue,
         focus: this.onFocus,
         blur: this.onBlur
       }
     },
-    slotData () {
+    slotData() {
       return {
         focused: this.focused,
         ...this.listeners
       }
     },
-    hasIcon () {
-      const { addonRight, addonLeft } = this.$slots
+    hasIcon() {
+      const { addonRight, addonLeft } = this.$slots;
       return (
         addonRight !== undefined ||
         addonLeft !== undefined ||
@@ -122,15 +121,15 @@ export default {
     }
   },
   methods: {
-    // updateValue (event) {
-    //   let value = event.target.value;
-    //   this.$emit("input", event)
-    // },
-    onFocus (value) {
+    updateValue(evt) {
+      let value = evt.target.value
+      this.$emit('input', value)
+    },
+    onFocus(value) {
       this.focused = true
       this.$emit('focus', value)
     },
-    onBlur (value) {
+    onBlur(value) {
       this.focused = false
       this.$emit('blur', value)
     }

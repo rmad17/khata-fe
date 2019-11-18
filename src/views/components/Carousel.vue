@@ -33,15 +33,14 @@
     </section>
 </template>
 <script>
-import {BCarousel} from "bootstrap-vue";
-import {BCarouselSlide} from "bootstrap-vue";
+import { BCarousel, BCarouselSlide } from 'bootstrap-vue'
 
 export default {
   components: {
     BCarousel,
     BCarouselSlide
   }
-};
+}
 </script>
 <style>
 </style>

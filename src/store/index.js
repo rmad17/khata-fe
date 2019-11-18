@@ -13,7 +13,8 @@ export default new Vuex.Store({
   state: {
     profile: {},
     dashboardInfo: {},
-    transactions: {}
+    transaction: {},
+    categories: []
   },
   actions,
   getters,

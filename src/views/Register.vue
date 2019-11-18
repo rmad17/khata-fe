@@ -81,13 +81,13 @@ export default {
   methods: {
     callRegisterAPI: function () {
       var endpoint = 'account/register/'
-      httpRequest(endpoint, 'post', {name: this.name, password: this.password, email: this.email}, {}, this.postRegister)
-  },
-    postRegister: function (){
+      httpRequest(endpoint, 'post', { name: this.name, password: this.password, email: this.email }, {}, this.postRegister)
+    },
+    postRegister: function () {
       this.$router.push('login')
     }
   },
-  data() {
+  data () {
     return {
       model: {
         name: '',
