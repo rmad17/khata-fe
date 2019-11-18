@@ -140,17 +140,7 @@ export default {
     updateProfileData: function () {
       var endpoint = 'account/profile/'
       httpRequest(endpoint, 'put', this.profileData, {}, this.storeProfile)
-    },
-    getProfile: function () {
-      var endpoint = 'account/profile/'
-      httpRequest(endpoint, 'get', {}, {}, this.storeProfile)
-    },
-    storeProfile: function (responseData) {
-      this.$store.dispatch('updateProfile', responseData.data)
     }
-  },
-  mounted () {
-    this.getProfile()
   }
 }
 </script>

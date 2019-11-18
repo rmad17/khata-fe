@@ -31,6 +31,9 @@ import DashboardNavbar from './DashboardNavbar.vue'
 import ContentFooter from './ContentFooter.vue'
 import { FadeTransition } from 'vue2-transitions'
 
+// api
+import { httpRequest } from '../api/index.js'
+
 export default {
   components: {
     DashboardNavbar,
@@ -47,7 +50,17 @@ export default {
       if (this.$sidebar.showSidebar) {
         this.$sidebar.displaySidebar(false)
       }
+    },
+    getProfile: function () {
+      var endpoint = 'account/profile/'
+      httpRequest(endpoint, 'get', {}, {}, this.storeProfile)
+    },
+    storeProfile: function (responseData) {
+      this.$store.dispatch('updateProfile', responseData.data)
     }
+  },
+  mounted () {
+    this.getProfile()
   }
 }
 </script>
