@@ -1,16 +1,15 @@
-<template>
- 
-</template>
+<div>
+</div>
 <script>
-  export default {
-    methods: {
-      logout: function () {
-        localStorage.clear()
-        this.$router.push({ name: 'login' })
-      }
-    },
-    created:function(){
-      this.logout();
+export default {
+  methods: {
+    logout: function () {
+      localStorage.clear()
+      this.$router.push({ name: 'login' })
     }
+  },
+  created: function () {
+    this.logout()
   }
+}
 </script>

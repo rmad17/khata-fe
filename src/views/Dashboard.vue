@@ -232,19 +232,11 @@ export default {
     },
     storeDashboardInfo: function (responseData) {
       this.$store.dispatch('updateDashboardInfo', responseData.data)
-    },
-    getProfile: function () {
-      var endpoint = 'account/profile/'
-      httpRequest(endpoint, 'get', {}, {}, this.storeProfile)
-    },
-    storeProfile: function (responseData) {
-      this.$store.dispatch('updateProfile', responseData.data)
     }
   },
   mounted () {
     this.initBigChart(0)
     this.getDashboardInfo()
-    this.getProfile()
   }
 }
 </script>
