@@ -7,7 +7,7 @@
     >
       <template slot="links">
         <sidebar-item :link="{name: 'Dashboard', icon: 'ni ni-tv-2 text-primary', path: '/dashboard'}"/>
-        <sidebar-item :link="{name: 'Transactions', icon: 'ni ni-key-25 text-info', path: '/login'}"/>
+        <sidebar-item :link="{name: 'Transactions', icon: 'ni ni-key-25 text-info', path: '/transactions'}"/>
         <sidebar-item :link="{name: 'Reports', icon: 'ni ni-bullet-list-67 text-red', path: '/tables'}"/>
         <sidebar-item :link="{name: 'Categories', icon: 'ni ni-single-02 text-yellow', path: '/category'}"/>
         <sidebar-item :link="{name: 'Profile', icon: 'ni ni-single-02 text-yellow', path: '/profile'}"/>
@@ -18,7 +18,6 @@
 
       <div @click="toggleSidebar">
         <fade-transition :duration="200" origin="center top" mode="out-in">
-          <!-- your content here -->
           <router-view></router-view>
         </fade-transition>
         <content-footer v-if="!$route.meta.hideFooter"></content-footer>

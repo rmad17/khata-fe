@@ -158,6 +158,7 @@ import SocialTrafficTable from './Dashboard/SocialTrafficTable'
 import PageVisitsTable from './Dashboard/PageVisitsTable'
 
 export default {
+  name: 'dashboard',
   components: {
     LineChart,
     BarChart,
