@@ -1,5 +1,8 @@
 
 export const mutations = {
+  changeSidebar: function (state, value) {
+    state.showSidebar = value
+  },
   updateProfile: function (state, profile) {
     state.profile = profile.data
   },

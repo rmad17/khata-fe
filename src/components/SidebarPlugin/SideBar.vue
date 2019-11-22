@@ -60,7 +60,7 @@
                 </ul>
             </slot>
             <slot></slot>
-            <div v-show="$sidebar.showSidebar" class="navbar-collapse collapse show" id="sidenav-collapse-main">
+            <div v-show="getSidebar" class="navbar-collapse collapse show" id="sidenav-collapse-main">
 
                 <div class="navbar-collapse-header d-md-none">
                     <div class="row">
@@ -111,6 +111,9 @@
 <script>
 import NavbarToggleButton from '@/components/NavbarToggleButton'
 
+// Vuex
+import { mapActions, mapGetters } from 'vuex'
+
 export default {
   name: 'sidebar',
   components: {
@@ -128,22 +131,29 @@ export default {
       description: 'Whether sidebar should autoclose on mobile when clicking an item'
     }
   },
+  computed: {
+    ...mapGetters([
+      'getSidebar'
+    ])
+  },
   provide () {
     return {
       autoClose: this.autoClose
     }
   },
   methods: {
+    ...mapActions(['changeSidebar'
+    ]),
     closeSidebar () {
-      this.$sidebar.displaySidebar(false)
+      this.changeSidebar(false)
     },
     showSidebar () {
-      this.$sidebar.displaySidebar(true)
+      this.changeSidebar(true)
     }
   },
   beforeDestroy () {
-    if (this.$sidebar.showSidebar) {
-      this.$sidebar.showSidebar = false
+    if (this.getSidebar()) {
+      this.changeSidebar(false)
     }
   }
 }

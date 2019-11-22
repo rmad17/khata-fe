@@ -1,9 +1,9 @@
 <template>
-  <div class="wrapper" :class="{ 'nav-open': $sidebar.showSidebar }">
+  <div class="wrapper" :class="{ 'nav-open': getSidebar }">
     <side-bar
       :background-color="sidebarBackground"
       short-title="Personal Expense Manager"
-      title="Khata"
+      title="Khata" v-if="getSidebar"
     >
       <template slot="links">
         <sidebar-item :link="{name: 'Dashboard', icon: 'ni ni-tv-2 text-primary', path: '/dashboard'}"/>
@@ -33,6 +33,9 @@ import { FadeTransition } from 'vue2-transitions'
 // api
 import { httpRequest } from '../api/index.js'
 
+// Vuex
+import { mapActions, mapGetters } from 'vuex'
+
 export default {
   components: {
     DashboardNavbar,
@@ -44,10 +47,21 @@ export default {
       sidebarBackground: 'vue' // vue|blue|orange|green|red|primary
     }
   },
+  computed: {
+    ...mapGetters([
+    ]),
+    getSidebar: function () {
+      console.log(this.$store)
+      return this.$store.state.showSidebar
+    }
+  },
   methods: {
+    ...mapActions(['changeSidebar'
+    ]),
     toggleSidebar () {
-      if (this.$sidebar.showSidebar) {
-        this.$sidebar.displaySidebar(false)
+      console.log(' Toggle Sidebar invoked !')
+      if (this.$store.state.showSidebar) {
+        this.$store.dispatch('changeSidebar', false)
       }
     },
     getProfile: function () {
