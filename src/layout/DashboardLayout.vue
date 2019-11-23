@@ -1,18 +1,20 @@
 <template>
   <div class="wrapper" :class="{ 'nav-open': getSidebar }">
-    <side-bar
-      :background-color="sidebarBackground"
-      short-title="Personal Expense Manager"
-      title="Khata" v-if="getSidebar"
-    >
-      <template slot="links">
-        <sidebar-item :link="{name: 'Dashboard', icon: 'ni ni-tv-2 text-primary', path: '/dashboard'}"/>
-        <sidebar-item :link="{name: 'Transactions', icon: 'ni ni-key-25 text-info', path: '/transactions'}"/>
-        <sidebar-item :link="{name: 'Reports', icon: 'ni ni-bullet-list-67 text-red', path: '/tables'}"/>
-        <sidebar-item :link="{name: 'Categories', icon: 'ni ni-single-02 text-yellow', path: '/category'}"/>
-        <sidebar-item :link="{name: 'Profile', icon: 'ni ni-single-02 text-yellow', path: '/profile'}"/>
-      </template>
-    </side-bar>
+    <transition name="drawer">
+      <side-bar
+        :background-color="sidebarBackground"
+        short-title="Personal Expense Manager"
+        title="Khata" v-if="getSidebar"
+      >
+        <template slot="links">
+          <sidebar-item :link="{name: 'Dashboard', icon: 'ni ni-tv-2 text-primary', path: '/dashboard'}"/>
+          <sidebar-item :link="{name: 'Transactions', icon: 'ni ni-key-25 text-info', path: '/transactions'}"/>
+          <sidebar-item :link="{name: 'Reports', icon: 'ni ni-bullet-list-67 text-red', path: '/tables'}"/>
+          <sidebar-item :link="{name: 'Categories', icon: 'ni ni-single-02 text-yellow', path: '/category'}"/>
+          <sidebar-item :link="{name: 'Profile', icon: 'ni ni-single-02 text-yellow', path: '/profile'}"/>
+        </template>
+      </side-bar>
+    </transition>
     <div class="main-content" :data="sidebarBackground">
       <dashboard-navbar></dashboard-navbar>
 
@@ -51,7 +53,6 @@ export default {
     ...mapGetters([
     ]),
     getSidebar: function () {
-      console.log(this.$store)
       return this.$store.state.showSidebar
     }
   },
@@ -59,7 +60,6 @@ export default {
     ...mapActions(['changeSidebar'
     ]),
     toggleSidebar () {
-      console.log(' Toggle Sidebar invoked !')
       if (this.$store.state.showSidebar) {
         this.$store.dispatch('changeSidebar', false)
       }
@@ -78,4 +78,12 @@ export default {
 }
 </script>
 <style lang="scss">
+.drawer-enter { opacity: 0.3 }
+.drawer-leave-to { opacity: 0 }
+
+.drawer-leave { opacity: 0.7 }
+.drawer-enter-to { opacity: 1 }
+
+.drawer-enter-active { opacity: 0.7 }
+.drawer-leave-active { transition: opacity 300ms;  opacity: 0.3 }
 </style>

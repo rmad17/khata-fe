@@ -12,12 +12,11 @@
                     <!-- {{$route.name}} -->
                 </router-link>
             </slot>
-            <navbar-toggle-button v-if="showToggleButton"
-                                  :toggled="toggled"
-                                  :target="contentId"
-                                  @click.native.stop="toggled = !toggled">
-                <span class="navbar-toggler-icon"></span>
-            </navbar-toggle-button>
+            <transition name="menu">
+              <span v-if="getSidebar" @click="showSidebar">
+                <font-awesome-icon size="lg" icon="bars"></font-awesome-icon>
+              </span>
+            </transition>
 
             <div class="collapse navbar-collapse"
                  :class="{show: toggled}"
@@ -30,13 +29,12 @@
     </nav>
 </template>
 <script>
-import NavbarToggleButton from './NavbarToggleButton'
+
+// Vuex
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'base-nav',
-  components: {
-    NavbarToggleButton
-  },
   props: {
     type: {
       type: String,
@@ -78,12 +76,39 @@ export default {
       toggled: false
     }
   },
+  computed: {
+    getSidebar: function () {
+      if (!this.$store.state.showSidebar) {
+        return true
+      }
+      return false
+    }
+  },
   methods: {
+    ...mapGetters([
+      'getSidebar'
+    ]),
+    ...mapActions(['changeSidebar'
+    ]),
     closeMenu () {
       this.toggled = false
+    },
+    closeSidebar () {
+      this.changeSidebar(false)
+    },
+    showSidebar () {
+      this.changeSidebar(true)
     }
   }
 }
 </script>
 <style>
+.menu-enter { opacity: 0.3 }
+.menu-leave-to { opacity: 0 }
+
+.menu-leave { opacity: 0.2 }
+.menu-enter-to { opacity: 1 }
+
+.menu-enter-active { opacity: 0.7 }
+.menu-leave-active { transition: opacity 300ms;  opacity: 0.6 }
 </style>

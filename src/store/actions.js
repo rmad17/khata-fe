@@ -1,9 +1,6 @@
 export default {
   changeSidebar: function ({ commit }, value) {
-    commit('changeSidebar', {
-      value,
-      done: true
-    })
+    commit('changeSidebar', value)
   },
   updateProfile: function ({ commit }, data) {
     commit('updateProfile', {

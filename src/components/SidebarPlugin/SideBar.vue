@@ -1,11 +1,9 @@
 <template>
-    <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
+    <nav class="shadow-lg border navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
         <div class="container-fluid">
 
             <!--Toggler-->
-            <navbar-toggle-button @click.native="showSidebar">
-                <span class="navbar-toggler-icon"></span>
-            </navbar-toggle-button>
+            <span  @click="closeSidebar"><font-awesome-icon  size="lg" icon="bars"></font-awesome-icon></span>
             <router-link class="navbar-brand" to="/">
                 <img :src="logo" class="navbar-brand-img" alt="...">
             </router-link>
@@ -122,7 +120,7 @@ export default {
   props: {
     logo: {
       type: String,
-      default: 'img/brand/green.png',
+      default: 'img/brand/blue.png',
       description: 'Sidebar app logo'
     },
     autoClose: {
@@ -145,6 +143,7 @@ export default {
     ...mapActions(['changeSidebar'
     ]),
     closeSidebar () {
+      console.log('closing sidebar')
       this.changeSidebar(false)
     },
     showSidebar () {
@@ -152,7 +151,7 @@ export default {
     }
   },
   beforeDestroy () {
-    if (this.getSidebar()) {
+    if (this.$store.state.showSidebar) {
       this.changeSidebar(false)
     }
   }
