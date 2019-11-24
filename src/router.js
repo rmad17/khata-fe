@@ -18,7 +18,7 @@ export default new Router({
           // route level code-splitting
           // this generates a separate chunk (about.[hash].js) for this route
           // which is lazy-loaded when the route is visited.
-          component: () => import('./views/Dashboard.vue')
+          component: () => import(/* webpackChunkName: "demo" */ './views/Dashboard.vue')
         },
         {
           path: '/icons',
@@ -44,6 +44,11 @@ export default new Router({
           path: '/tables',
           name: 'tables',
           component: () => import(/* webpackChunkName: "demo" */ './views/Tables.vue')
+        },
+        {
+          path: '/transactions',
+          name: 'transactions',
+          component: () => import(/* webpackChunkName: "demo" */ './views/Transactions.vue')
         }
       ]
     },

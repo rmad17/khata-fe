@@ -1,11 +1,9 @@
 <template>
-    <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
+    <nav class="shadow-lg border navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
         <div class="container-fluid">
 
             <!--Toggler-->
-            <navbar-toggle-button @click.native="showSidebar">
-                <span class="navbar-toggler-icon"></span>
-            </navbar-toggle-button>
+            <span  @click="closeSidebar"><font-awesome-icon  size="lg" icon="bars"></font-awesome-icon></span>
             <router-link class="navbar-brand" to="/">
                 <img :src="logo" class="navbar-brand-img" alt="...">
             </router-link>
@@ -60,7 +58,7 @@
                 </ul>
             </slot>
             <slot></slot>
-            <div v-show="$sidebar.showSidebar" class="navbar-collapse collapse show" id="sidenav-collapse-main">
+            <div v-show="getSidebar" class="navbar-collapse collapse show" id="sidenav-collapse-main">
 
                 <div class="navbar-collapse-header d-md-none">
                     <div class="row">
@@ -111,6 +109,9 @@
 <script>
 import NavbarToggleButton from '@/components/NavbarToggleButton'
 
+// Vuex
+import { mapActions, mapGetters } from 'vuex'
+
 export default {
   name: 'sidebar',
   components: {
@@ -119,7 +120,7 @@ export default {
   props: {
     logo: {
       type: String,
-      default: 'img/brand/green.png',
+      default: 'img/brand/blue.png',
       description: 'Sidebar app logo'
     },
     autoClose: {
@@ -128,22 +129,30 @@ export default {
       description: 'Whether sidebar should autoclose on mobile when clicking an item'
     }
   },
+  computed: {
+    ...mapGetters([
+      'getSidebar'
+    ])
+  },
   provide () {
     return {
       autoClose: this.autoClose
     }
   },
   methods: {
+    ...mapActions(['changeSidebar'
+    ]),
     closeSidebar () {
-      this.$sidebar.displaySidebar(false)
+      console.log('closing sidebar')
+      this.changeSidebar(false)
     },
     showSidebar () {
-      this.$sidebar.displaySidebar(true)
+      this.changeSidebar(true)
     }
   },
   beforeDestroy () {
-    if (this.$sidebar.showSidebar) {
-      this.$sidebar.showSidebar = false
+    if (this.$store.state.showSidebar) {
+      this.changeSidebar(false)
     }
   }
 }

@@ -14,6 +14,9 @@
     </li>
 </template>
 <script>
+// Vuex
+import { mapActions } from 'vuex'
+
 export default {
   name: 'sidebar-item',
   props: {
@@ -42,13 +45,14 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['changeSidebar'
+    ]),
     linkClick () {
       if (
         this.autoClose &&
-          this.$sidebar &&
-          this.$sidebar.showSidebar === true
+          this.$store.getters.getSidebar() === true
       ) {
-        this.$sidebar.displaySidebar(false)
+        this.changeSidebar(false)
       }
     }
   }

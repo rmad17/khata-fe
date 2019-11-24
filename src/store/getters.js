@@ -1,5 +1,7 @@
 export default {
-
+  getSidebar: function (state) {
+    return state.showSidebar
+  },
   getProfile: function (state) {
     return state.profile
   },

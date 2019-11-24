@@ -1,4 +1,7 @@
 export default {
+  changeSidebar: function ({ commit }, value) {
+    commit('changeSidebar', value)
+  },
   updateProfile: function ({ commit }, data) {
     commit('updateProfile', {
       data,
@@ -17,4 +20,4 @@ export default {
       done: false
     })
   }
- }
+}
