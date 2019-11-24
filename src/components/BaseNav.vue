@@ -31,7 +31,7 @@
 <script>
 
 // Vuex
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'base-nav',
@@ -85,9 +85,6 @@ export default {
     }
   },
   methods: {
-    ...mapGetters([
-      'getSidebar'
-    ]),
     ...mapActions(['changeSidebar'
     ]),
     closeMenu () {
@@ -103,12 +100,12 @@ export default {
 }
 </script>
 <style>
-.menu-enter { opacity: 0.3 }
+.menu-enter { opacity: 0.5 }
 .menu-leave-to { opacity: 0 }
 
 .menu-leave { opacity: 0.2 }
 .menu-enter-to { opacity: 1 }
 
 .menu-enter-active { opacity: 0.7 }
-.menu-leave-active { transition: opacity 300ms;  opacity: 0.6 }
+.menu-leave-active { opacity: 0.8 }
 </style>
