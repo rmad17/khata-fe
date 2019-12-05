@@ -1,4 +1,7 @@
 import Axios from 'axios'
+
+import Router from '../router'
+
 const baseURL = 'http://localhost:5000/'
 
 export function httpRequest (endpoint, method, data, headers = {}, callback = null) {
@@ -13,10 +16,17 @@ export function httpRequest (endpoint, method, data, headers = {}, callback = nu
     data: data,
     headers: headers
   })
-    .then(function (response) {
+    .then(response => {
       if (callback) {
         callback(response.data)
       }
       return response.data
+    })
+    .catch(error => {
+      let response = error.response
+      if (response && response.status === 401 && response.data.message === 'access permission has expired') {
+        Router.push('login')
+        localStorage.clear()
+      }
     })
 }
