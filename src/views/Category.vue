@@ -47,6 +47,10 @@
                                         placeholder="Description"
                                         v-model="newTag.description">
                     </base-model-input>
+                    <base-model-input class="input-group-alternative mb-3"
+                                        placeholder="Text to match with transaction description"
+                                        v-model="newTag.text">
+                    </base-model-input>
                     <b-button class="mt-3 shadow" variant="danger" square @click="$bvModal.hide('tag-add-modal-' + category.id)">Cancel</b-button>
                     <b-button class="mt-3 shadow" variant="success" square @keyup.enter.native="addNewTag()" @click="addNewTag()">Create</b-button>
                   </b-modal>
@@ -77,6 +81,10 @@
                                 <base-model-input class="input-group-alternative mb-3"
                                                     placeholder="Description"
                                                     v-model="updatedTag.description">
+                                </base-model-input>
+                                <base-model-input class="input-group-alternative mb-3"
+                                                    placeholder="Text to match with transaction description"
+                                                    v-model="updatedTag.text">
                                 </base-model-input>
                                 <b-button class="mt-3 shadow" variant="danger" square @click="$bvModal.hide('tag-edit-modal-' + tag.id)">Cancel</b-button>
                                 <b-button class="mt-3 shadow" variant="success" square @keyup.enter.native="updateTag(tag)" @click="updateTag(tag)">Update</b-button>
@@ -128,12 +136,14 @@ export default {
         category_id: '',
         tag_id: '',
         name: '',
-        description: ''
+        description: '',
+        text: ''
       },
       newTag: {
         category_id: '',
         name: '',
-        description: ''
+        description: '',
+        text: ''
       }
     }
   },
@@ -180,6 +190,7 @@ export default {
       this.updatedTag.tag_id = tag.id
       this.updatedTag.name = tag.name
       this.updatedTag.description = tag.description
+      this.updatedTag.text = tag.text
       this.$bvModal.show(id)
     },
     delTag: function (tag) {
