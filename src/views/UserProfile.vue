@@ -132,9 +132,7 @@ export default {
       'updateProfile'
     ]),
     updateProfileStore: function (event) {
-      let data = { 'data': {} }
       this.profileData[event.target.name] = event.target.value
-      data['data'] = this.profileData
       this.updateProfile(this.profileData)
     },
     updateProfileData: function () {

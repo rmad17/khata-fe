@@ -17,7 +17,7 @@
                 </b-form-file>
               </b-form-group>
               <b-form-group>
-                <b-form-select required size="2" v-model="selected" :options="options"></b-form-select>
+                <b-form-select required size="2" v-model="selected" :options="options.possible_banks"></b-form-select>
               </b-form-group>
               <b-button :disabled="disableSubmit" type="submit" variant="success">Submit</b-button>
               <b-button type="reset" variant="danger">Reset</b-button>
@@ -26,6 +26,50 @@
         </base-header>
          <div class="container-fluid card shadow" :class="type === 'dark' ? 'bg-default': ''">
           <!-- <b-table class="" striped responsive hover :items="transactionDetails" :fields="fields"></b-table> -->
+          <b-container fluid>
+            <b-row class="my-1">
+              <b-col sm="2">
+                <label :for="txn-type">Transaction Type</label>
+              </b-col>
+              <b-col sm="3">
+                <b-form-input :id="txn-type" :type="text"></b-form-input>
+              </b-col>
+              <b-col sm="2">
+                <label :for="bank-name">Bank Name</label>
+              </b-col>
+              <b-col sm="3">
+                <b-form-input :id="bank-name" :type="text"></b-form-input>
+              </b-col>
+            </b-row>
+            <b-row class="my-1">
+              <b-col sm="2">
+                <label :for="min-amt"> Min Amount</label>
+              </b-col>
+              <b-col sm="3">
+                <b-form-input :id="min-amt" :type="text"></b-form-input>
+              </b-col>
+              <b-col sm="2">
+                <label :for="max-amt">Max Amount</label>
+              </b-col>
+              <b-col sm="3">
+                <b-form-input :id="max-amt" :type="text"></b-form-input>
+              </b-col>
+            </b-row>
+            <b-row class="my-1">
+              <b-col sm="2">
+                <label :for="start-date">Start Date</label>
+              </b-col>
+              <b-col sm="3">
+                <b-form-input :id="start-date" type="date"></b-form-input>
+              </b-col>
+              <b-col sm="2">
+                <label :for="end-date">End Date</label>
+              </b-col>
+              <b-col sm="3">
+                <b-form-input :id="end-date" type="date"></b-form-input>
+              </b-col>
+            </b-row>
+          </b-container>
           <div class="table-responsive" v-for="transactionDetail in transactionDetails" :key=transactionDetail.name>
             <div class="card-header border-0"
               :class="type === 'dark' ? 'bg-transparent': ''">
@@ -41,6 +85,7 @@
                   :class="type === 'dark' ? 'table-dark': ''"
                   :thead-classes="type === 'dark' ? 'thead-dark': 'thead-light'"
                   tbody-classes="list"
+                  :filter="filter"
                   :data="transactionDetail.transactions">
               <template slot="columns">
                 <th>Transaction Date</th>
@@ -49,6 +94,7 @@
                 <th>Description</th>
                 <th>Transaction Number</th>
                 <th>Balance</th>
+                <th>Category</th>
               </template>
               <template slot-scope="{row}">
                 <td class="budget">
@@ -69,6 +115,9 @@
                 <td>
                   {{ row.balance }}
                 </td>
+                <td>
+                  {{ row.category }}
+                </td>
               </template>
             </base-table>
           </div>
@@ -84,30 +133,40 @@ export default {
   name: 'transactions',
   filters: {
     bankNames: function (value) {
-      let bankNamesMap = {
-        'hdfc': 'HDFC Bank',
-        'kotak': 'Kotak Mahindra Bank'
+      const bankNamesMap = {
+        hdfc: 'HDFC Bank',
+        kotak: 'Kotak Mahindra Bank'
       }
       return bankNamesMap[value] || value
     },
     transactionType: function (value) {
-      let transactionTypeMap = {
-        '1': 'Credit',
-        '2': 'Debit'
+      const transactionTypeMap = {
+        1: 'Credit',
+        2: 'Debit'
       }
       return transactionTypeMap[value.toString()] || ''
     }
   },
   data () {
     return {
+      filter: {
+        bank: null
+      },
       disableSubmit: false,
       file: null,
       selected: null,
-      options: [
-        { value: null, text: 'Please select an option' },
-        { value: 'kotak', text: 'Kotak Mahindra Bank' },
-        { value: 'hdfc', text: 'HDFC Bank' }
-      ],
+      options: {
+        possible_banks: [
+          { value: null, text: 'Please select an option' },
+          { value: 'kotak', text: 'Kotak Mahindra Bank' },
+          { value: 'hdfc', text: 'HDFC Bank' }
+        ],
+        filter_bank: [
+          { value: null, text: 'Please select an option' },
+          { value: 'hdfc', text: 'HDFC' },
+          { value: 'kotak', text: 'Kotak Mahindra' }
+        ]
+      },
       transactionDetails: [],
       type: 'light'
     }
@@ -121,11 +180,11 @@ export default {
     },
     onSubmit: function () {
       this.disableSubmit = true
-      let endpoint = 'statement/upload/'
-      let formData = new FormData()
+      const endpoint = 'statement/upload/'
+      const formData = new FormData()
       formData.append('bank_name', this.selected)
       formData.append('statement', this.file)
-      let headers = { 'Content-Type': 'multipart/form-data' }
+      const headers = { 'Content-Type': 'multipart/form-data' }
       this.onReset()
       httpRequest(endpoint, 'post', formData, headers, this.postSubmit)
     },
@@ -134,13 +193,13 @@ export default {
       this.disableSubmit = false
     },
     fetchTransactions: function () {
-      let endpoint = 'statement/transactions/'
+      const endpoint = 'statement/transactions/'
       httpRequest(endpoint, 'get', {}, {}, this.postTransactions)
     },
     postTransactions: function (responseData) {
       this.transactionDetails = []
-      for (let k in responseData.data) {
-        this.transactionDetails.push({ 'name': k, 'transactions': responseData.data[k] })
+      for (const k in responseData.data) {
+        this.transactionDetails.push({ name: k, transactions: responseData.data[k] })
       }
     }
   },
