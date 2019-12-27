@@ -102,7 +102,7 @@
                             </b-card-header>
                             <b-collapse :id="'tag-accordion-' + tag.id" accordion="tag-accordion" role="tabpanel">
                               <b-card-body>
-                                <b-card-text class="tag-desc-text">{{ tag.description }}</b-card-text>
+                                <b-card-text class="tag-desc-text"> {{ tag.text }}</b-card-text>
                               </b-card-body>
                             </b-collapse>
                           </b-card>
@@ -202,7 +202,7 @@ export default {
       this.$bvModal.hide(id)
       var endpoint = 'statement/tag/'
       httpRequest(endpoint, 'put', this.updatedTag, {}, this.postUpdate)
-      this.updatedTag = { category_id: '', tag_id: '', name: '', description: '' }
+      this.updatedTag = { category_id: '', tag_id: '', name: '', description: '', text: '' }
     },
     openAddTagModal: function (category) {
       let id = 'tag-add-modal-' + category.id
