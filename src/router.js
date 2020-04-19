@@ -41,9 +41,9 @@ export default new Router({
           component: () => import(/* webpackChunkName: "demo" */ './views/Category.vue')
         },
         {
-          path: '/tables',
-          name: 'tables',
-          component: () => import(/* webpackChunkName: "demo" */ './views/Tables.vue')
+          path: '/reports',
+          name: 'reports',
+          component: () => import(/* webpackChunkName: "demo" */ './views/Reports.vue')
         },
         {
           path: '/transactions',
@@ -71,8 +71,7 @@ export default new Router({
           path: '/register',
           name: 'register',
           component: () => import(/* webpackChunkName: "demo" */ './views/Register.vue')
-        },
-        
+        }
       ]
     }
   ]

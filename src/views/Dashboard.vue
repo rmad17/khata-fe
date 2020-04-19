@@ -4,17 +4,19 @@
             <!-- Card stats -->
             <div class="row">
                 <div class="col-xl-3 col-lg-6">
-                    <stats-card title="Transactions"
-                                type="gradient-purple"
-                                :sub-title=dashboardInfoData.total_transactions
-                                icon="ni ni-chart-bar-32"
-                                class="mb-4 mb-xl-0"
-                    >
+                  <router-link to="/transactions">
+                    <stats-card
+                      title="Transactions"
+                      type="gradient-purple"
+                      :sub-title=dashboardInfoData.total_transactions
+                      icon="ni ni-chart-bar-32"
+                      class="mb-4 mb-xl-0">
                         <template slot="footer">
                             <span class="text-success mr-2"><i class="fa fa-arrow-up"></i></span>
                             <span class="text-nowrap">Since last month</span>
                         </template>
                     </stats-card>
+                  </router-link>
                 </div>
                 <div class="col-xl-3 col-lg-6">
                     <stats-card title="Total Credit"
@@ -205,7 +207,7 @@ export default {
   },
   methods: {
     initBigChart (index) {
-      let chartData = {
+      const chartData = {
         datasets: [
           {
             backgroundColor: '#f35284',
