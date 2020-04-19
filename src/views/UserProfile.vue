@@ -18,28 +18,6 @@
 
         <div class="container-fluid mt--7">
             <div class="row">
-                <!-- <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
-
-                    <div class="card card-profile shadow">
-                        <div class="row justify-content-center">
-                            <div class="col-lg-3 order-lg-2">
-                                <div class="card-profile-image rounded-circle">
-                                    <v-gravatar :email=profileData.email />
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
-                        </div>
-                        <div class="card-body pt-0 pt-md-4">
-                            <div class="text-center">
-                                <h3>
-                                    {{ profileData.first_name }} {{ profileData.last_name }}
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-
                 <div class="col-xl-12 order-xl-2">
                     <card shadow type="secondary">
                         <div slot="header" class="bg-white border-0">
