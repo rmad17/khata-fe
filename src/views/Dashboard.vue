@@ -13,7 +13,7 @@
                       class="mb-4 mb-xl-0">
                         <template slot="footer">
                             <span class="text-success mr-2"><i class="fa fa-arrow-up"></i></span>
-                            <span class="text-nowrap">Since last month</span>
+                            <span class="text-nowrap text-gray font-weight-400">Since last month</span>
                         </template>
                     </stats-card>
                   </router-link>
