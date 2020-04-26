@@ -120,7 +120,7 @@
               </div>
             </b-tab>
             <b-tab title="Visualisation">
-              <b-card-text>Tab contents 2</b-card-text>
+              <visualisation></visualisation>
             </b-tab>
           </b-tabs>
         </b-card>
@@ -132,8 +132,12 @@
 // api
 import { httpRequest } from '../api/index.js'
 
+// Child Components
+import Visualisation from './Visualisation'
+
 export default {
   name: 'reports',
+  components: { Visualisation },
   filters: {
     bankNames: function (value) {
       const bankNamesMap = {
