@@ -61,58 +61,69 @@
             </b-row>
           </b-container>
         </base-header>
-        <div class="container-fluid card shadow" :class="type === 'dark' ? 'bg-default': ''">
-          <div class="table-responsive" v-for="transactionDetail in transactionDetails" :key=transactionDetail.name>
-            <div class="card-header border-0"
-              :class="type === 'dark' ? 'bg-transparent': ''">
-              <div class="row align-items-center">
-                <div class="col">
-                  <h3 class="mb-0" :class="type === 'dark' ? 'text-white': ''">
-                    {{ transactionDetail.name | bankNames }}
-                  </h3>
+        <div>
+          <b-card no-body>
+          <b-tabs class="" align="center" pills card>
+            <b-tab title="Transactions" active>
+              <div class="container-fluid shadow" :class="type === 'dark' ? 'bg-default': ''">
+                <div class="table-responsive" v-for="transactionDetail in transactionDetails" :key=transactionDetail.name>
+                  <div class="card-header border-0"
+                    :class="type === 'dark' ? 'bg-transparent': ''">
+                    <div class="row align-items-center">
+                      <div class="col">
+                        <h3 class="mb-0" :class="type === 'dark' ? 'text-white': ''">
+                          {{ transactionDetail.name | bankNames }}
+                        </h3>
+                      </div>
+                    </div>
+                  </div>
+                  <base-table class="table align-items-center table-flush"
+                    :class="type === 'dark' ? 'table-dark': ''"
+                    :thead-classes="type === 'dark' ? 'thead-dark': 'thead-light'"
+                    tbody-classes="list"
+                    :filter="filter"
+                    :data="transactionDetail.transactions">
+                    <template slot="columns">
+                      <th>Transaction Date</th>
+                      <th>Amount</th>
+                      <th>Transaction Type</th>
+                      <th>Balance</th>
+                      <th>Category</th>
+                      <th>Transaction Number</th>
+                      <th>Description</th>
+                    </template>
+                    <template slot-scope="{row}">
+                      <td class="budget">
+                        {{ row.transaction_date }}
+                      </td>
+                      <td>
+                        {{ row.amount }}
+                      </td>
+                      <td>
+                        {{ row.transaction_type | transactionType }}
+                      </td>
+                      <td>
+                        {{ row.balance }}
+                      </td>
+                      <td>
+                        {{ row.category }}
+                      </td>
+                      <td>
+                        {{ row.transaction_no }}
+                      </td>
+                      <td>
+                        {{ row.description }}
+                      </td>
+                    </template>
+                  </base-table>
                 </div>
               </div>
-            </div>
-            <base-table class="table align-items-center table-flush"
-                  :class="type === 'dark' ? 'table-dark': ''"
-                  :thead-classes="type === 'dark' ? 'thead-dark': 'thead-light'"
-                  tbody-classes="list"
-                  :filter="filter"
-                  :data="transactionDetail.transactions">
-              <template slot="columns">
-                <th>Transaction Date</th>
-                <th>Amount</th>
-                <th>Transaction Type</th>
-                <th>Balance</th>
-                <th>Category</th>
-                <th>Transaction Number</th>
-                <th>Description</th>
-              </template>
-              <template slot-scope="{row}">
-                <td class="budget">
-                  {{ row.transaction_date }}
-                </td>
-                <td>
-                  {{ row.amount }}
-                </td>
-                <td>
-                  {{ row.transaction_type | transactionType }}
-                </td>
-                <td>
-                  {{ row.balance }}
-                </td>
-                <td>
-                  {{ row.category }}
-                </td>
-                <td>
-                  {{ row.transaction_no }}
-                </td>
-                <td>
-                  {{ row.description }}
-                </td>
-              </template>
-            </base-table>
-          </div>
+            </b-tab>
+            <b-tab title="Visualisation">
+              <b-card-text>Tab contents 2</b-card-text>
+            </b-tab>
+          </b-tabs>
+        </b-card>
         </div>
     </div>
 </template>
