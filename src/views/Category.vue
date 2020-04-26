@@ -153,15 +153,15 @@ export default {
     ...mapActions(['updateCategory'
     ]),
     getCategories: function () {
-      var endpoint = 'statement/category/all/'
+      const endpoint = 'statement/category/all/'
       httpRequest(endpoint, 'get', {}, {}, this.fetchCategories)
     },
     fetchCategories: function (responseData) {
       this.categories = [...responseData.data]
-      this.$store.dispatch('updateCategories', responseData.data)
+      // this.$store.dispatch('updateCategories', responseData.data)
     },
     openEditCategoryModal: function (category) {
-      let id = 'category-edit-modal-' + category.id
+      const id = 'category-edit-modal-' + category.id
       this.updatedCategory.category_id = category.id
       this.updatedCategory.name = category.name
       this.updatedCategory.description = category.description
@@ -172,20 +172,20 @@ export default {
       httpRequest(endpoint, 'delete', { category_id: category.id }, {}, this.postUpdate)
     },
     updateCategory: function (category) {
-      let id = 'category-edit-modal-' + category.id
+      const id = 'category-edit-modal-' + category.id
       this.$bvModal.hide(id)
       var endpoint = 'statement/category/'
       httpRequest(endpoint, 'put', this.updatedCategory, {}, this.postUpdate)
       this.updatedCategory = { category_id: '', name: '', description: '' }
     },
     addNewCategory: function () {
-      let name = this.newCategory
+      const name = this.newCategory
       this.newCategory = ''
       var endpoint = 'statement/category/'
       httpRequest(endpoint, 'post', { name: name }, {}, this.postUpdate)
     },
     openEditTagModal: function (tag, category) {
-      let id = 'tag-edit-modal-' + tag.id
+      const id = 'tag-edit-modal-' + tag.id
       this.updatedTag.category_id = category.id
       this.updatedTag.tag_id = tag.id
       this.updatedTag.name = tag.name
@@ -198,20 +198,20 @@ export default {
       httpRequest(endpoint, 'delete', { tag_id: tag.id }, {}, this.postUpdate)
     },
     updateTag: function (tag) {
-      let id = 'tag-edit-modal-' + tag.id
+      const id = 'tag-edit-modal-' + tag.id
       this.$bvModal.hide(id)
       var endpoint = 'statement/tag/'
       httpRequest(endpoint, 'put', this.updatedTag, {}, this.postUpdate)
       this.updatedTag = { category_id: '', tag_id: '', name: '', description: '', text: '' }
     },
     openAddTagModal: function (category) {
-      let id = 'tag-add-modal-' + category.id
+      const id = 'tag-add-modal-' + category.id
       this.newTag.category_id = category.id
       this.$bvModal.show(id)
     },
     addNewTag: function () {
-      let newTag = this.newTag
-      let id = 'tag-add-modal-' + newTag.category_id
+      const newTag = this.newTag
+      const id = 'tag-add-modal-' + newTag.category_id
       if (!newTag.name || !newTag.description) {
         return
       }
