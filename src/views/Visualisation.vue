@@ -11,6 +11,10 @@ export default {
       chartdata: {}
     }
   },
+  methods: {
+    monthly_credit_debit: function () {
+    }
+  },
   mounted () {
     this.renderChart(this.chartdata, this.options)
   }

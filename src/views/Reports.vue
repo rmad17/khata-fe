@@ -129,6 +129,11 @@
 </template>
 <script>
 
+var moment = require('moment-timezone')
+var a = moment.tz('2013-11-18 11:55', 'Asia/Kolkata')
+console.log('Month: ')
+console.log(a.month)
+
 // api
 import { httpRequest } from '../api/index.js'
 
