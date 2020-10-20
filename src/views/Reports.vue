@@ -125,20 +125,20 @@
           </b-tabs>
         </b-card>
         </div>
+        <!-- <visualisation></visualisation> -->
     </div>
 </template>
 <script>
-
-var moment = require('moment-timezone')
-var a = moment.tz('2013-11-18 11:55', 'Asia/Kolkata')
-console.log('Month: ')
-console.log(a.month)
-
 // api
 import { httpRequest } from '../api/index.js'
 
 // Child Components
 import Visualisation from './Visualisation'
+
+var moment = require('moment-timezone')
+var a = moment.tz('2013-11-18 11:55', 'Asia/Kolkata')
+console.log('Month: ')
+console.log(a.month)
 
 export default {
   name: 'reports',
