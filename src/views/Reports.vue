@@ -125,7 +125,7 @@
           </b-tabs>
         </b-card>
         </div>
-        <!-- <visualisation></visualisation> -->
+        <visualisation></visualisation>
     </div>
 </template>
 <script>

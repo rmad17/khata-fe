@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <line-chart
+      :height="350"
       :chart-data="chartData"
       :options="options"/>
   </div>
@@ -29,7 +30,7 @@ export default {
         datasets: [
           {
             label: 'Data One',
-            backgroundColor: '#ff87979',
+            backgroundColor: '#2685c4',
             data: [40, 20, 35, 42, 17, 27]
           }
         ]
