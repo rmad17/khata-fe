@@ -21,6 +21,7 @@ export default {
   name: 'visualisation',
   data () {
     return {
+      transactionsData: this.transactions,
       chartData: {
         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
         datasets: [
@@ -29,8 +30,6 @@ export default {
             backgroundColor: '#5ac18e',
             data: [40, 20, 35, 42, 17, 27],
             borderWidth: 1,
-            // barThickness: 20,
-            // barPercentage: 0.8,
             categoryPercentage: 0.4,
             pointBorderColor: 'white',
             borderColor: 'transparent'
@@ -40,8 +39,6 @@ export default {
             backgroundColor: '#d0465e',
             data: [30, 30, 55, 22, 57, 7],
             borderWidth: 1,
-            // barThickness: 20,
-            // barPercentage: 0.8,
             categoryPercentage: 0.4,
             pointBorderColor: 'white',
             borderColor: 'transparent'
@@ -59,7 +56,7 @@ export default {
           }],
           xAxes: [{
             gridLines: {
-              display: true
+              display: false
             }
           }]
         },
@@ -81,10 +78,27 @@ export default {
       }
     }
   },
+  props: {
+    transactions: {
+      type: Array,
+      default: () => [],
+      description: 'Transactions Data'
+    }
+  },
   methods: {
-    monthly_credit_debit: function () {}
+    monthly_credit_debit: function () {
+      console.log('Hello')
+      console.log(this.transactions)
+    }
+  },
+  watch: {
+    transactions: function () {
+      this.transactionsData = this.transactions
+      this.monthly_credit_debit()
+    }
   },
   mounted () {
+    this.monthly_credit_debit()
     this.renderChart(this.chartData, this.options)
   }
 }

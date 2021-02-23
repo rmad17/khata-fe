@@ -121,7 +121,9 @@
               </b-tab>
               <b-tab title="Visualisation" active>
                 <div class="container-fluid">
-                  <visualisation></visualisation>
+                  <visualisation
+                    :transactions="transactionDetails"
+                  ></visualisation>
                 </div>
               </b-tab>
             </b-tabs>
@@ -136,10 +138,10 @@ import { httpRequest } from '../api/index.js'
 // Child Components
 import Visualisation from './Visualisation'
 
-var moment = require('moment-timezone')
-var a = moment.tz('2013-11-18 11:55', 'Asia/Kolkata')
-console.log('Month: ')
-console.log(a.month)
+// var moment = require('moment-timezone')
+// var a = moment.tz('2013-11-18 11:55', 'Asia/Kolkata')
+// console.log('Month: ')
+// console.log(a.month)
 
 export default {
   name: 'reports',
@@ -215,7 +217,7 @@ export default {
       if (this.endDate) {
         params += '&end_date=' + this.endDate
       }
-      const endpoint = 'statement/reports/category/' + params
+      const endpoint = 'statement/reports/transactions/' + params
       const headers = { 'Content-Type': 'multipart/form-data' }
       httpRequest(endpoint, 'get', null, headers, this.postSubmit)
     },
