@@ -9,6 +9,9 @@
 </template>
 -->
 <script>
+
+import { httpRequest } from '../api/index.js'
+
 // Charts
 import Chart from 'chart.js'
 import { Bar } from 'vue-chartjs'
@@ -21,9 +24,9 @@ export default {
   name: 'visualisation',
   data () {
     return {
-      transactionsData: this.transactions,
+      urlParams: this.params,
+      graphData: {},
       chartData: {
-        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
         datasets: [
           {
             label: 'Credit',
@@ -78,28 +81,37 @@ export default {
       }
     }
   },
-  props: {
-    transactions: {
-      type: Array,
-      default: () => [],
-      description: 'Transactions Data'
-    }
-  },
+  props: ['params'],
   methods: {
-    monthly_credit_debit: function () {
-      console.log('Hello')
-      console.log(this.transactions)
+    monthlyCreditDebit: function () {
+      console.log('Monthly Cr Dr')
+      const endpoint = 'statement/reports/graph/periodic/' + this.urlParams
+      const headers = { 'Content-Type': 'multipart/form-data' }
+      httpRequest(endpoint, 'get', null, headers, this.constructGraphData)
+    },
+    constructGraphData: function (responseData) {
+      const graphData = responseData.data
+      var creditData = []
+      var debitData = []
+      for (let i = 0; i < graphData.ordered_months.length; i++) {
+        const mon = graphData.ordered_months[i]
+        creditData.push(graphData[mon].total_credit)
+        debitData.push(graphData[mon].total_debit)
+      }
+      this.chartData.labels = graphData.ordered_months
+      this.chartData.datasets[0].data = creditData
+      this.chartData.datasets[1].data = debitData
+      this.renderChart(this.chartData, this.options)
     }
   },
   watch: {
-    transactions: function () {
-      this.transactionsData = this.transactions
-      this.monthly_credit_debit()
+    params: function (newParams) {
+      this.urlParams = newParams
+      this.monthlyCreditDebit()
     }
   },
   mounted () {
-    this.monthly_credit_debit()
-    this.renderChart(this.chartData, this.options)
+    this.monthlyCreditDebit()
   }
 }
 </script>

@@ -122,7 +122,7 @@
               <b-tab title="Visualisation" active>
                 <div class="container-fluid">
                   <visualisation
-                    :transactions="transactionDetails"
+                    :params="params"
                   ></visualisation>
                 </div>
               </b-tab>
@@ -164,6 +164,7 @@ export default {
   },
   data () {
     return {
+      params: '',
       bankNameSelect: '',
       minAmt: 0,
       maxAmt: '',
@@ -217,6 +218,7 @@ export default {
       if (this.endDate) {
         params += '&end_date=' + this.endDate
       }
+      this.params = params
       const endpoint = 'statement/reports/transactions/' + params
       const headers = { 'Content-Type': 'multipart/form-data' }
       httpRequest(endpoint, 'get', null, headers, this.postSubmit)
