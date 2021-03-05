@@ -1,31 +1,59 @@
-<!--
 <template>
-  <div class="container">
-    <line-chart
-      :height="350"
+    <bar-chart
       :chart-data="chartData"
       :options="options"/>
-  </div>
 </template>
--->
+
 <script>
 
 import { httpRequest } from '../api/index.js'
 
-// Charts
-import Chart from 'chart.js'
-import { Bar } from 'vue-chartjs'
+import BarChart from '@/components/Charts/BarChart'
 
-Chart.defaults.global.defaultFontSize = 14
-Chart.defaults.global.defaultFontColor = '#9aa8b4'
+var chartOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+  title: {
+    display: true,
+    text: 'Custom Chart Title'
+  },
+  scales: {
+    yAxes: [{
+      gridLines: {
+        display: true
+      }
+    }],
+    xAxes: [{
+      gridLines: {
+        display: false
+      }
+    }]
+  },
+  legend: {
+    display: true,
+    labels: {
+      fontFamily: 'sans-serif',
+      fontSize: 18
+    }
+  },
+  layout: {
+    padding: {
+      left: 50,
+      right: 50,
+      top: 0,
+      bottom: 0
+    }
+  }
+}
 
 export default {
-  extends: Bar,
   name: 'visualisation',
+  components: {
+    BarChart
+  },
   data () {
     return {
       urlParams: this.params,
-      graphData: {},
       chartData: {
         datasets: [
           {
@@ -48,48 +76,23 @@ export default {
           }
         ]
       },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          yAxes: [{
-            gridLines: {
-              display: true
-            }
-          }],
-          xAxes: [{
-            gridLines: {
-              display: false
-            }
-          }]
-        },
-        legend: {
-          display: true,
-          labels: {
-            fontFamily: 'sans-serif',
-            fontSize: 18
-          }
-        },
-        layout: {
-          padding: {
-            left: 50,
-            right: 50,
-            top: 0,
-            bottom: 0
-          }
-        }
-      }
+      options: chartOptions
     }
   },
   props: ['params'],
   methods: {
     monthlyCreditDebit: function () {
-      console.log('Monthly Cr Dr')
+      const endpoint = 'statement/reports/graph/periodic/' + this.urlParams
+      // const endpoint = 'statement/reports/graph/category/' + this.urlParams
+      const headers = { 'Content-Type': 'multipart/form-data' }
+      httpRequest(endpoint, 'get', null, headers, this.monthlyGraphData)
+    },
+    categorisedCreditDebit: function () {
       const endpoint = 'statement/reports/graph/periodic/' + this.urlParams
       const headers = { 'Content-Type': 'multipart/form-data' }
-      httpRequest(endpoint, 'get', null, headers, this.constructGraphData)
+      httpRequest(endpoint, 'get', null, headers, this.categoryGraphData)
     },
-    constructGraphData: function (responseData) {
+    monthlyGraphData: function (responseData) {
       const graphData = responseData.data
       var creditData = []
       var debitData = []
@@ -101,7 +104,8 @@ export default {
       this.chartData.labels = graphData.ordered_months
       this.chartData.datasets[0].data = creditData
       this.chartData.datasets[1].data = debitData
-      this.renderChart(this.chartData, this.options)
+    },
+    categoryGraphData: function (responseData) {
     }
   },
   watch: {

@@ -1,30 +1,30 @@
-import { Bar, mixins } from 'vue-chartjs'
-import globalOptionsMixin from '@/components/Charts/globalOptionsMixin'
+
+// import globalOptionsMixin from '@/components/Charts/globalOptionsMixin'
+// import { Bar, mixins } from 'vue-chartjs'
+import { Bar } from 'vue-chartjs'
+import Chart from 'chart.js'
+
+Chart.defaults.global.defaultFontSize = 14
+Chart.defaults.global.defaultFontColor = '#9aa8b4'
 
 export default {
   name: 'bar-chart',
   extends: Bar,
-  mixins: [mixins.reactiveProp, globalOptionsMixin],
-  props: {
-    extraOptions: {
-      type: Object,
-      default: () => ({})
-    }
-  },
+  props: ['chartData', 'options'],
   data () {
     return {
-      ctx: null
+    }
+  },
+  methods: {
+  },
+  watch: {
+    chartData: function (newData) {
+      this.chartData = newData
+      this.renderChart(this.chartData, this.options)
     }
   },
   mounted () {
-    this.$watch(
-      'chartData',
-      (newVal, oldVal) => {
-        if (!oldVal) {
-          this.renderChart(this.chartData, this.extraOptions)
-        }
-      },
-      { immediate: true }
-    )
+    console.log('Mounted')
+    this.renderChart(this.chartData, this.options)
   }
 }
