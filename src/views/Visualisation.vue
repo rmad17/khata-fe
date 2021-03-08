@@ -1,11 +1,15 @@
 <template>
   <div>
-    <bar-chart
-      :chart-data="monthlyData"
-      :options="options"/>
-    <horizontal-bar-chart
-      :chart-data="categoryData"
-      :options="options"/>
+    <div class="mb-2">
+      <bar-chart
+        :chart-data="monthlyData"
+        :options="monthlyOptions"/>
+    </div>
+    <div class="mt-2">
+      <horizontal-bar-chart
+        :chart-data="categoryData"
+        :options="categoryOptions"/>
+    </div>
   </div>
 </template>
 
@@ -20,6 +24,10 @@ var chartOptions = {
   responsive: true,
   maintainAspectRatio: false,
   title: {
+    fontSize: 24,
+    fontFamily: 'Helvetica Neue',
+    fontColor: '#5e72e4',
+    padding: 20,
     display: true,
     text: ''
   },
@@ -32,15 +40,18 @@ var chartOptions = {
     xAxes: [{
       gridLines: {
         display: false
-      }
+      },
+      categoryPercentage: 0.2,
+      barPercentage: 0.2
     }]
   },
   legend: {
     display: true,
     labels: {
-      fontFamily: 'sans-serif',
+      fontFamily: 'Helvetica Neue',
       fontSize: 18
-    }
+    },
+    align: 'end'
   },
   layout: {
     padding: {
@@ -70,6 +81,7 @@ export default {
             backgroundColor: '#5ac18e',
             data: [40, 20, 35, 42, 17, 27],
             borderWidth: 1,
+            maxBarThickness: 15,
             categoryPercentage: 0.4,
             pointBorderColor: 'white',
             borderColor: 'transparent'
@@ -79,13 +91,15 @@ export default {
             backgroundColor: '#d0465e',
             data: [30, 30, 55, 22, 57, 7],
             borderWidth: 1,
+            maxBarThickness: 15,
             categoryPercentage: 0.4,
             pointBorderColor: 'white',
             borderColor: 'transparent'
           }
         ]
       },
-      options: chartOptions
+      monthlyOptions: {},
+      categoryOptions: {}
     }
   },
   props: ['params'],
@@ -101,7 +115,6 @@ export default {
       httpRequest(endpoint, 'get', null, headers, this.categoryGraphData)
     },
     monthlyGraphData: function (responseData) {
-      console.log('X')
       const graphData = responseData.data
       var creditData = []
       var debitData = []
@@ -114,29 +127,25 @@ export default {
       this.monthlyData.labels = graphData.ordered_months
       this.monthlyData.datasets[0].data = creditData
       this.monthlyData.datasets[1].data = debitData
-      this.options.title.text = 'Monthly Credit/Debit'
+      this.monthlyOptions = JSON.parse(JSON.stringify(chartOptions))
+      this.monthlyOptions.title.text = 'Monthly Credit/Debit'
     },
     categoryGraphData: function (responseData) {
-      console.log('A')
       const cGraphData = responseData.data
-      console.log(responseData)
       const labels = []
       for (const i in cGraphData) {
-        labels.push(i.name)
-        console.log('Label' + i.name)
+        labels.push(cGraphData[i].name)
       }
-      console.log('B')
       const creditData = [1, 2, 3]
       const debitData = [3, 2, 1]
-      console.log('C')
       this.categoryData = JSON.parse(JSON.stringify(this.chartData))
       this.categoryData.datasets[0].data = creditData
       this.categoryData.datasets[1].data = debitData
       this.categoryData.labels = labels
-      console.log('Category Data')
-      this.options.title.text = 'Category Credit/Debit'
-      console.log(this.options.title)
-      console.log(this.categoryData)
+      this.options = JSON.parse(JSON.stringify(chartOptions))
+      this.categoryOptions.title.text = 'Category Credit/Debit'
+      this.categoryOptions.scales.xAxes.gridLines.display = true
+      this.categoryOptions.scales.yAxes.gridLines.display = false
     }
   },
   watch: {
