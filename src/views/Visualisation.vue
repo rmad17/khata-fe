@@ -1,7 +1,12 @@
 <template>
+  <div>
     <bar-chart
-      :chart-data="chartData"
+      :chart-data="monthlyData"
       :options="options"/>
+    <horizontal-bar-chart
+      :chart-data="categoryData"
+      :options="options"/>
+  </div>
 </template>
 
 <script>
@@ -9,13 +14,14 @@
 import { httpRequest } from '../api/index.js'
 
 import BarChart from '@/components/Charts/BarChart'
+import HorizontalBarChart from '@/components/Charts/HorizontalBarChart'
 
 var chartOptions = {
   responsive: true,
   maintainAspectRatio: false,
   title: {
     display: true,
-    text: 'Custom Chart Title'
+    text: ''
   },
   scales: {
     yAxes: [{
@@ -49,11 +55,14 @@ var chartOptions = {
 export default {
   name: 'visualisation',
   components: {
-    BarChart
+    BarChart,
+    HorizontalBarChart
   },
   data () {
     return {
       urlParams: this.params,
+      monthlyData: {},
+      categoryData: {},
       chartData: {
         datasets: [
           {
@@ -83,16 +92,16 @@ export default {
   methods: {
     monthlyCreditDebit: function () {
       const endpoint = 'statement/reports/graph/periodic/' + this.urlParams
-      // const endpoint = 'statement/reports/graph/category/' + this.urlParams
       const headers = { 'Content-Type': 'multipart/form-data' }
       httpRequest(endpoint, 'get', null, headers, this.monthlyGraphData)
     },
     categorisedCreditDebit: function () {
-      const endpoint = 'statement/reports/graph/periodic/' + this.urlParams
+      const endpoint = 'statement/reports/graph/category/' + this.urlParams
       const headers = { 'Content-Type': 'multipart/form-data' }
       httpRequest(endpoint, 'get', null, headers, this.categoryGraphData)
     },
     monthlyGraphData: function (responseData) {
+      console.log('X')
       const graphData = responseData.data
       var creditData = []
       var debitData = []
@@ -101,21 +110,45 @@ export default {
         creditData.push(graphData[mon].total_credit)
         debitData.push(graphData[mon].total_debit)
       }
-      this.chartData.labels = graphData.ordered_months
-      this.chartData.datasets[0].data = creditData
-      this.chartData.datasets[1].data = debitData
+      this.monthlyData = JSON.parse(JSON.stringify(this.chartData))
+      this.monthlyData.labels = graphData.ordered_months
+      this.monthlyData.datasets[0].data = creditData
+      this.monthlyData.datasets[1].data = debitData
+      this.options.title.text = 'Monthly Credit/Debit'
     },
     categoryGraphData: function (responseData) {
+      console.log('A')
+      const cGraphData = responseData.data
+      console.log(responseData)
+      const labels = []
+      for (const i in cGraphData) {
+        labels.push(i.name)
+        console.log('Label' + i.name)
+      }
+      console.log('B')
+      const creditData = [1, 2, 3]
+      const debitData = [3, 2, 1]
+      console.log('C')
+      this.categoryData = JSON.parse(JSON.stringify(this.chartData))
+      this.categoryData.datasets[0].data = creditData
+      this.categoryData.datasets[1].data = debitData
+      this.categoryData.labels = labels
+      console.log('Category Data')
+      this.options.title.text = 'Category Credit/Debit'
+      console.log(this.options.title)
+      console.log(this.categoryData)
     }
   },
   watch: {
     params: function (newParams) {
       this.urlParams = newParams
       this.monthlyCreditDebit()
+      this.categorisedCreditDebit()
     }
   },
   mounted () {
     this.monthlyCreditDebit()
+    this.categorisedCreditDebit()
   }
 }
 </script>

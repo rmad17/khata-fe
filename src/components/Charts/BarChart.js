@@ -24,7 +24,6 @@ export default {
     }
   },
   mounted () {
-    console.log('Mounted')
     this.renderChart(this.chartData, this.options)
   }
 }
