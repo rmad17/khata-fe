@@ -1,6 +1,6 @@
 <template>
     <div>
-        <base-header type="gradient-peach" class="pb-6 pb-8 pt-5 pt-md-8">
+        <base-header type="gradient-peach" class="pb-5 pl-6 pt-md-6">
           <!-- <b-table class="" striped responsive hover :items="transactionDetails" :fields="fields"></b-table> -->
           <b-container fluid>
             <b-row class="my-1">
@@ -120,7 +120,7 @@
                 </div>
               </b-tab>
               <b-tab title="Visualisation" active>
-                <div class="container-fluid">
+                <div class="">
                   <visualisation
                     :params="params"
                   ></visualisation>

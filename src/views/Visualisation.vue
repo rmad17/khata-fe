@@ -1,11 +1,11 @@
 <template>
-  <div>
-    <div class="mb-2">
+  <div class="mx-6">
+    <div class="mb-2 border border-primary">
       <bar-chart
         :chart-data="monthlyData"
         :options="monthlyOptions"/>
     </div>
-    <div class="mt-2">
+    <div class="mt-4">
       <horizontal-bar-chart
         :chart-data="categoryData"
         :options="categoryOptions"/>
@@ -25,8 +25,9 @@ var chartOptions = {
   maintainAspectRatio: false,
   title: {
     fontSize: 24,
-    fontFamily: 'Helvetica Neue',
+    fontFamily: 'Open Sans, sans-serif',
     fontColor: '#5e72e4',
+    fontStyle: '',
     padding: 20,
     display: true,
     text: ''
@@ -35,7 +36,9 @@ var chartOptions = {
     yAxes: [{
       gridLines: {
         display: true
-      }
+      },
+      categoryPercentage: 0.2,
+      barPercentage: 0.2
     }],
     xAxes: [{
       gridLines: {
@@ -48,17 +51,17 @@ var chartOptions = {
   legend: {
     display: true,
     labels: {
-      fontFamily: 'Helvetica Neue',
+      fontFamily: 'Open Sans, sans-serif',
       fontSize: 18
     },
     align: 'end'
   },
   layout: {
     padding: {
-      left: 50,
-      right: 50,
-      top: 0,
-      bottom: 0
+      left: 100,
+      right: 100,
+      top: 20,
+      bottom: 20
     }
   }
 }
@@ -78,7 +81,7 @@ export default {
         datasets: [
           {
             label: 'Credit',
-            backgroundColor: '#5ac18e',
+            backgroundColor: '#098b54',
             data: [40, 20, 35, 42, 17, 27],
             borderWidth: 1,
             maxBarThickness: 15,
@@ -88,10 +91,10 @@ export default {
           },
           {
             label: 'Debit',
-            backgroundColor: '#d0465e',
+            backgroundColor: '#d51737',
             data: [30, 30, 55, 22, 57, 7],
             borderWidth: 1,
-            maxBarThickness: 15,
+            maxBarThickness: 25,
             categoryPercentage: 0.4,
             pointBorderColor: 'white',
             borderColor: 'transparent'
@@ -142,10 +145,10 @@ export default {
       this.categoryData.datasets[0].data = creditData
       this.categoryData.datasets[1].data = debitData
       this.categoryData.labels = labels
-      this.options = JSON.parse(JSON.stringify(chartOptions))
+      this.categoryOptions = JSON.parse(JSON.stringify(chartOptions))
       this.categoryOptions.title.text = 'Category Credit/Debit'
-      this.categoryOptions.scales.xAxes.gridLines.display = true
-      this.categoryOptions.scales.yAxes.gridLines.display = false
+      this.categoryOptions.scales.xAxes[0].gridLines.display = true
+      this.categoryOptions.scales.yAxes[0].gridLines.display = false
     }
   },
   watch: {
