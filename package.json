@@ -16,6 +16,7 @@
     "axios": "^0.19",
     "bootstrap": "4.3.1",
     "bootstrap-vue": "^2.10",
+    "caniuse-lite": "^1.0.30001199",
     "chart.js": "^2.9",
     "core-js": "^3.3.2",
     "flatpickr": "^4.6.3",

@@ -21,6 +21,9 @@
 
 .text-underline { text-decoration: underline; }
 .text-through { text-decoration: line-through; }
+.underline-on-hover:hover {
+  text-decoration: underline !important;
+}
 
 // Line heights
 

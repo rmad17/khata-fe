@@ -7,7 +7,7 @@ const baseURL = 'http://localhost:5000/'
 export function httpRequest (endpoint, method, data, headers = {}, callback = null) {
   var token = localStorage.getItem('token')
   if (token) {
-    headers['Authorization'] = 'Bearer ' + token
+    headers.Authorization = 'Bearer ' + token
   }
   headers['Content-Type'] = 'application/json'
   return Axios({
@@ -23,7 +23,7 @@ export function httpRequest (endpoint, method, data, headers = {}, callback = nu
       return response.data
     })
     .catch(error => {
-      let response = error.response
+      const response = error.response
       if (response && response.status === 401 && response.data.message === 'access permission has expired') {
         Router.push('login')
         localStorage.clear()

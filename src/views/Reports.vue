@@ -1,67 +1,8 @@
 <template>
     <div>
-        <base-header type="gradient-peach" class="pb-5 pl-6 pt-md-6">
-          <!-- <b-table class="" striped responsive hover :items="transactionDetails" :fields="fields"></b-table> -->
-          <b-container fluid>
-            <b-row class="my-1">
-              <b-col sm="2">
-                <label>Transaction Type</label>
-              </b-col>
-              <b-col sm="3">
-                <b-form-select @change="onSubmit" v-model="transactionTypeSelect" :options="transactionTypes"></b-form-select>
-              </b-col>
-              <b-col sm="2">
-                <label>Bank Name</label>
-              </b-col>
-              <b-col sm="3">
-                <b-form-select @change="onSubmit"  v-model="bankNameSelect" :options="bankNames"></b-form-select>
-              </b-col>
-            </b-row>
-            <b-row class="my-1">
-              <b-col sm="2">
-                <label> Min Amount</label>
-              </b-col>
-              <b-col sm="3">
-                <b-form-input @change="onSubmit" v-model="minAmt" :type="number"></b-form-input>
-              </b-col>
-              <b-col sm="2">
-                <label>Max Amount</label>
-              </b-col>
-              <b-col sm="3">
-                <b-form-input @change="onSubmit" v-model="maxAmt"  :type="number"></b-form-input>
-              </b-col>
-            </b-row>
-            <b-row class="my-1">
-              <b-col sm="2">
-                <label>Start Date</label>
-              </b-col>
-              <b-col sm="3">
-                <b-form-input @change="onSubmit"  v-model="startDate" type="date"></b-form-input>
-              </b-col>
-              <b-col sm="2">
-                <label>End Date</label>
-              </b-col>
-              <b-col sm="3">
-                <b-form-input @change="onSubmit" v-model="endDate"  type="date"></b-form-input>
-              </b-col>
-            </b-row>
-            <b-row class="my-1">
-              <b-col sm="2">
-                <label>Category</label>
-              </b-col>
-              <b-col sm="3">
-                <b-form-select @change="onSubmit" v-model="category" :options="categories"></b-form-select>
-              </b-col>
-              <!-- <b-col sm="2">
-                <label>Tag</label>
-              </b-col>
-              <b-col sm="3">
-                <b-form-select @change="onSubmit"  v-model="tag" :options="categories.tags"></b-form-select>
-              </b-col> -->
-            </b-row>
-          </b-container>
-        </base-header>
         <div>
+          <transaction-filters>
+          </transaction-filters>
           <b-card no-body>
             <b-tabs class="" align="center" pills card>
               <b-tab title="Transactions" active>
@@ -137,6 +78,7 @@ import { httpRequest } from '../api/index.js'
 
 // Child Components
 import Visualisation from './Visualisation'
+import TransactionFilters from './components/TransactionFilters'
 
 // var moment = require('moment-timezone')
 // var a = moment.tz('2013-11-18 11:55', 'Asia/Kolkata')
@@ -145,7 +87,7 @@ import Visualisation from './Visualisation'
 
 export default {
   name: 'reports',
-  components: { Visualisation },
+  components: { Visualisation, TransactionFilters },
   filters: {
     bankNames: function (value) {
       const bankNamesMap = {

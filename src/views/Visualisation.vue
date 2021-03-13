@@ -1,6 +1,6 @@
 <template>
   <div class="mx-6">
-    <div class="mb-2 border border-primary">
+    <div class="mb-2 border border-light rounded">
       <bar-chart
         :chart-data="monthlyData"
         :options="monthlyOptions"/>

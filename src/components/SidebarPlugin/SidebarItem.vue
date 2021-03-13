@@ -7,7 +7,7 @@
                 :target="link.target"
                 :href="link.path">
             <template>
-                <i :class="link.icon"></i>
+                <!-- <i :class="link.icon"></i> -->
                 <span class="nav-link-text">{{ link.name }}</span>
             </template>
         </router-link>
@@ -15,7 +15,6 @@
 </template>
 <script>
 // Vuex
-import { mapActions } from 'vuex'
 
 export default {
   name: 'sidebar-item',
@@ -44,17 +43,6 @@ export default {
       collapsed: true
     }
   },
-  methods: {
-    ...mapActions(['changeSidebar'
-    ]),
-    linkClick () {
-      if (
-        this.autoClose &&
-          this.$store.getters.getSidebar() === true
-      ) {
-        this.changeSidebar(false)
-      }
-    }
-  }
+  methods: {}
 }
 </script>

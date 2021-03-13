@@ -86,4 +86,10 @@ export default {
 .dropdown .dropdown-toggle {
   cursor: pointer;
 }
+li > a:hover {
+  border-bottom: 2px solid #ffffff !important;
+  font-style: "bold" !important;
+  color: #ffffff !important;
+  text-decoration: underline im !important;
+}
 </style>
