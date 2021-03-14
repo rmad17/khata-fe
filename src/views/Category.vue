@@ -1,16 +1,10 @@
 <template>
     <div>
-        <base-header type="gradient-peach" class="pb-6 pb-8 pt-5 pt-md-8">
-        </base-header>
-        <div class="container-fluid mt--7">
+        <div class="container-fluid mt-4">
             <div role="tablist">
               <!-- Category -->
-                <b-card class="col-sm-10 shadow mb-1 opacity-6" header-border-variant="info" no-body>
-                  <b-card-header header-tag="header" class="p-1 pl-2 pr-4 button-toolbar" role="tab">
-                    <b-input class=" ml-3 m-2 mr-4 col-sm-11 shadow" v-model="newCategory" @keyup.enter.native="addNewCategory" placeholder="Add a new category ..." square variant="outline-primary"/>
-                  </b-card-header>
-                </b-card>
-                <b-card class="col-sm-10 shadow mb-1" v-for="category in categories" :key=category.id header-border-variant="info" no-body>
+                <b-input class="mb-2 pr-6 col-sm-8 shadow" v-model="newCategory" @keyup.enter.native="addNewCategory" placeholder="Add a new category ..." square variant="outline-primary"/>
+                <b-card class="col-sm-8 shadow mb-1" v-for="category in categories" :key=category.id header-border-variant="info" no-body>
                 <b-card-header header-tag="header" class="p-1 button-toolbar" role="tab">
                   <!-- Edit Category Modal -->
                   <b-modal :id="'category-edit-modal-' + category.id" hide-footer no-stacking hide-header-close>
@@ -54,7 +48,7 @@
                     <b-button class="mt-3 shadow" variant="danger" square @click="$bvModal.hide('tag-add-modal-' + category.id)">Cancel</b-button>
                     <b-button class="mt-3 shadow" variant="success" square @keyup.enter.native="addNewTag()" @click="addNewTag()">Create</b-button>
                   </b-modal>
-                  <b-button class="ml-4 col-sm-7 shadow-lg" square v-b-toggle="'category-accordion-' + category.id" variant="outline-emerald">{{category.name}}</b-button>
+                  <b-button class="ml-5 pr-4 col-sm-7 text-left shadow-md" square v-b-toggle="'category-accordion-' + category.id" variant="outline-emerald"><font-awesome-icon :icon="['fas', 'plus-square']"/>   {{category.name}}</b-button>
                   <b-button class="m-2 mr-2 col-sm-1 shadow" v-b-tooltip.hover title="Edit Category" variant="outline-emerald" @click="openEditCategoryModal(category)" v-b-modal="'category-edit-modal-' + category.id"><font-awesome-icon size="lg" icon="edit"></font-awesome-icon></b-button>
                   <b-button class="m-2 mr-2 col-sm-1 shadow" v-b-tooltip.hover title="Delete Category" variant="outline-emerald" v-b-modal="'category-del-modal-' + category.id"><font-awesome-icon size="lg" icon="trash-alt"></font-awesome-icon></b-button>
                   <b-button class="m-2 mr-2 col-sm-1 shadow" v-b-tooltip.hover title="Add Tag" variant="outline-emerald" @click="openAddTagModal(category)" v-b-modal="'tag-add-modal-' + category.id"><font-awesome-icon size="lg" icon="tag"></font-awesome-icon></b-button>
@@ -96,7 +90,7 @@
                                 <b-button class="mt-3 shadow" variant="light" square @click="$bvModal.hide('tag-del-modal-' + tag.id)">Cancel</b-button>
                                 <b-button class="mt-3 shadow" variant="danger" square @click="delTag(tag)">Delete</b-button>
                               </b-modal>
-                              <b-button class="text-left col-md-8" square v-b-toggle="'tag-accordion-' + tag.id" variant="outline-peach">{{tag.name}}</b-button>
+                              <b-button class="text-left col-sm-7 mr-2 ml-4" square v-b-toggle="'tag-accordion-' + tag.id" variant="outline-peach"><font-awesome-icon :icon="['fas', 'plus-square']"/> {{tag.name}}</b-button>
                               <b-button class="align-right m-2 col-sm-1"  v-b-tooltip.hover title="Edit Tag" variant="outline-peach" @click="openEditTagModal(tag, category)"><font-awesome-icon size="lg" icon="edit"></font-awesome-icon></b-button>
                               <b-button class="align-right m-2 col-sm-1" v-b-tooltip.hover title="Delete Tag" v-b-modal="'tag-del-modal-' + tag.id" variant="outline-peach" ><font-awesome-icon size="lg" icon="trash-alt"></font-awesome-icon></b-button>
                             </b-card-header>
@@ -119,6 +113,12 @@
 import { httpRequest } from '../api/index.js'
 // Vuex
 import { mapActions } from 'vuex'
+
+// font awesome
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faPlusSquare } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faPlusSquare)
 
 export default {
   name: 'category',
