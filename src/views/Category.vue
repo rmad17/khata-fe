@@ -48,10 +48,10 @@
                     <b-button class="mt-3 shadow" variant="danger" square @click="$bvModal.hide('tag-add-modal-' + category.id)">Cancel</b-button>
                     <b-button class="mt-3 shadow" variant="success" square @keyup.enter.native="addNewTag()" @click="addNewTag()">Create</b-button>
                   </b-modal>
-                  <b-button class="ml-5 pr-4 col-sm-7 text-left shadow-md" square v-b-toggle="'category-accordion-' + category.id" variant="outline-emerald"><font-awesome-icon :icon="['fas', 'plus-square']"/>   {{category.name}}</b-button>
-                  <b-button class="m-2 mr-2 col-sm-1 shadow" v-b-tooltip.hover title="Edit Category" variant="outline-emerald" @click="openEditCategoryModal(category)" v-b-modal="'category-edit-modal-' + category.id"><font-awesome-icon size="lg" icon="edit"></font-awesome-icon></b-button>
-                  <b-button class="m-2 mr-2 col-sm-1 shadow" v-b-tooltip.hover title="Delete Category" variant="outline-emerald" v-b-modal="'category-del-modal-' + category.id"><font-awesome-icon size="lg" icon="trash-alt"></font-awesome-icon></b-button>
-                  <b-button class="m-2 mr-2 col-sm-1 shadow" v-b-tooltip.hover title="Add Tag" variant="outline-emerald" @click="openAddTagModal(category)" v-b-modal="'tag-add-modal-' + category.id"><font-awesome-icon size="lg" icon="tag"></font-awesome-icon></b-button>
+                  <b-button class="ml-2 pr-4 col-sm-7 text-left shadow-md" square v-b-toggle="'category-accordion-' + category.id" variant="outline-primary"><font-awesome-icon :icon="['fas', 'plus-square']"/>   {{category.name}}</b-button>
+                  <b-button class="m-2 mr-2 col-sm-1 shadow" v-b-tooltip.hover title="Edit Category" variant="outline-primary" @click="openEditCategoryModal(category)" v-b-modal="'category-edit-modal-' + category.id"><font-awesome-icon size="lg" icon="edit"></font-awesome-icon></b-button>
+                  <b-button class="m-2 mr-2 col-sm-1 shadow" v-b-tooltip.hover title="Delete Category" variant="outline-primary" v-b-modal="'category-del-modal-' + category.id"><font-awesome-icon size="lg" icon="trash-alt"></font-awesome-icon></b-button>
+                  <b-button class="m-2 mr-2 col-sm-1 shadow" v-b-tooltip.hover title="Add Tag" variant="outline-primary" @click="openAddTagModal(category)" v-b-modal="'tag-add-modal-' + category.id"><font-awesome-icon size="lg" icon="tag"></font-awesome-icon></b-button>
                 </b-card-header>
                 <b-collapse :id="'category-accordion-' + category.id" accordion="category-accordion" role="tabpanel">
                     <b-card-body>
@@ -90,9 +90,9 @@
                                 <b-button class="mt-3 shadow" variant="light" square @click="$bvModal.hide('tag-del-modal-' + tag.id)">Cancel</b-button>
                                 <b-button class="mt-3 shadow" variant="danger" square @click="delTag(tag)">Delete</b-button>
                               </b-modal>
-                              <b-button class="text-left col-sm-7 mr-2 ml-4" square v-b-toggle="'tag-accordion-' + tag.id" variant="outline-peach"><font-awesome-icon :icon="['fas', 'plus-square']"/> {{tag.name}}</b-button>
-                              <b-button class="align-right m-2 col-sm-1"  v-b-tooltip.hover title="Edit Tag" variant="outline-peach" @click="openEditTagModal(tag, category)"><font-awesome-icon size="lg" icon="edit"></font-awesome-icon></b-button>
-                              <b-button class="align-right m-2 col-sm-1" v-b-tooltip.hover title="Delete Tag" v-b-modal="'tag-del-modal-' + tag.id" variant="outline-peach" ><font-awesome-icon size="lg" icon="trash-alt"></font-awesome-icon></b-button>
+                              <b-button class="text-left col-sm-7 mr-2 ml-4" square v-b-toggle="'tag-accordion-' + tag.id" variant="info"><font-awesome-icon :icon="['fas', 'plus-square']"/> {{tag.name}}</b-button>
+                              <b-button class="align-right m-2 col-sm-1"  v-b-tooltip.hover title="Edit Tag" variant="info" @click="openEditTagModal(tag, category)"><font-awesome-icon size="lg" icon="edit"></font-awesome-icon></b-button>
+                              <b-button class="align-right m-2 col-sm-1" v-b-tooltip.hover title="Delete Tag" v-b-modal="'tag-del-modal-' + tag.id" variant="info" ><font-awesome-icon size="lg" icon="trash-alt"></font-awesome-icon></b-button>
                             </b-card-header>
                             <b-collapse :id="'tag-accordion-' + tag.id" accordion="tag-accordion" role="tabpanel">
                               <b-card-body>
