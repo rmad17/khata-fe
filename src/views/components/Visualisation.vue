@@ -1,11 +1,11 @@
 <template>
   <div class="mx-6">
-    <div class="mb-2 border border-primary">
+    <div class="mb-4 mt-4 border border-light rounded">
       <bar-chart
         :chart-data="monthlyData"
         :options="monthlyOptions"/>
     </div>
-    <div class="mt-4">
+    <div class="mt-6 border border-light rounded">
       <horizontal-bar-chart
         :chart-data="categoryData"
         :options="categoryOptions"/>
@@ -15,7 +15,7 @@
 
 <script>
 
-import { httpRequest } from '../api/index.js'
+import { httpRequest } from '../../api/index.js'
 
 import BarChart from '@/components/Charts/BarChart'
 import HorizontalBarChart from '@/components/Charts/HorizontalBarChart'
@@ -24,9 +24,9 @@ var chartOptions = {
   responsive: true,
   maintainAspectRatio: false,
   title: {
-    fontSize: 24,
+    fontSize: 20,
     fontFamily: 'Open Sans, sans-serif',
-    fontColor: '#5e72e4',
+    fontColor: '#0d6efd',
     fontStyle: '',
     padding: 20,
     display: true,
@@ -36,30 +36,26 @@ var chartOptions = {
     yAxes: [{
       gridLines: {
         display: true
-      },
-      categoryPercentage: 0.2,
-      barPercentage: 0.2
+      }
     }],
     xAxes: [{
       gridLines: {
         display: false
-      },
-      categoryPercentage: 0.2,
-      barPercentage: 0.2
+      }
     }]
   },
   legend: {
     display: true,
     labels: {
       fontFamily: 'Open Sans, sans-serif',
-      fontSize: 18
+      fontSize: 14
     },
     align: 'end'
   },
   layout: {
     padding: {
-      left: 100,
-      right: 100,
+      left: 50,
+      right: 50,
       top: 20,
       bottom: 20
     }

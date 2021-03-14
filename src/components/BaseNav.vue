@@ -12,12 +12,6 @@
                     <!-- {{$route.name}} -->
                 </router-link>
             </slot>
-            <transition name="menu">
-              <span v-if="getSidebar" @click="showSidebar">
-                <font-awesome-icon size="lg" icon="bars"></font-awesome-icon>
-              </span>
-            </transition>
-
             <div class="collapse navbar-collapse"
                  :class="{show: toggled}"
                  :id="contentId"
