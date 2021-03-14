@@ -9,18 +9,15 @@
           <sidebar-item :link="{name: 'Categories', icon: 'ni ni-single-02 text-yellow', path: '/category'}"/>
           <sidebar-item :link="{name: 'Profile', icon: 'ni ni-single-02 text-yellow', path: '/profile'}"/>
       </ul>
-      <div class="d-flex ml-6 justify-content-end float-right">
+      <div class="d-flex ml-8 pl-8 justify-content-end float-right">
         <base-dropdown class="ml-8 pl-8 nav-link pr-0">
           <div class="media" slot="title">
             <span class="avatar avatar-sm rounded-circle">
               <v-gravatar :email=profileData.email />
             </span>
-            <div class="media-body ml-2 d-none d-lg-block" style="color: white">
-                <span class="mb-0 text-m font-family-lato font-weight-bold">{{ profileData.first_name  }} {{ profileData.last_name }}</span>
+            <div class="pt-1 pl-1 media-body ml-2 d-none d-lg-block" style="color: white">
+                <span class="text-m font-family-lato font-weight-bold">{{ profileData.first_name  }}</span>
             </div>
-          </div>
-          <div class=" dropdown-header noti-title">
-              <h6 class="text-overflow m-0">Welcome!</h6>
           </div>
           <router-link to="/profile" class="dropdown-item">
               <i class="ni ni-single-02"></i>

@@ -1,6 +1,6 @@
 <template>
   <!--<div class="header" :class="{[`bg-${type}`]: type}">-->
-  <div id="nav-div" class="box-shadow header bg-test mb-6 hover">
+  <div id="nav-div" class="header bg-blue hover">
     <link href="https://fonts.googleapis.com/css?family=Lato|Source+Sans+Pro&display=swap" rel="stylesheet">
     <div class="container-fluid">
       <div class="header-body">

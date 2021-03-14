@@ -1,13 +1,13 @@
 <template>
-  <div class="wrapper">
-    <div class="main-content">
-      <dashboard-navbar></dashboard-navbar>
-      <div>
-        <base-header class="shadow-lg text-white pb-1 pl-6 pt-md-6">
-        </base-header>
-        <router-view></router-view>
-        <content-footer v-if="!$route.meta.hideFooter"></content-footer>
-      </div>
+  <div class="">
+    <div class="custom-shadow fixed-top">
+      <base-header class="text-white pb-1 pl-2">
+        <dashboard-navbar></dashboard-navbar>
+      </base-header>
+    </div>
+    <div class="container-fluid bg-lightest mt-4 pt-6">
+      <router-view></router-view>
+      <content-footer v-if="!$route.meta.hideFooter"></content-footer>
     </div>
   </div>
 </template>
