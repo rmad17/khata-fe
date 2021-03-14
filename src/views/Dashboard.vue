@@ -4,19 +4,22 @@
             <!-- Card stats -->
             <div class="row">
                 <div class="col-xl-3 col-lg-6">
-                    <stats-card title="Transactions"
-                                type="gradient-purple"
-                                :sub-title=dashboardInfoData.total_transactions
-                                icon="ni ni-chart-bar-32"
-                                class="mb-4 mb-xl-0"
-                    >
+                  <router-link to="/transactions">
+                    <stats-card
+                      title="Transactions"
+                      type="gradient-purple"
+                      :sub-title=dashboardInfoData.total_transactions
+                      icon="ni ni-chart-bar-32"
+                      class="mb-4 mb-xl-0">
                         <template slot="footer">
-                            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i></span>
-                            <span class="text-nowrap">Since last month</span>
+                            <span class="text-success mr-2 font-weight-400"><i class="fa fa-arrow-up"></i>48</span>
+                            <span class="text-nowrap text-gray font-weight-400">Transactions since last month</span>
                         </template>
                     </stats-card>
+                  </router-link>
                 </div>
                 <div class="col-xl-3 col-lg-6">
+                  <router-link to="/transactions">
                     <stats-card title="Total Credit"
                                 type="gradient-green"
                                 rupee="true"
@@ -26,12 +29,14 @@
                     >
 
                         <template slot="footer">
-                            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i></span>
-                            <span class="text-nowrap">Since last month</span>
+                            <span class="text-success mr-2 font-weight-400"><i class="fa fa-arrow-up"></i>31</span>
+                            <span class="text-nowrap text-gray font-weight-400">Transactions since last month</span>
                         </template>
                     </stats-card>
+                  </router-link>
                 </div>
                 <div class="col-xl-3 col-lg-6">
+                  <router-link to="/transactions">
                     <stats-card title="Total Debit"
                                 type="gradient-red"
                                 rupee="true"
@@ -41,24 +46,23 @@
                     >
 
                         <template slot="footer">
-                            <span class="text-danger mr-2"><i class="fa fa-arrow-down"></i></span>
-                            <span class="text-nowrap">Since last month</span>
+                            <span class="text-danger mr-2 font-weight-400"><i class="fa fa-arrow-down"></i> 17 </span>
+                            <span class="text-nowrap text-gray font-weight-400">Transactions since last month</span>
                         </template>
                     </stats-card>
-
+                  </router-link>
                 </div>
                 <div class="col-xl-3 col-lg-6">
                     <stats-card title="Balance"
                                 type="gradient-info"
-                                sub-title="49,65%"
+                                :sub-title=dashboardInfoData.balance
                                 icon="ni ni-bank"
                                 class="mb-4 mb-xl-0"
                     >
-
-                        <template slot="footer">
-                            <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 54.8%</span>
-                            <span class="text-nowrap">Since last month</span>
-                        </template>
+                      <template slot="footer">
+                          <span class="text-success mr-2 font-weight-400"><i class="fa fa-arrow-up"></i> 54.8%</span>
+                          <span class="text-nowrap text-gray font-weight-400">Since last month</span>
+                      </template>
                     </stats-card>
                 </div>
             </div>
@@ -205,7 +209,7 @@ export default {
   },
   methods: {
     initBigChart (index) {
-      let chartData = {
+      const chartData = {
         datasets: [
           {
             backgroundColor: '#f35284',
