@@ -1,12 +1,11 @@
 import { Line, mixins } from 'vue-chartjs'
-import globalOptionsMixin from '@/components/Charts/globalOptionsMixin'
 
 export default {
   name: 'line-chart',
   extends: Line,
-  mixins: [mixins.reactiveProp, globalOptionsMixin],
+  mixins: [mixins.reactiveProp],
   props: {
-    extraOptions: {
+    options: {
       type: Object,
       default: () => ({})
     }
@@ -21,7 +20,7 @@ export default {
       'chartData',
       (newVal, oldVal) => {
         if (!oldVal) {
-          this.renderChart(this.chartData, this.extraOptions)
+          this.renderChart(this.chartData, this.options)
         }
       },
       { immediate: true }

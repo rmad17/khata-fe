@@ -30,11 +30,6 @@ export default new Router({
           name: 'profile',
           component: () => import(/* webpackChunkName: "demo" */ './views/UserProfile.vue')
         },
-        // {
-        //   path: '/maps',
-        //   name: 'maps',
-        //   component: () => import(/* webpackChunkName: "demo" */ './views/Maps.vue')
-        // },
         {
           path: '/category',
           name: 'category',
