@@ -93,16 +93,34 @@
           header="Updates">
           <b-list-group flush>
             <b-list-group-item class="border-0">
-              <slot><font-awesome-icon :icon="['fas', 'check']" color="green" class="mx-2"/></slot>
-              Updated in last 30 days. Last updated at {{ updates.last_update }}.
+              <slot v-if="dashboardInfoData.last_update">
+                <font-awesome-icon :icon="['fas', 'check']" color="green" class="mx-2"/>
+                Updated in last 30 days. Last updated at {{ dashboardInfoData.last_update }}.
+              </slot>
+              <slot v-else>
+                <font-awesome-icon :icon="['fas', 'times']" color="red" class="mx-2"/>
+                Not updated in last 30 days.
+              </slot>
             </b-list-group-item>
             <b-list-group-item class="border-0">
-              <slot><font-awesome-icon :icon="['fas', 'check']" color="green" class="mx-2"/></slot>
-              Created at least 3 categories.
+              <slot v-if="dashboardInfoData.min_categories_created">
+                <font-awesome-icon :icon="['fas', 'check']" color="green" class="mx-2"/>
+                Created at least 3 categories.
+              </slot>
+              <slot v-else>
+                <font-awesome-icon :icon="['fas', 'times']" color="red" class="mx-2"/>
+                Recommended to create at least three categories for better analysis.
+              </slot>
             </b-list-group-item>
             <b-list-group-item class="border-0">
-              <slot><font-awesome-icon :icon="['fas', 'times']" color="red" class="mx-2"/></slot>
-              &nbsp;&nbsp; Verified mobile number.
+              <slot v-if="dashboardInfoData.account_verified">
+                <font-awesome-icon :icon="['fas', 'check']" color="green" class="mx-2"/>
+                &nbsp;&nbsp; Verified account.
+              </slot>
+              <slot v-else>
+                <font-awesome-icon :icon="['fas', 'times']" color="red" class="mx-2"/>
+                Account yet to be verified.
+              </slot>
             </b-list-group-item>
           </b-list-group>
         </b-card>
