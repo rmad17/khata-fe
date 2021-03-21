@@ -3,59 +3,57 @@
     <!-- Card stats -->
     <div class="row mx-2 mt-2">
         <div class="col-xl-3 col-lg-6">
-          <router-link to="/transactions">
-            <stats-card
-              title="Transactions"
-              type="gradient-purple"
-              :sub-title=dashboardInfoData.total_transactions
-              icon="ni ni-chart-bar-32"
-              class="mb-4 mb-xl-0 border rounded">
-                <template slot="footer">
-                    <span class="text-success mr-2 font-weight-400"><i class="fa fa-arrow-up"></i>48</span>
-                    <span class="text-nowrap text-gray font-weight-400">Transactions since last month</span>
-                </template>
-            </stats-card>
-          </router-link>
+          <stats-card
+            title="Transactions"
+            type="gradient-purple"
+            rupee="true"
+            :sub-title=dashboardInfoData.total_transaction_value
+            icon="receipt"
+            class="mb-4 mb-xl-0 border rounded">
+              <template slot="footer">
+                <span class="text-nowrap text-gray font-weight-400">
+                  {{ dashboardInfoData.total_transactions }} &nbsp; Transactions since last month
+                </span>
+              </template>
+          </stats-card>
         </div>
         <div class="col-xl-3 col-lg-6">
-          <router-link to="/transactions">
-            <stats-card title="Total Credit"
-                        type="gradient-green"
-                        rupee="true"
-                        :sub-title=dashboardInfoData.total_credit
-                        icon="ni ni-money-coins"
-                        class="mb-4 mb-xl-0 border rounded">
-                <template slot="footer">
-                    <span class="text-success mr-2 font-weight-400"><i class="fa fa-arrow-up"></i>31</span>
-                    <span class="text-nowrap text-gray font-weight-400">Transactions since last month</span>
-                </template>
-            </stats-card>
-          </router-link>
+          <stats-card title="Total Credit"
+                      type="gradient-green"
+                      rupee="true"
+                      :sub-title=dashboardInfoData.total_credit
+                      icon="credit-card"
+                      class="mb-4 mb-xl-0 border rounded">
+              <template slot="footer">
+                <span class="text-nowrap text-gray font-weight-400">
+                  {{ dashboardInfoData.credit_txns }} &nbsp; Transactions since last month
+                </span>
+              </template>
+          </stats-card>
         </div>
         <div class="col-xl-3 col-lg-6">
-          <router-link to="/transactions">
-            <stats-card title="Total Debit"
-                        type="gradient-red"
-                        rupee="true"
-                        :sub-title=dashboardInfoData.total_debit
-                        icon="ni ni-credit-card"
-                        class="mb-4 mb-xl-0 border rounded">
-                <template slot="footer">
-                    <span class="text-danger mr-2 font-weight-400"><i class="fa fa-arrow-down"></i> 17 </span>
-                    <span class="text-nowrap text-gray font-weight-400">Transactions since last month</span>
-                </template>
-            </stats-card>
-          </router-link>
+          <stats-card title="Total Debit"
+                      type="gradient-red"
+                      rupee="true"
+                      :sub-title=dashboardInfoData.total_debit
+                      icon="coins"
+                      class="mb-4 mb-xl-0 border rounded">
+              <template slot="footer">
+                <span class="text-nowrap text-gray font-weight-400">
+                  {{ dashboardInfoData.debit_txns }} &nbsp; Transactions since last month
+                </span>
+              </template>
+          </stats-card>
         </div>
         <div class="col-xl-3 col-lg-6">
             <stats-card title="Balance"
                         type="gradient-info"
+                        rupee="true"
                         :sub-title=dashboardInfoData.balance
-                        icon="ni ni-bank"
+                        icon="wallet"
                         class="mb-4 mb-xl-0 border rounded">
               <template slot="footer">
-                  <span class="text-success mr-2 font-weight-400"><i class="fa fa-arrow-up"></i> 54.8%</span>
-                  <span class="text-nowrap text-gray font-weight-400">Since last month</span>
+                  <span class="text-nowrap text-gray font-weight-400"> Cumulative Balance</span>
               </template>
             </stats-card>
         </div>
@@ -104,7 +102,7 @@
             </b-list-group-item>
             <b-list-group-item class="border-0">
               <slot><font-awesome-icon :icon="['fas', 'times']" color="red" class="mx-2"/></slot>
-              Verified mobile number.
+              &nbsp;&nbsp; Verified mobile number.
             </b-list-group-item>
           </b-list-group>
         </b-card>
