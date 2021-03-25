@@ -2,50 +2,10 @@
     <div>
       <div class="container-fluid card shadow" :class="type === 'dark' ? 'bg-default': ''">
         <!-- <b-table class="" striped responsive hover :items="transactionDetails" :fields="fields"></b-table> -->
-        <b-container fluid>
-          <b-row class="my-1">
-            <b-col sm="2">
-              <label :for="txn-type">Transaction Type</label>
-            </b-col>
-            <b-col sm="3">
-              <b-form-input :id="txn-type" :type="text"></b-form-input>
-            </b-col>
-            <b-col sm="2">
-              <label :for="bank-name">Bank Name</label>
-            </b-col>
-            <b-col sm="3">
-              <b-form-input :id="bank-name" :type="text"></b-form-input>
-            </b-col>
-          </b-row>
-          <b-row class="my-1">
-            <b-col sm="2">
-              <label :for="min-amt"> Min Amount</label>
-            </b-col>
-            <b-col sm="3">
-              <b-form-input :id="min-amt" :type="text"></b-form-input>
-            </b-col>
-            <b-col sm="2">
-              <label :for="max-amt">Max Amount</label>
-            </b-col>
-            <b-col sm="3">
-              <b-form-input :id="max-amt" :type="text"></b-form-input>
-            </b-col>
-          </b-row>
-          <b-row class="my-1">
-            <b-col sm="2">
-              <label :for="start-date">Start Date</label>
-            </b-col>
-            <b-col sm="3">
-              <b-form-input :id="start-date" type="date"></b-form-input>
-            </b-col>
-            <b-col sm="2">
-              <label :for="end-date">End Date</label>
-            </b-col>
-            <b-col sm="3">
-              <b-form-input :id="end-date" type="date"></b-form-input>
-            </b-col>
-          </b-row>
-        </b-container>
+        <b-card class="m-2">
+          <transaction-filters>
+          </transaction-filters>
+        </b-card>
         <div class="table-responsive" v-for="transactionDetail in transactionDetails" :key=transactionDetail.name>
           <div class="card-header border-0"
             :class="type === 'dark' ? 'bg-transparent': ''">
@@ -105,8 +65,13 @@
 // api
 import { httpRequest } from '../api/index.js'
 
+import TransactionFilters from './components/TransactionFilters'
+
 export default {
   name: 'transactions',
+  components: {
+    TransactionFilters
+  },
   filters: {
     bankNames: function (value) {
       const bankNamesMap = {

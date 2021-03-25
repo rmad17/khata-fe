@@ -7,7 +7,7 @@
       <b-col sm="3">
         <b-form-input @change="onFilterChange"  v-model="startDate" type="date"></b-form-input>
       </b-col>
-      <b-col class="ml-4" sm="2">
+      <b-col class="ml-5" sm="2">
         <label>End Date</label>
       </b-col>
       <b-col sm="3">
@@ -22,7 +22,7 @@
         <b-col sm="3">
           <b-form-select @change="onFilterChange" v-model="transactionTypeSelect" :options="transactionTypes"></b-form-select>
         </b-col>
-        <b-col sm="2" class="ml-4">
+        <b-col sm="2" class="ml-5">
           <label>Bank Name</label>
         </b-col>
         <b-col sm="3">
@@ -36,10 +36,10 @@
         <b-col sm="3">
           <b-form-input @change="onFilterChange" v-model="minAmt"></b-form-input>
         </b-col>
-        <b-col sm="2" class="ml-4">
+        <b-col sm="2" class="ml-5 pl-2">
           <label>Max Amount</label>
         </b-col>
-        <b-col sm="3">
+        <b-col sm="3" >
           <b-form-input @change="onFilterChange" v-model="maxAmt"></b-form-input>
         </b-col>
       </b-row>
@@ -54,9 +54,9 @@
     </b-collapse>
     <b-row>
       <b-col/>
-      <b-button class="mr-5" v-b-toggle.txn-filter-collapse variant="outline-primary">
-        <span id="down-arrow"><font-awesome-icon :icon="['fas', 'angle-double-down']"/></span>
-        <!-- <span id="up-arrow"><font-awesome-icon :icon="['fas', 'angle-double-up']"/></span> -->
+      <b-button class="mr-5" v-b-toggle.txn-filter-collapse variant="outline-primary" @click="onFilterToggle">
+        <span v-if="filterOpen"><font-awesome-icon :icon="['fas', 'angle-double-up']"/></span>
+        <span v-else><font-awesome-icon :icon="['fas', 'angle-double-down']"/></span>
       </b-button>
       <b-col/>
     </b-row>
@@ -77,6 +77,7 @@ export default {
   name: 'transaction-filters',
   data () {
     return {
+      filterOpen: false,
       minAmt: 0,
       maxAmt: '',
       category: '',
@@ -137,6 +138,13 @@ export default {
       for (const i in responseData.data) {
         const c = responseData.data[i]
         this.categories.push({ value: c.id, text: c.name })
+      }
+    },
+    onFilterToggle: function () {
+      if (this.filterOpen) {
+        this.filterOpen = false
+      } else {
+        this.filterOpen = true
       }
     }
   },
