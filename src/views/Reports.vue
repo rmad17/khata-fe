@@ -27,11 +27,6 @@ import Visualisation from './components/Visualisation'
 import TransactionFilters from './components/TransactionFilters'
 import TransactionTable from './components/TransactionTable'
 
-// var moment = require('moment-timezone')
-// var a = moment.tz('2013-11-18 11:55', 'Asia/Kolkata')
-// console.log('Month: ')
-// console.log(a.month)
-
 export default {
   name: 'reports',
   components: { Visualisation, TransactionFilters, TransactionTable },
