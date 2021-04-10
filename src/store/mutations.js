@@ -1,8 +1,5 @@
 
 export const mutations = {
-  changeSidebar: function (state, value) {
-    state.showSidebar = value
-  },
   updateProfile: function (state, profile) {
     state.profile = profile.data
   },
@@ -11,5 +8,11 @@ export const mutations = {
   },
   updateCategories: function (state, categories) {
     state.categories = categories.data
+  },
+  updateTransactions: function (state, transactions) {
+    state.transactions = transactions
+  },
+  updateChartData: function (state, chartData) {
+    state.chartData = chartData
   }
 }

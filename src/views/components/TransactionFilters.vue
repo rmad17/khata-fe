@@ -70,6 +70,8 @@ import { httpRequest } from '../../api/index.js'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faAngleDoubleDown, faAngleDoubleUp } from '@fortawesome/free-solid-svg-icons'
 
+const dayjs = require('dayjs')
+
 library.add(faAngleDoubleDown)
 library.add(faAngleDoubleUp)
 
@@ -82,8 +84,8 @@ export default {
       maxAmt: '',
       category: '',
       tag: '',
-      startDate: '',
-      endDate: '',
+      startDate: dayjs().subtract(5, 'month').locale('in').format('YYYY-MM-DD'),
+      endDate: dayjs().locale('in').format('YYYY-MM-DD'),
       bankNameSelect: '',
       transactionTypeSelect: '',
       categories: [],

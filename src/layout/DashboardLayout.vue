@@ -35,9 +35,6 @@ import { FadeTransition } from 'vue2-transitions'
 // api
 import { httpRequest } from '../api/index.js'
 
-// Vuex
-import { mapActions, mapGetters } from 'vuex'
-
 export default {
   components: {
     DashboardNavbar,
@@ -49,21 +46,7 @@ export default {
       sidebarBackground: 'vue' // vue|blue|orange|green|red|primary
     }
   },
-  computed: {
-    ...mapGetters([
-    ]),
-    getSidebar: function () {
-      return this.$store.state.showSidebar
-    }
-  },
   methods: {
-    ...mapActions(['changeSidebar'
-    ]),
-    toggleSidebar () {
-      if (this.$store.state.showSidebar) {
-        this.$store.dispatch('changeSidebar', false)
-      }
-    },
     getProfile: function () {
       var endpoint = 'account/profile/'
       httpRequest(endpoint, 'get', {}, {}, this.storeProfile)
@@ -77,13 +60,3 @@ export default {
   }
 }
 </script>
-<style lang="scss">
-.drawer-enter { opacity: 0.3 }
-.drawer-leave-to { opacity: 0 }
-
-.drawer-leave { opacity: 0.7 }
-.drawer-enter-to { opacity: 1 }
-
-.drawer-enter-active { opacity: 0.7 }
-.drawer-leave-active { transition: opacity 300ms;  opacity: 0.3 }
-</style>

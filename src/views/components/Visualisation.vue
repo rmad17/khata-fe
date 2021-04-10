@@ -145,6 +145,15 @@ export default {
       this.categoryOptions.title.text = 'Category Credit/Debit'
       this.categoryOptions.scales.xAxes[0].gridLines.display = true
       this.categoryOptions.scales.yAxes[0].gridLines.display = false
+    },
+    storeData: function () {
+      const chartData = {
+        categoryData: this.categoryData,
+        categoryOptions: this.categoryOptions,
+        monthlyData: this.monthlyData,
+        monthlyOptions: this.monthlyOptions
+      }
+      this.$store.dispatch('updateChartData', chartData)
     }
   },
   watch: {
