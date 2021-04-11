@@ -10,7 +10,7 @@ Chart.defaults.global.defaultFontColor = '#9aa8b4'
 export default {
   name: 'bar-chart',
   extends: Bar,
-  props: ['chartData', 'options'],
+  props: ['chartData', 'options', 'active'],
   data () {
     return {
     }
@@ -21,6 +21,11 @@ export default {
     chartData: function (newData) {
       this.chartData = newData
       this.renderChart(this.chartData, this.options)
+    },
+    active: function (newData) {
+      if (newData === true) {
+        this.renderChart(this.chartData, this.options)
+      }
     }
   },
   mounted () {

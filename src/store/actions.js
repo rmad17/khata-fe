@@ -24,6 +24,7 @@ export default {
     })
   },
   updateChartData: function ({ commit }, data) {
+    console.log('Hello')
     commit('updateChartData', {
       data,
       done: false

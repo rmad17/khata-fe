@@ -3,11 +3,13 @@
     <div class="mb-4 mt-4 border border-light rounded">
       <bar-chart
         :chart-data="monthlyData"
+        :active="active"
         :options="monthlyOptions"/>
     </div>
     <div class="mt-6 border border-light rounded">
       <horizontal-bar-chart
         :chart-data="categoryData"
+        :active="active"
         :options="categoryOptions"/>
     </div>
   </div>
@@ -19,6 +21,9 @@ import { httpRequest } from '../../api/index.js'
 
 import BarChart from '@/components/Charts/BarChart'
 import HorizontalBarChart from '@/components/Charts/HorizontalBarChart'
+
+// Vuex
+import { mapActions, mapState } from 'vuex'
 
 var chartOptions = {
   responsive: true,
@@ -72,8 +77,8 @@ export default {
     return {
       urlParams: this.params,
       monthlyData: {},
-      categoryData: {},
-      chartData: {
+      categoryData: this.$store.state.chartData.categoryData,
+      baseChartData: {
         datasets: [
           {
             label: 'Credit',
@@ -98,11 +103,19 @@ export default {
         ]
       },
       monthlyOptions: {},
-      categoryOptions: {}
+      categoryOptions: this.$store.state.chartData.categoryOptions
     }
   },
-  props: ['params'],
+  props: ['params', 'active'],
+  computed: {
+    ...mapState({
+      chartData: state => state.chartData
+    })
+  },
   methods: {
+    ...mapActions([
+      'updateChartData'
+    ]),
     monthlyCreditDebit: function () {
       const endpoint = 'statement/reports/graph/periodic/' + this.urlParams
       const headers = { 'Content-Type': 'multipart/form-data' }
@@ -122,7 +135,7 @@ export default {
         creditData.push(graphData[mon].total_credit)
         debitData.push(graphData[mon].total_debit)
       }
-      this.monthlyData = JSON.parse(JSON.stringify(this.chartData))
+      this.monthlyData = JSON.parse(JSON.stringify(this.baseChartData))
       this.monthlyData.labels = graphData.ordered_months
       this.monthlyData.datasets[0].data = creditData
       this.monthlyData.datasets[1].data = debitData
@@ -137,7 +150,7 @@ export default {
       }
       const creditData = [1, 2, 3]
       const debitData = [3, 2, 1]
-      this.categoryData = JSON.parse(JSON.stringify(this.chartData))
+      this.categoryData = JSON.parse(JSON.stringify(this.baseChartData))
       this.categoryData.datasets[0].data = creditData
       this.categoryData.datasets[1].data = debitData
       this.categoryData.labels = labels
@@ -145,15 +158,6 @@ export default {
       this.categoryOptions.title.text = 'Category Credit/Debit'
       this.categoryOptions.scales.xAxes[0].gridLines.display = true
       this.categoryOptions.scales.yAxes[0].gridLines.display = false
-    },
-    storeData: function () {
-      const chartData = {
-        categoryData: this.categoryData,
-        categoryOptions: this.categoryOptions,
-        monthlyData: this.monthlyData,
-        monthlyOptions: this.monthlyOptions
-      }
-      this.$store.dispatch('updateChartData', chartData)
     }
   },
   watch: {
@@ -161,6 +165,9 @@ export default {
       this.urlParams = newParams
       this.monthlyCreditDebit()
       this.categorisedCreditDebit()
+    },
+    active: function (newData) {
+      this.active = newData
     }
   },
   mounted () {

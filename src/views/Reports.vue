@@ -6,12 +6,12 @@
       </b-card>
       <b-card class="m-2 mt-2 pt-1">
         <b-tabs align="center" pills card>
-          <b-tab title="Transactions" active>
+          <b-tab title="Transactions" @click="onTxnTabClick" active>
             <transaction-table :transaction-details="transactionDetails" />
           </b-tab>
-          <b-tab title="Visualisation">
+          <b-tab title="Visualisation" @click="onVisTabClick">
             <div>
-              <visualisation :params="params"/>
+              <visualisation :params="params" :active="activeVis"/>
             </div>
           </b-tab>
         </b-tabs>
@@ -36,7 +36,8 @@ export default {
       transactionDetails: [],
       categories: [],
       tags: [],
-      type: 'light'
+      type: 'light',
+      activeVis: false
     }
   },
   computed: {
@@ -66,6 +67,12 @@ export default {
       for (const k in responseData.data) {
         this.transactionDetails.push({ name: k, transactions: responseData.data[k] })
       }
+    },
+    onVisTabClick: function () {
+      this.activeVis = true
+    },
+    onTxnTabClick: function () {
+      this.activeVis = false
     }
   },
   mounted () {
