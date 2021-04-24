@@ -6,10 +6,10 @@
       </b-card>
       <b-card class="m-2 mt-2 pt-1">
         <b-tabs align="center" pills card>
-          <b-tab title="Transactions" @click="onTxnTabClick" active>
+          <b-tab title="Transactions" @click="onTxnTabClick">
             <transaction-table :transaction-details="transactionDetails" />
           </b-tab>
-          <b-tab title="Visualisation" @click="onVisTabClick">
+          <b-tab title="Visualisation" @click="onVisTabClick" active>
             <div>
               <visualisation :params="params" :active="activeVis"/>
             </div>
