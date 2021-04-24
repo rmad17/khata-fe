@@ -12,6 +12,7 @@
         :name="chart2"
         :chart-data="categoryData"
         :active="active"
+        :title="chart2Title"
         :extra-options="categoryOptions"/>
     </div>
   </div>
@@ -86,6 +87,7 @@ export default {
       chart1: 'chart1',
       chart2: 'chart2',
       chart3: 'chart3',
+      chart2Title: 'Category Credit/Debit',
       baseChartData: {
         datasets: [
           {
@@ -122,6 +124,13 @@ export default {
     ...mapActions([
       'updateChartData'
     ]),
+    datasetColors: function (sizee) {
+      const colors = []
+      for (let i = 0; i < sizee; i++) {
+        colors.push('#' + Math.floor(Math.random() * 16777215).toString(16))
+      }
+      return colors
+    },
     monthlyCreditDebit: function () {
       const endpoint = 'statement/reports/graph/periodic/' + this.urlParams
       const headers = { 'Content-Type': 'multipart/form-data' }
@@ -154,14 +163,14 @@ export default {
       for (const i in cGraphData) {
         labels.push(cGraphData[i].name)
       }
-      const debitData = [3, 2, 1]
+      const debitData = [3, 2, 5]
       this.categoryData = JSON.parse(JSON.stringify(this.baseChartData))
-      delete this.categoryData.datasets[1]
+      const dataset = this.categoryData.datasets[1]
+      this.categoryData.datasets = [dataset]
       this.categoryData.datasets[0].data = debitData
+      this.categoryData.datasets[0].hoverOffset = 4
       this.categoryData.labels = labels
-      this.categoryData.hoverOffset = 4
       this.categoryOptions = JSON.parse(JSON.stringify(chartOptions))
-      this.categoryOptions.plugins.title.text = 'Category Credit/Debit'
     }
   },
   watch: {

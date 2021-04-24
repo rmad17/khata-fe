@@ -8,18 +8,17 @@ import Chart from 'chart.js/auto'
 
 Chart.defaults.font.color = '#9aa8b4'
 Chart.defaults.font.family = 'Noto Sans'
+// Chart.defaults.backgroundColor = ['#0074D9', '#FF4136', '#2ECC40', '#FF851B', '#7FDBFF', '#B10DC9', '#FFDC00', '#001f3f', '#39CCCC', '#01FF70', '#85144b', '#F012BE', '#3D9970', '#111111', '#AAAAAA']
 
 export default {
   name: 'pie-chart',
-  props: ['chartData', 'extraOptions', 'active', 'name'],
+  props: ['chartData', 'extraOptions', 'active', 'name', 'title'],
   data () {
     return {
       chart: null,
       options: {
-        width: 200,
-        height: 200,
         responsive: true,
-        aspectRatio: 3,
+        aspectRatio: 2,
         plugins: {
           title: {
             font: {
@@ -28,7 +27,7 @@ export default {
             },
             padding: 20,
             display: true,
-            text: ''
+            text: this.title
           },
           scales: {
             y: {
@@ -39,7 +38,7 @@ export default {
             }
           },
           legend: {
-            display: false
+            display: true
           }
         },
         layout: {
@@ -55,7 +54,6 @@ export default {
   },
   methods: {
     renderChart: function (chartData, extraOptions) {
-      console.log(1)
       const ctx = document.getElementById('' + this.name)
       if (this.chart) {
         this.chart.data = chartData
@@ -73,10 +71,7 @@ export default {
   },
   watch: {
     chartData: function (newData) {
-      console.log(2)
-      console.log('newData')
       this.chartData = newData
-      console.log(this.chartData.datasets)
       this.renderChart(this.chartData, this.options)
     },
     active: function (newData) {
