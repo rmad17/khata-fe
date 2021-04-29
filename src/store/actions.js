@@ -1,7 +1,4 @@
 export default {
-  changeSidebar: function ({ commit }, value) {
-    commit('changeSidebar', value)
-  },
   updateProfile: function ({ commit }, data) {
     commit('updateProfile', {
       data,
@@ -16,6 +13,19 @@ export default {
   },
   updateCategories: function ({ commit }, data) {
     commit('updateCategories', {
+      data,
+      done: false
+    })
+  },
+  updateTransactions: function ({ commit }, data) {
+    commit('updateTransactions', {
+      data,
+      done: false
+    })
+  },
+  updateChartData: function ({ commit }, data) {
+    console.log('Hello')
+    commit('updateChartData', {
       data,
       done: false
     })

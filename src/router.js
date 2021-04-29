@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import DashboardLayout from '@/layout/DashboardLayout'
+import BaseLayout from '@/layout/BaseLayout'
 import AuthLayout from '@/layout/AuthLayout'
 Vue.use(Router)
 
@@ -10,7 +10,7 @@ export default new Router({
     {
       path: '/',
       redirect: 'dashboard',
-      component: DashboardLayout,
+      component: BaseLayout,
       children: [
         {
           path: '/dashboard',
@@ -30,25 +30,25 @@ export default new Router({
           name: 'profile',
           component: () => import(/* webpackChunkName: "demo" */ './views/UserProfile.vue')
         },
-        // {
-        //   path: '/maps',
-        //   name: 'maps',
-        //   component: () => import(/* webpackChunkName: "demo" */ './views/Maps.vue')
-        // },
         {
           path: '/category',
           name: 'category',
           component: () => import(/* webpackChunkName: "demo" */ './views/Category.vue')
         },
         {
-          path: '/tables',
-          name: 'tables',
-          component: () => import(/* webpackChunkName: "demo" */ './views/Tables.vue')
+          path: '/reports',
+          name: 'reports',
+          component: () => import(/* webpackChunkName: "demo" */ './views/Reports.vue')
         },
         {
           path: '/transactions',
           name: 'transactions',
           component: () => import(/* webpackChunkName: "demo" */ './views/Transactions.vue')
+        },
+        {
+          path: '/investments',
+          name: 'investments',
+          component: () => import(/* webpackChunkName: "demo" */ './views/Investments.vue')
         }
       ]
     },
@@ -71,8 +71,7 @@ export default new Router({
           path: '/register',
           name: 'register',
           component: () => import(/* webpackChunkName: "demo" */ './views/Register.vue')
-        },
-        
+        }
       ]
     }
   ]

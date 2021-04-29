@@ -5,8 +5,8 @@
       <div class="col">
         <slot>
           <h5 class="card-title text-uppercase text-muted mb-0" v-if="title">{{title}}</h5>
-          <span class="mb-0" style="font-size:19px" v-if="rupee">₹ </span>
-          <span class="h2 font-weight-bold mb-0" v-if="subTitle">{{subTitle}}</span>
+          <span class="mb-0 text-color-gray" style="font-size:18px" v-if="rupee">₹ </span>
+          <span class="h2 font-weight-bold mb-0">{{subTitle}}</span>
         </slot>
       </div>
 
@@ -14,7 +14,7 @@
         <slot name="icon">
           <div class="icon icon-shape text-white rounded-circle shadow"
                :class="[`bg-${type}`, iconClasses]">
-            <i :class="icon"></i>
+            <slot><font-awesome-icon :icon="['fas', `${icon}`]" color="white" class="mx-2"/></slot>
           </div>
         </slot>
       </div>
@@ -30,22 +30,17 @@
 <script>
 import Card from './Card.vue'
 
+// font-awesome
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faCreditCard, faCoins, faReceipt, faWallet } from '@fortawesome/free-solid-svg-icons'
+library.add(faCreditCard, faCoins, faReceipt, faWallet)
+
 export default {
   name: 'stats-card',
   components: {
     Card
   },
-  props: {
-    type: {
-      type: String,
-      default: 'primary'
-    },
-    icon: String,
-    title: String,
-    subTitle: String,
-    rupee: String,
-    iconClasses: [String, Array]
-  }
+  props: ['type', 'icon', 'title', 'subTitle', 'rupee', 'iconClasses']
 }
 </script>
 <style></style>

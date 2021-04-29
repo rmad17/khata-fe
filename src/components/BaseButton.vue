@@ -80,7 +80,7 @@ export default {
   },
   computed: {
     classes () {
-      let btnClasses = [
+      const btnClasses = [
         { 'btn-block': this.block },
         { 'rounded-circle': this.rounded },
         { 'btn-icon-only': this.iconOnly },
