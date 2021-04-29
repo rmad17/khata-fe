@@ -1,14 +1,19 @@
 <template>
-  <div class="mx-6">
+  <div class="mx-5">
     <div class="mb-4 mt-4 border border-light rounded">
       <bar-chart
+        :name="chart1"
         :chart-data="monthlyData"
+        :active="active"
         :options="monthlyOptions"/>
     </div>
     <div class="mt-6 border border-light rounded">
-      <horizontal-bar-chart
+      <pie-chart
+        :name="chart2"
         :chart-data="categoryData"
-        :options="categoryOptions"/>
+        :active="active"
+        :title="chart2Title"
+        :extra-options="categoryOptions"/>
     </div>
   </div>
 </template>
@@ -18,44 +23,50 @@
 import { httpRequest } from '../../api/index.js'
 
 import BarChart from '@/components/Charts/BarChart'
-import HorizontalBarChart from '@/components/Charts/HorizontalBarChart'
+import PieChart from '@/components/Charts/PieChart'
+
+// Vuex
+import { mapActions, mapState } from 'vuex'
 
 var chartOptions = {
   responsive: true,
-  maintainAspectRatio: false,
-  title: {
-    fontSize: 20,
-    fontFamily: 'Open Sans, sans-serif',
-    fontColor: '#0d6efd',
-    fontStyle: '',
-    padding: 20,
-    display: true,
-    text: ''
-  },
-  scales: {
-    yAxes: [{
-      gridLines: {
-        display: true
-      }
-    }],
-    xAxes: [{
-      gridLines: {
-        display: false
-      }
-    }]
-  },
-  legend: {
-    display: true,
-    labels: {
-      fontFamily: 'Open Sans, sans-serif',
-      fontSize: 14
+  aspectRatio: 3,
+  plugins: {
+    title: {
+      font: {
+        size: 18,
+        weight: 'normal'
+      },
+      padding: 20,
+      display: true,
+      text: ''
     },
-    align: 'end'
+    scales: {
+      y: [{
+        gridLines: {
+          display: true
+        },
+        display: true
+      }],
+      x: [{
+        gridLines: {
+          display: false
+        },
+        display: true,
+        font: {
+          size: 12
+        }
+      }]
+    },
+    legend: {
+      display: true,
+      align: 'end'
+    }
   },
   layout: {
     padding: {
-      left: 50,
-      right: 50,
+      left: 20,
+      right: 20,
       top: 20,
       bottom: 20
     }
@@ -66,43 +77,60 @@ export default {
   name: 'visualisation',
   components: {
     BarChart,
-    HorizontalBarChart
+    PieChart
   },
   data () {
     return {
       urlParams: this.params,
       monthlyData: {},
-      categoryData: {},
-      chartData: {
+      categoryData: this.$store.state.chartData.categoryData,
+      chart1: 'chart1',
+      chart2: 'chart2',
+      chart3: 'chart3',
+      chart2Title: 'Category Credit/Debit',
+      baseChartData: {
         datasets: [
           {
             label: 'Credit',
-            backgroundColor: '#098b54',
+            backgroundColor: '#34cb65',
             data: [40, 20, 35, 42, 17, 27],
-            borderWidth: 1,
-            maxBarThickness: 15,
-            categoryPercentage: 0.4,
-            pointBorderColor: 'white',
-            borderColor: 'transparent'
+            borderWidth: 1.5,
+            maxBarThickness: 20,
+            categoryPercentage: 0.3,
+            borderColor: '#1a995a'
           },
           {
             label: 'Debit',
-            backgroundColor: '#d51737',
+            backgroundColor: '#fd4e44',
             data: [30, 30, 55, 22, 57, 7],
-            borderWidth: 1,
-            maxBarThickness: 25,
-            categoryPercentage: 0.4,
-            pointBorderColor: 'white',
-            borderColor: 'transparent'
+            borderWidth: 1.5,
+            maxBarThickness: 20,
+            categoryPercentage: 0.3,
+            borderColor: '#f00f25'
           }
         ]
       },
       monthlyOptions: {},
-      categoryOptions: {}
+      categoryOptions: chartOptions
     }
   },
-  props: ['params'],
+  props: ['params', 'active'],
+  computed: {
+    ...mapState({
+      chartData: state => state.chartData
+    })
+  },
   methods: {
+    ...mapActions([
+      'updateChartData'
+    ]),
+    datasetColors: function (sizee) {
+      const colors = []
+      for (let i = 0; i < sizee; i++) {
+        colors.push('#' + Math.floor(Math.random() * 16777215).toString(16))
+      }
+      return colors
+    },
     monthlyCreditDebit: function () {
       const endpoint = 'statement/reports/graph/periodic/' + this.urlParams
       const headers = { 'Content-Type': 'multipart/form-data' }
@@ -122,12 +150,12 @@ export default {
         creditData.push(graphData[mon].total_credit)
         debitData.push(graphData[mon].total_debit)
       }
-      this.monthlyData = JSON.parse(JSON.stringify(this.chartData))
+      this.monthlyData = JSON.parse(JSON.stringify(this.baseChartData))
       this.monthlyData.labels = graphData.ordered_months
       this.monthlyData.datasets[0].data = creditData
       this.monthlyData.datasets[1].data = debitData
       this.monthlyOptions = JSON.parse(JSON.stringify(chartOptions))
-      this.monthlyOptions.title.text = 'Monthly Credit/Debit'
+      this.monthlyOptions.plugins.title.text = 'Monthly Credit/Debit'
     },
     categoryGraphData: function (responseData) {
       const cGraphData = responseData.data
@@ -135,16 +163,14 @@ export default {
       for (const i in cGraphData) {
         labels.push(cGraphData[i].name)
       }
-      const creditData = [1, 2, 3]
-      const debitData = [3, 2, 1]
-      this.categoryData = JSON.parse(JSON.stringify(this.chartData))
-      this.categoryData.datasets[0].data = creditData
-      this.categoryData.datasets[1].data = debitData
+      const debitData = [3, 2, 5]
+      this.categoryData = JSON.parse(JSON.stringify(this.baseChartData))
+      const dataset = this.categoryData.datasets[1]
+      this.categoryData.datasets = [dataset]
+      this.categoryData.datasets[0].data = debitData
+      this.categoryData.datasets[0].hoverOffset = 4
       this.categoryData.labels = labels
       this.categoryOptions = JSON.parse(JSON.stringify(chartOptions))
-      this.categoryOptions.title.text = 'Category Credit/Debit'
-      this.categoryOptions.scales.xAxes[0].gridLines.display = true
-      this.categoryOptions.scales.yAxes[0].gridLines.display = false
     }
   },
   watch: {
@@ -152,11 +178,14 @@ export default {
       this.urlParams = newParams
       this.monthlyCreditDebit()
       this.categorisedCreditDebit()
+    },
+    active: function (newData) {
+      this.active = newData
     }
   },
   mounted () {
-    this.monthlyCreditDebit()
-    this.categorisedCreditDebit()
+    // this.monthlyCreditDebit()
+    // this.categorisedCreditDebit()
   }
 }
 </script>

@@ -176,7 +176,7 @@ export let blueChartOptions = {
 export let lineChartOptionsBlue = {
   ...basicOptions,
   tooltips: {
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#fff',
     titleFontColor: '#333',
     bodyFontColor: '#666',
     bodySpacing: 4,
@@ -224,7 +224,7 @@ export let lineChartOptionsBlue = {
 export let barChartOptionsGradient = {
   ...basicOptions,
   tooltips: {
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#fff',
     titleFontColor: '#333',
     bodyFontColor: '#666',
     bodySpacing: 4,

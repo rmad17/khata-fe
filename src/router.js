@@ -30,11 +30,6 @@ export default new Router({
           name: 'profile',
           component: () => import(/* webpackChunkName: "demo" */ './views/UserProfile.vue')
         },
-        // {
-        //   path: '/maps',
-        //   name: 'maps',
-        //   component: () => import(/* webpackChunkName: "demo" */ './views/Maps.vue')
-        // },
         {
           path: '/category',
           name: 'category',
@@ -49,6 +44,11 @@ export default new Router({
           path: '/transactions',
           name: 'transactions',
           component: () => import(/* webpackChunkName: "demo" */ './views/Transactions.vue')
+        },
+        {
+          path: '/investments',
+          name: 'investments',
+          component: () => import(/* webpackChunkName: "demo" */ './views/Investments.vue')
         }
       ]
     },

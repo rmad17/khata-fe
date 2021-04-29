@@ -1,22 +1,6 @@
 <template>
     <div>
-        <base-header class="header pb-8 pt-5 pt-lg-4 d-flex align-items-center"
-                     style="min-height: 3rem; background-size: cover; background-position: center top;">
-            <!-- Mask -->
-            <span class="mask bg-gradient-peach opacity-8"></span>
-            <!-- Header container -->
-            <div class="container-fluid d-flex align-items-center">
-                <div class="row">
-                    <div class="col-md-4">
-                        <h2 class="display-2 text-white" style="font-family: 'Lato', sans-serif;">
-                          Hello {{ profileData.first_name }}
-                        </h2>
-                    </div>
-                </div>
-            </div>
-        </base-header>
-
-        <div class="container-fluid mt--7">
+        <div class="container-fluid mt-4">
             <div class="row">
                 <div class="col-xl-12 order-xl-2">
                     <card shadow type="secondary">

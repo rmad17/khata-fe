@@ -1,7 +1,4 @@
 export default {
-  getSidebar: function (state) {
-    return state.showSidebar
-  },
   getProfile: function (state) {
     return state.profile
   },
@@ -10,5 +7,11 @@ export default {
   },
   getcategory: function (state) {
     return state.categories
+  },
+  getTransactions: function (state) {
+    return state.transactions
+  },
+  getChartData: function (state) {
+    return state.chartData
   }
 }

@@ -6,12 +6,12 @@
       </b-card>
       <b-card class="m-2 mt-2 pt-1">
         <b-tabs align="center" pills card>
-          <b-tab title="Transactions">
+          <b-tab title="Transactions" @click="onTxnTabClick">
             <transaction-table :transaction-details="transactionDetails" />
           </b-tab>
-          <b-tab title="Visualisation" active>
+          <b-tab title="Visualisation" @click="onVisTabClick" active>
             <div>
-              <visualisation :params="params"/>
+              <visualisation :params="params" :active="activeVis"/>
             </div>
           </b-tab>
         </b-tabs>
@@ -27,11 +27,6 @@ import Visualisation from './components/Visualisation'
 import TransactionFilters from './components/TransactionFilters'
 import TransactionTable from './components/TransactionTable'
 
-// var moment = require('moment-timezone')
-// var a = moment.tz('2013-11-18 11:55', 'Asia/Kolkata')
-// console.log('Month: ')
-// console.log(a.month)
-
 export default {
   name: 'reports',
   components: { Visualisation, TransactionFilters, TransactionTable },
@@ -41,7 +36,8 @@ export default {
       transactionDetails: [],
       categories: [],
       tags: [],
-      type: 'light'
+      type: 'light',
+      activeVis: false
     }
   },
   computed: {
@@ -71,6 +67,12 @@ export default {
       for (const k in responseData.data) {
         this.transactionDetails.push({ name: k, transactions: responseData.data[k] })
       }
+    },
+    onVisTabClick: function () {
+      this.activeVis = true
+    },
+    onTxnTabClick: function () {
+      this.activeVis = false
     }
   },
   mounted () {

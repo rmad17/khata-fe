@@ -11,10 +11,11 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
   state: {
-    showSidebar: false,
     profile: {},
     dashboardInfo: {},
-    categories: []
+    categories: [],
+    transactions: [],
+    chartData: {}
   },
   actions,
   getters,
