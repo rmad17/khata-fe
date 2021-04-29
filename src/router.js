@@ -44,6 +44,11 @@ export default new Router({
           path: '/transactions',
           name: 'transactions',
           component: () => import(/* webpackChunkName: "demo" */ './views/Transactions.vue')
+        },
+        {
+          path: '/investments',
+          name: 'investments',
+          component: () => import(/* webpackChunkName: "demo" */ './views/Investments.vue')
         }
       ]
     },

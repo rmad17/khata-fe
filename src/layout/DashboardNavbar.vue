@@ -7,6 +7,7 @@
         <sidebar-item :link="{name: 'Transactions', icon: 'ni ni-key-25 text-info', path: '/transactions'}"/>
         <sidebar-item :link="{name: 'Reports', icon: 'ni ni-bullet-list-67 text-red', path: '/reports'}"/>
         <sidebar-item :link="{name: 'Categories', icon: 'ni ni-single-02 text-yellow', path: '/category'}"/>
+        <sidebar-item :link="{name: 'Investments', icon: 'ni ni-single-02 text-yellow', path: '/investments'}"/>
       </ul>
       <div class="d-flex ml-8 pl-8 justify-content-end float-right">
         <base-dropdown class="ml-8 pl-8 nav-link pr-0">
