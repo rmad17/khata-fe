@@ -15,6 +15,7 @@ export default {
   props: ['chartData', 'extraOptions', 'active', 'name', 'title'],
   data () {
     return {
+      colors: ['#0074d9', '#ff4136', '#2ecc40', '#ff851b', '#7fdbff', '#b10dc9', '#ffdc00', '#001f3f', '#39cccc', '#01ff70', '#85144b', '#f012be', '#3d9970', '#111111', '#aaaaaa'],
       chart: null,
       options: {
         responsive: true,
@@ -53,16 +54,37 @@ export default {
     }
   },
   methods: {
+    datasetColors: function (sizee) {
+      const colors = []
+      for (let i = 0; i < sizee; i++) {
+        colors.push('#' + Math.floor(Math.random() * 16777215).toString(16))
+      }
+      return colors
+    },
     renderChart: function (chartData, extraOptions) {
+      let bgColors = []
+      if (chartData.data && chartData.data.length > this.colors.length) {
+        bgColors = this.colors.concat(this.datasetColors(chartData.data.length - this.colors.length))
+      } else {
+        bgColors = this.colors.slice(0, chartData.data.length)
+      }
+      const baseChartData = {
+        labels: chartData.labels,
+        datasets: [{
+          data: chartData.data,
+          backgroundColor: bgColors,
+          hoverOffset: 4
+        }]
+      }
       const ctx = document.getElementById('' + this.name)
-      if (this.chart) {
-        this.chart.data = chartData
+      if (this.chart != null) {
+        this.chart.data = baseChartData
         this.chart.options = this.options
         this.chart.update()
       } else {
         const chart = new Chart(ctx, {
           type: 'pie',
-          data: chartData,
+          data: baseChartData,
           options: this.options
         })
         this.chart = chart
