@@ -25,9 +25,6 @@ import { httpRequest } from '../../api/index.js'
 import BarChart from '@/components/Charts/BarChart'
 import PieChart from '@/components/Charts/PieChart'
 
-// Vuex
-import { mapActions, mapState } from 'vuex'
-
 var chartOptions = {
   responsive: true,
   aspectRatio: 3,
@@ -116,15 +113,7 @@ export default {
     }
   },
   props: ['params', 'active'],
-  computed: {
-    ...mapState({
-      chartData: state => state.chartData
-    })
-  },
   methods: {
-    ...mapActions([
-      'updateChartData'
-    ]),
     monthlyCreditDebit: function () {
       const endpoint = 'statement/reports/graph/periodic/' + this.urlParams
       const headers = { 'Content-Type': 'multipart/form-data' }

@@ -8,7 +8,6 @@ import Chart from 'chart.js/auto'
 
 Chart.defaults.font.color = '#9aa8b4'
 Chart.defaults.font.family = 'Noto Sans'
-// Chart.defaults.backgroundColor = ['#0074D9', '#FF4136', '#2ECC40', '#FF851B', '#7FDBFF', '#B10DC9', '#FFDC00', '#001f3f', '#39CCCC', '#01FF70', '#85144b', '#F012BE', '#3D9970', '#111111', '#AAAAAA']
 
 export default {
   name: 'pie-chart',
