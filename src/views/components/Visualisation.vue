@@ -1,13 +1,13 @@
 <template>
   <div class="mx-5">
-    <div class="mb-4 mt-4 border border-light rounded">
+    <div class="mb-4 mt-4 border border-light rounded" v-if="monthlyData.labels.length > 0">
       <bar-chart
         :name="chart1"
         :chart-data="monthlyData"
         :active="active"
         :options="monthlyOptions"/>
     </div>
-    <div class="mt-6 border border-light rounded">
+    <div class="mt-6 border border-light rounded" v-if="categoryData.data.length > 0">
       <pie-chart
         :name="chart2"
         :chart-data="categoryData"
@@ -24,9 +24,6 @@ import { httpRequest } from '../../api/index.js'
 
 import BarChart from '@/components/Charts/BarChart'
 import PieChart from '@/components/Charts/PieChart'
-
-// Vuex
-import { mapActions, mapState } from 'vuex'
 
 var chartOptions = {
   responsive: true,
@@ -82,18 +79,17 @@ export default {
   data () {
     return {
       urlParams: this.params,
-      monthlyData: {},
-      categoryData: this.$store.state.chartData.categoryData,
       chart1: 'chart1',
       chart2: 'chart2',
       chart3: 'chart3',
-      chart2Title: 'Category Credit/Debit',
+      chart2Title: 'Categorised Expenses',
       baseChartData: {
+        labels: [],
         datasets: [
           {
             label: 'Credit',
             backgroundColor: '#34cb65',
-            data: [40, 20, 35, 42, 17, 27],
+            data: [],
             borderWidth: 1.5,
             maxBarThickness: 20,
             categoryPercentage: 0.3,
@@ -102,7 +98,7 @@ export default {
           {
             label: 'Debit',
             backgroundColor: '#fd4e44',
-            data: [30, 30, 55, 22, 57, 7],
+            data: [],
             borderWidth: 1.5,
             maxBarThickness: 20,
             categoryPercentage: 0.3,
@@ -110,27 +106,14 @@ export default {
           }
         ]
       },
+      monthlyData: { data: {}, labels: [] },
       monthlyOptions: {},
+      categoryData: { data: {}, labels: [] },
       categoryOptions: chartOptions
     }
   },
   props: ['params', 'active'],
-  computed: {
-    ...mapState({
-      chartData: state => state.chartData
-    })
-  },
   methods: {
-    ...mapActions([
-      'updateChartData'
-    ]),
-    datasetColors: function (sizee) {
-      const colors = []
-      for (let i = 0; i < sizee; i++) {
-        colors.push('#' + Math.floor(Math.random() * 16777215).toString(16))
-      }
-      return colors
-    },
     monthlyCreditDebit: function () {
       const endpoint = 'statement/reports/graph/periodic/' + this.urlParams
       const headers = { 'Content-Type': 'multipart/form-data' }
@@ -160,15 +143,12 @@ export default {
     categoryGraphData: function (responseData) {
       const cGraphData = responseData.data
       const labels = []
+      const debitData = []
       for (const i in cGraphData) {
         labels.push(cGraphData[i].name)
+        debitData.push(cGraphData[i].total_debit)
       }
-      const debitData = [3, 2, 5]
-      this.categoryData = JSON.parse(JSON.stringify(this.baseChartData))
-      const dataset = this.categoryData.datasets[1]
-      this.categoryData.datasets = [dataset]
-      this.categoryData.datasets[0].data = debitData
-      this.categoryData.datasets[0].hoverOffset = 4
+      this.categoryData.data = debitData
       this.categoryData.labels = labels
       this.categoryOptions = JSON.parse(JSON.stringify(chartOptions))
     }
@@ -184,8 +164,6 @@ export default {
     }
   },
   mounted () {
-    // this.monthlyCreditDebit()
-    // this.categorisedCreditDebit()
   }
 }
 </script>
