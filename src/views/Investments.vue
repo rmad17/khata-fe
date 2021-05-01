@@ -16,6 +16,7 @@
           <div class="col-sm-2">
               <base-input
                 placeholder="Start Date"
+                label= "Start Date"
                 input-classes="form-control-alternative"
                 name="startDate"
                 type="date"
@@ -25,6 +26,7 @@
           <div class="col-sm-2">
               <base-input
                 placeholder="End Date"
+                label= "End Date"
                 input-classes="form-control-alternative"
                 name="endDate"
                 type="date"
@@ -32,39 +34,44 @@
               />
           </div>
           <div class="col-sm-2">
+            <b-form-group class="form-control-label" label="Fund Type">
               <b-form-select
-                placeholder="Type"
+                label= "Fund Type"
                 input-classes="form-control-alternative"
                 :options="fundType"
                 name="fundType"
                 :v-model=fund.fundType
               />
+            </b-form-group>
           </div>
           <div class="col-sm-2">
+            <b-form-group class="form-control-label" label="Fund Period">
               <b-form-select
-                placeholder="Period"
+                label= "Fund Period"
                 input-classes="form-control-alternative"
                 name="fundPeriod"
                 :options="fundPeriod"
                 :v-model=fund.fundPeriod
               />
+            </b-form-group>
           </div>
           <div class="col-sm-2">
               <base-input
                 placeholder="Amount"
+                label="Amount"
                 input-classes="form-control-alternative"
                 name="amount"
                 type="number"
                 :v-model=fund.amount
               />
           </div>
-          <div class="col-m-1 mx-3" v-if="index == rows.length - 1">
+          <div class="col-m-1 mx-3 mt-4 pt-2" v-if="index == rows.length - 1">
               <b-button class="shadow px-3" pill v-b-tooltip.hover title="Add new fund" variant="outline-primary"
                 @click="addRow">
                 <font-awesome-icon size="lg" :icon="['fas', 'plus-circle']"></font-awesome-icon>
               </b-button>
           </div>
-          <div class="col-m-1" v-if="index == rows.length - 1 && index > 0">
+          <div class="col-m-1 mt-4 pt-2" v-if="index == rows.length - 1 && index > 0">
               <b-button class="shadow px-3" pill v-b-tooltip.hover title="Remove fund" variant="outline-danger"
                 @click="removeRow">
                 <font-awesome-icon size="lg" :icon="['fas', 'times-circle']"></font-awesome-icon>
