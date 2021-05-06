@@ -3,13 +3,15 @@
     <div class="pl-4 m-4">
       <div v-for="(fund, index) in rows" :key="index">
         <div class="row">
-          <div class="col-lg-6">
-              <base-input
-                placeholder="Fund"
-                input-classes="form-control-alternative"
-                name="fundname"
-                :v-model=fund.fundname
-              />
+          <div class="col-lg-6 mb-4" v-if="allFunds.length >= 0">
+            <cool-select
+              @search="searchTextChange"
+              :v-model=fund.fundname
+              :items="allFundsData"
+              item-text="name"
+              placeholder="Search by fund name"
+              disable-filtering-by-search
+            />
           </div>
         </div>
         <div class="row">
@@ -83,7 +85,9 @@
   </form>
 </template>
 <script>
-// import { httpRequest } from '../api/index.js'
+import { httpRequest } from '../api/index.js'
+
+import { CoolSelect } from 'vue-cool-select'
 
 // font awesome
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -93,12 +97,27 @@ library.add(faPlusCircle, faTimesCircle)
 
 export default {
   name: 'investments',
+  components: { CoolSelect },
   methods: {
     addRow: function () {
       this.rows.push({ fundType: null, fundPeriod: null })
     },
     removeRow: function () {
       this.rows.pop()
+    },
+    searchTextChange: async function (searchText) {
+      if (searchText.length > 2) {
+        console.log(searchText + ':  Search Text')
+        this.allFunds(searchText)
+      }
+    },
+    allFunds: function (searchText) {
+      const endpoint = 'investments/fund/all/?search_text=' + searchText
+      const headers = { 'Content-Type': 'multipart/form-data' }
+      httpRequest(endpoint, 'get', null, headers, this.updateFundsList)
+    },
+    updateFundsList: function (responseData) {
+      this.allFundsData = responseData.data
     }
   },
   data () {
@@ -113,8 +132,13 @@ export default {
         { value: null, text: 'Fund Type' },
         { value: 'lumpsum', text: 'Lumpsum' },
         { value: 'sip', text: 'SIP' }
-      ]
+      ],
+      search_text: null,
+      selected: '',
+      allFundsData: []
     }
+  },
+  mounted () {
   }
 }
 </script>
