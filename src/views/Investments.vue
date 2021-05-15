@@ -1,88 +1,71 @@
 <template>
-  <form @submit.prevent>
-    <div class="pl-4 m-4">
-      <div v-for="(fund, index) in rows" :key="index">
-        <div class="row">
-          <div class="col-lg-6 mb-4" v-if="allFunds.length >= 0">
-            <cool-select
-              @search="searchTextChange"
-              :v-model=fund.fundname
-              :items="allFundsData"
-              item-text="name"
-              placeholder="Search by fund name"
-              disable-filtering-by-search
-            />
+  <div>
+    <b-modal id="add-fund-modal" size="lg"
+      hide-header
+      hide-footer>
+      <b-form  @submit="onSubmit" @reset="onReset" >
+        <div class="pl-4 my-1">
+          <div class="row">
+            <div class="col-lg-10 mb-3 pt-1" v-if="allFunds.length >= 0">
+              <cool-select
+                @search="searchTextChange"
+                @select="fundSelected"
+                :items="allFundsData"
+                item-text="name"
+                placeholder="Type fund name to search"
+                disable-filtering-by-search
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-2">
+                <b-form-group class="form-control-label" label="Start Date *">
+                  <b-form-input v-model="form.started_on" close-button placeholder="Start Date" type="date" required></b-form-input>
+              </b-form-group>
+            </div>
+            <div class="col-sm-2">
+                <b-form-group class="form-control-label" label="End Date">
+                  <b-form-input v-model="form.ended_on" close-button placeholder="End Date" type="date"></b-form-input>
+              </b-form-group>
+            </div>
+            <div class="col-sm-2">
+              <b-form-group class="form-control-label" label="Fund Type *">
+                <b-form-select
+                  label= "Fund Type"
+                  v-model=form.investment_type
+                  :options="fundType"
+                  required
+                />
+              </b-form-group>
+            </div>
+            <div class="col-sm-2">
+              <b-form-group class="form-control-label" label="Fund Period">
+                <b-form-select
+                  label= "Fund Period"
+                  v-model=form.investment_period
+                  :options="fundPeriod"
+                />
+              </b-form-group>
+            </div>
+            <div class="col-sm-2">
+              <b-form-group class="form-control-label" label="Amount *">
+                <b-form-input v-model="form.amount" placeholder="Amount" type="number" required></b-form-input>
+              </b-form-group>
+            </div>
+          </div>
+          <div class="row mt-1 float-right mx-2 px-2">
+            <b-button type="submit" variant="success" class="text-right">
+              Save
+            </b-button>
+            <b-button type="reset" variant="danger">
+              Reset
+            </b-button>
           </div>
         </div>
-        <div class="row">
-          <div class="col-sm-2">
-              <base-input
-                placeholder="Start Date"
-                label= "Start Date"
-                input-classes="form-control-alternative"
-                name="startDate"
-                type="date"
-                :v-model=fund.startDate
-              />
-          </div>
-          <div class="col-sm-2">
-              <base-input
-                placeholder="End Date"
-                label= "End Date"
-                input-classes="form-control-alternative"
-                name="endDate"
-                type="date"
-                :v-model=fund.endDate
-              />
-          </div>
-          <div class="col-sm-2">
-            <b-form-group class="form-control-label" label="Fund Type">
-              <b-form-select
-                label= "Fund Type"
-                input-classes="form-control-alternative"
-                :options="fundType"
-                name="fundType"
-                :v-model=fund.fundType
-              />
-            </b-form-group>
-          </div>
-          <div class="col-sm-2">
-            <b-form-group class="form-control-label" label="Fund Period">
-              <b-form-select
-                label= "Fund Period"
-                input-classes="form-control-alternative"
-                name="fundPeriod"
-                :options="fundPeriod"
-                :v-model=fund.fundPeriod
-              />
-            </b-form-group>
-          </div>
-          <div class="col-sm-2">
-              <base-input
-                placeholder="Amount"
-                label="Amount"
-                input-classes="form-control-alternative"
-                name="amount"
-                type="number"
-                :v-model=fund.amount
-              />
-          </div>
-          <div class="col-m-1 mx-3 mt-4 pt-2" v-if="index == rows.length - 1">
-              <b-button class="shadow px-3" pill v-b-tooltip.hover title="Add new fund" variant="outline-primary"
-                @click="addRow">
-                <font-awesome-icon size="lg" :icon="['fas', 'plus-circle']"></font-awesome-icon>
-              </b-button>
-          </div>
-          <div class="col-m-1 mt-4 pt-2" v-if="index == rows.length - 1 && index > 0">
-              <b-button class="shadow px-3" pill v-b-tooltip.hover title="Remove fund" variant="outline-danger"
-                @click="removeRow">
-                <font-awesome-icon size="lg" :icon="['fas', 'times-circle']"></font-awesome-icon>
-              </b-button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </form>
+      </b-form>
+    </b-modal>
+    <b-button v-b-modal.add-fund-modal variant="primary">Add Fund</b-button>
+  </div>
 </template>
 <script>
 import { httpRequest } from '../api/index.js'
@@ -99,17 +82,15 @@ export default {
   name: 'investments',
   components: { CoolSelect },
   methods: {
-    addRow: function () {
-      this.rows.push({ fundType: null, fundPeriod: null })
-    },
-    removeRow: function () {
-      this.rows.pop()
-    },
     searchTextChange: async function (searchText) {
       if (searchText.length > 2) {
         console.log(searchText + ':  Search Text')
         this.allFunds(searchText)
       }
+    },
+    fundSelected: function (object) {
+      console.log(object)
+      this.form.fund_id = object.id
     },
     allFunds: function (searchText) {
       const endpoint = 'investments/fund/all/?search_text=' + searchText
@@ -118,24 +99,39 @@ export default {
     },
     updateFundsList: function (responseData) {
       this.allFundsData = responseData.data
+    },
+    onSubmit: function (event) {
+      event.preventDefault()
+      const endpoint = 'investments/userfund/add/'
+      const headers = { 'Content-Type': 'multipart/form-data' }
+      httpRequest(endpoint, 'post', JSON.stringify(this.form), headers, null)
+    },
+    onReset: function (event) {
+      event.preventDefault()
     }
   },
   data () {
     return {
-      rows: [{ fundType: null, fundPeriod: null }],
+      search_text: null,
+      form: {
+        fund_id: '',
+        started_on: null,
+        ended_on: null,
+        investment_type: 0,
+        investment_period: 0,
+        amount: null
+      },
+      allFundsData: [],
       fundPeriod: [
-        { value: null, text: 'Fund Period' },
-        { value: 'monthly', text: 'Monthly' },
-        { value: 'quarterly', text: 'Quarterly' }
+        { value: 0, text: 'Fund Period' },
+        { value: 1, text: 'Monthly' },
+        { value: 2, text: 'Quarterly' }
       ],
       fundType: [
-        { value: null, text: 'Fund Type' },
-        { value: 'lumpsum', text: 'Lumpsum' },
-        { value: 'sip', text: 'SIP' }
-      ],
-      search_text: null,
-      selected: '',
-      allFundsData: []
+        { value: 0, text: 'Fund Type' },
+        { value: 1, text: 'Lumpsum' },
+        { value: 2, text: 'SIP' }
+      ]
     }
   },
   mounted () {
