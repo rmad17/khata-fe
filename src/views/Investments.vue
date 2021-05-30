@@ -1,5 +1,9 @@
 <template>
-  <div>
+  <div class="container">
+    <div>
+      My Funds
+      <hr>
+    </div>
     <b-modal id="add-fund-modal" size="lg"
       hide-header
       hide-footer>
@@ -108,6 +112,13 @@ export default {
     },
     onReset: function (event) {
       event.preventDefault()
+    },
+    userFunds: function () {
+      const endpoint = 'investments/userfund/all/'
+      const headers = { 'Content-Type': 'multipart/form-data' }
+      httpRequest(endpoint, 'get', null, headers, this.updateUserFunds)
+    },
+    updateUserFunds: function (responseData) {
     }
   },
   data () {
@@ -135,6 +146,7 @@ export default {
     }
   },
   mounted () {
+    this.userFunds()
   }
 }
 </script>
