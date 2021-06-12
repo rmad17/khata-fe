@@ -1,6 +1,6 @@
 {
   "name": "Khata",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -13,25 +13,22 @@
     "@fortawesome/free-regular-svg-icons": "^5.11.2",
     "@fortawesome/free-solid-svg-icons": "^5.11.2",
     "@fortawesome/vue-fontawesome": "^2.0",
-    "axios": "^0.19",
+    "axios": "^0.21",
     "bootstrap": "4.3.1",
     "bootstrap-vue": "^2.10",
     "caniuse-lite": "^1.0.30001199",
     "chart.js": "^3.2",
-    "core-js": "^3.3.2",
     "dayjs": "^1.10.4",
-    "flatpickr": "^4.6.3",
-    "nouislider": "^14.0.3",
-    "register-service-worker": "^1.5.2",
+    "nouislider": "^14.7",
+    "register-service-worker": "^1.7.2",
     "vue": "^2.6.11",
-    "vue-chartjs": "^3.5",
     "vue-clipboard2": "^0.3.1",
-    "vue-flatpickr-component": "^8.1.4",
+    "vue-cool-select": "^3.5.2",
     "vue-gravatar": "^1.3.1",
     "vue-lazyload": "^1.2.6",
     "vue-router": "^3.1",
     "vue2-transitions": "^0.3.0",
-    "vuex": "^3.1"
+    "vuex": "^3.6"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.3",

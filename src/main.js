@@ -20,6 +20,7 @@ import App from './App.vue'
 import router from './router'
 import './registerServiceWorker'
 import ArgonDashboard from './plugins/argon-dashboard'
+import Custom from './plugins/custom'
 import store from './store'
 import Gravatar from 'vue-gravatar'
 
@@ -28,6 +29,7 @@ Vue.config.productionTip = false
 Vue.component('v-gravatar', Gravatar)
 
 Vue.use(ArgonDashboard)
+Vue.use(Custom)
 new Vue({
   router,
   store,
