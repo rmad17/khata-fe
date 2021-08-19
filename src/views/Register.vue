@@ -23,24 +23,24 @@
                     </div>
                     <form role="form">
 
-                        <base-input class="input-group-alternative mb-3"
+                        <base-model-input class="input-group-alternative mb-3"
                                     placeholder="Name"
                                     addon-left-icon="ni ni-hat-3"
-                                    v-model="model.name">
-                        </base-input>
+                                    v-model="user.name">
+                        </base-model-input>
 
-                        <base-input class="input-group-alternative mb-3"
+                        <base-model-input class="input-group-alternative mb-3"
                                     placeholder="Email"
                                     addon-left-icon="ni ni-email-83"
-                                    v-model="model.email">
-                        </base-input>
+                                    v-model="user.email">
+                        </base-model-input>
 
-                        <base-input class="input-group-alternative"
+                        <base-model-input class="input-group-alternative"
                                     placeholder="Password"
                                     type="password"
                                     addon-left-icon="ni ni-lock-circle-open"
-                                    v-model="model.password">
-                        </base-input>
+                                    v-model="user.password">
+                        </base-model-input>
 
                         <div class="text-muted font-italic">
                             <small>password strength: <span class="text-success font-weight-700">strong</span></small>
@@ -54,7 +54,7 @@
                             </div>
                         </div>
                         <div class="text-center">
-                            <base-button type="primary" class="my-4">Create account</base-button>
+                            <base-button @click="callRegisterAPI" class="my-4">Create account</base-button>
                         </div>
                     </form>
                 </div>
@@ -81,7 +81,9 @@ export default {
   methods: {
     callRegisterAPI: function () {
       var endpoint = 'account/register/'
-      httpRequest(endpoint, 'post', { name: this.name, password: this.password, email: this.email }, {}, this.postRegister)
+      httpRequest(endpoint, 'post', {
+        name: this.user.name, password: this.user.password, email: this.user.email
+      }, {}, this.postRegister)
     },
     postRegister: function () {
       this.$router.push('login')
@@ -89,7 +91,7 @@ export default {
   },
   data () {
     return {
-      model: {
+      user: {
         name: '',
         email: '',
         password: ''

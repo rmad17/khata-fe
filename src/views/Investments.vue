@@ -94,7 +94,7 @@ export default {
     },
     fundSelected: function (object) {
       console.log(object)
-      this.form.fund_id = object.id
+      this.form.funds_id = object.id
     },
     allFunds: function (searchText) {
       const endpoint = 'investments/fund/all/?search_text=' + searchText
@@ -125,7 +125,7 @@ export default {
     return {
       search_text: null,
       form: {
-        fund_id: '',
+        funds_id: '',
         started_on: null,
         ended_on: null,
         investment_type: 0,
