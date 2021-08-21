@@ -1,9 +1,12 @@
 <template>
   <div class="container">
-    <div>
+    <div class="p-2">
       My Funds
-      <hr>
     </div>
+    <div class="mt-2">
+        <existing-funds>
+        </existing-funds>
+      </div>
     <b-modal id="add-fund-modal" size="lg"
       hide-header
       hide-footer>
@@ -76,6 +79,8 @@ import { httpRequest } from '../api/index.js'
 
 import { CoolSelect } from 'vue-cool-select'
 
+import ExistingFunds from './components/investments/ExistingFunds.vue'
+
 // font awesome
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faPlusCircle, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
@@ -84,7 +89,7 @@ library.add(faPlusCircle, faTimesCircle)
 
 export default {
   name: 'investments',
-  components: { CoolSelect },
+  components: { CoolSelect, ExistingFunds },
   methods: {
     searchTextChange: async function (searchText) {
       if (searchText.length > 2) {
@@ -112,13 +117,6 @@ export default {
     },
     onReset: function (event) {
       event.preventDefault()
-    },
-    userFunds: function () {
-      const endpoint = 'investments/userfund/all/'
-      const headers = { 'Content-Type': 'multipart/form-data' }
-      httpRequest(endpoint, 'get', null, headers, this.updateUserFunds)
-    },
-    updateUserFunds: function (responseData) {
     }
   },
   data () {
@@ -146,7 +144,6 @@ export default {
     }
   },
   mounted () {
-    this.userFunds()
   }
 }
 </script>
