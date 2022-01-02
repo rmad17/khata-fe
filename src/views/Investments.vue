@@ -1,9 +1,6 @@
 <template>
-  <div class="container">
-    <div class="p-2">
-      My Funds
-    </div>
-    <div class="mt-2">
+  <div class="container-fluid">
+    <div class="m-4">
         <existing-funds>
         </existing-funds>
       </div>
@@ -18,7 +15,7 @@
                 @search="searchTextChange"
                 @select="fundSelected"
                 :items="allFundsData"
-                item-text="name"
+                item-text="scheme_name"
                 placeholder="Type fund name to search"
                 disable-filtering-by-search
               />
@@ -71,7 +68,7 @@
         </div>
       </b-form>
     </b-modal>
-    <b-button v-b-modal.add-fund-modal variant="primary">Add Fund</b-button>
+    <b-button class="ml-4" v-b-modal.add-fund-modal variant="primary">Add Fund</b-button>
   </div>
 </template>
 <script>
@@ -99,7 +96,7 @@ export default {
     },
     fundSelected: function (object) {
       console.log(object)
-      this.form.funds_id = object.id
+      this.form.fund_id = object.id
     },
     allFunds: function (searchText) {
       const endpoint = 'investments/fund/all/?search_text=' + searchText
@@ -123,7 +120,7 @@ export default {
     return {
       search_text: null,
       form: {
-        funds_id: '',
+        fund_id: '',
         started_on: null,
         ended_on: null,
         investment_type: 0,

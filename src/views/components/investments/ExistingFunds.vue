@@ -1,69 +1,16 @@
 <template>
     <div>
-      <div class="container-fluid card shadow" :class="type === 'dark' ? 'bg-default': ''">
+      <div class="container-fluid shadow" :class="type === 'dark' ? 'bg-default': ''">
         <!-- <b-table class="" striped responsive hover :items="transactionDetails" :fields="fields"></b-table> -->
         <!-- <b-card class="m-2">
           <transaction-filters>
           </transaction-filters>
         </b-card> -->
         <div class="table-responsive" v-for="userFund in userFunds" :key=userFund.id>
-          <div class="card-header border-0"
-            :class="type === 'dark' ? 'bg-transparent': ''">
-            <div class="row align-items-center">
-              <div class="col">
-                <h3 class="mb-0" :class="type === 'dark' ? 'text-white': ''">
-                  {{ userFund.fund.name }}
-                </h3>
-              </div>
-            </div>
-          </div>
-          <base-table class="table align-items-center table-flush"
-                :class="type === 'dark' ? 'table-dark': ''"
-                :thead-classes="type === 'dark' ? 'thead-dark': 'thead-light'"
-                tbody-classes="list"
-                :filter="filter"
-                :data="userFunds">
-            <template slot="columns">
-              <th>Transaction Date</th>
-              <th>Name</th>
-              <th>Type</th>
-              <th>Period</th>
-              <th>Started On</th>
-              <th>Ended On</th>
-              <th>SIP Date</th>
-              <th>SIP Amount</th>
-              <th>Total Amount</th>
-            </template>
-            <template slot-scope="{row}">
-              <td class="budget">
-                1
-              </td>
-              <td>
-                {{ row.fund.name }}
-              </td>
-              <td>
-                {{ row.investment_type }}
-              </td>
-              <td>
-                {{ row.investment_period }}
-              </td>
-              <td>
-                {{ row.started_on }}
-              </td>
-              <td>
-                {{ row.ended_on }}
-              </td>
-              <td>
-                {{ row.sip_day }}
-              </td>
-              <td>
-                {{ row.sip_amount }}
-              </td>
-              <td>
-                {{ row.total_amount }}
-              </td>
-            </template>
-          </base-table>
+          <b-card class="my-2" header-bg-variant="purple" header-text-variant="white" border-variant="success" :header="userFund.fund.scheme_name">
+            <b-card-text>
+            </b-card-text>
+          </b-card>
         </div>
       </div>
     </div>
