@@ -67,7 +67,7 @@
           <b-card-text>
             It is recommended to add tags and categories before uploading statement to autocategorise them.
             <router-link :to="{ name: 'category'}">
-              <b-button variant="outline-primary" size="sm" class="mx-2"> Add Category </b-button>
+              <b-button variant="outline-primary" size="sm" class="px-2 mt-2"> Add Category </b-button>
             </router-link>
           </b-card-text>
           <b-form class="" id="statement-upload" @submit="onSubmit" @reset="onReset">
